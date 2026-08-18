@@ -72,7 +72,12 @@ namespace Hireblade.UI.Health.Manager
         {
             IHealth health = healthSpawnedEvent.Health;
 
-            if (!_poolingService.TryGetObjectFromPool(healthViewPoolData.Id, health.HealthBarParent, out HealthView healthView))
+            if (health is not IHealthBarAnchor healthBarAnchor)
+            {
+                return;
+            }
+
+            if (!_poolingService.TryGetObjectFromPool(healthViewPoolData.Id, healthBarAnchor.HealthBarParent, out HealthView healthView))
             {
                 return;
             }
