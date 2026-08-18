@@ -20,7 +20,7 @@ namespace Hireblade.Gameplay.Weapons
 
         public IWeapon Weapon => _weapon;
 
-        public void SetUp(IWeaponFactory weaponFactory)
+        public void Initialize(IWeaponFactory weaponFactory)
         {
             _weaponFactory = weaponFactory;
 
@@ -29,11 +29,11 @@ namespace Hireblade.Gameplay.Weapons
             ChangeWeapon(data);
         }
 
-        public void Dispose()
+        public void Shutdown()
         {
             _isEnabled = false;
 
-            _weapon?.Dispose();
+            _weapon?.Shutdown();
         }
 
         public void ChangeWeapon(WeaponData weaponData)

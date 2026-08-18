@@ -7,7 +7,7 @@ namespace Hireblade.Gameplay.Particles
     {
         public event Action<IParticle> OnCompleted;
 
-        public void SetUp();
-        public void Dispose();
+        public void Initialize();
+        public void Shutdown();
     }
 }

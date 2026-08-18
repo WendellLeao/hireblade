@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Hireblade.Core;
 using WendellLeao.Pooling;
 using Hireblade.Gameplay.Cameras;
@@ -13,9 +13,9 @@ namespace Hireblade.Gameplay.Characters
 
         public IHealth Health { get; }
 
-        public void SetUp(IParticleFactory particleFactory, IWeaponFactory weaponFactory,
+        public void Initialize(IParticleFactory particleFactory, IWeaponFactory weaponFactory,
             ICameraProvider cameraProvider);
-        public void Dispose();
+        public void Shutdown();
         public void Tick(float deltaTime);
     }
 }

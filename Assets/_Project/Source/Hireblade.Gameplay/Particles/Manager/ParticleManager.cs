@@ -9,14 +9,14 @@ namespace Hireblade.Gameplay.Particles.Manager
 
         public IParticleFactory Factory => _particleFactory;
 
-        public void SetUp(IPoolingService poolingService)
+        public void Initialize(IPoolingService poolingService)
         {
             _particleFactory = new ParticleFactory(poolingService);
         }
 
         private void OnDestroy()
         {
-            _particleFactory?.Dispose();
+            _particleFactory?.Shutdown();
         }
     }
 }

@@ -34,12 +34,12 @@ namespace Hireblade.Gameplay.System
             IPoolingService poolingService = Locator.Get<IPoolingService>();
             IEventService eventService = Locator.Get<IEventService>();
 
-            cursorManager.SetUp();
-            particleManager.SetUp(poolingService);
-            spellManager.SetUp(poolingService, particleManager.Factory);
-            weaponManager.SetUp(poolingService, particleManager.Factory, spellManager.Factory);
-            characterManager.SetUp(poolingService, eventService, particleManager.Factory, weaponManager.Factory, cameraManager);
-            enemyManager.SetUp(poolingService, eventService, particleManager.Factory, weaponManager.Factory);
+            cursorManager.Initialize();
+            particleManager.Initialize(poolingService);
+            spellManager.Initialize(poolingService, particleManager.Factory);
+            weaponManager.Initialize(poolingService, particleManager.Factory, spellManager.Factory);
+            characterManager.Initialize(poolingService, eventService, particleManager.Factory, weaponManager.Factory, cameraManager);
+            enemyManager.Initialize(poolingService, eventService, particleManager.Factory, weaponManager.Factory);
         }
     }
 }

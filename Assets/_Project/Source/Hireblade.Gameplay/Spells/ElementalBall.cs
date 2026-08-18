@@ -20,12 +20,12 @@ namespace Hireblade.Gameplay.Spells
 
         public string PoolId { get; set; }
 
-        public void SetUp()
+        public void Initialize()
         {
             _applyForwardForce = GetComponent<ApplyForwardForce>();
             _damager = GetComponent<IDamager>();
 
-            _applyForwardForce.SetUp();
+            _applyForwardForce.Initialize();
         }
 
         private void OnTriggerEnter(Collider other)

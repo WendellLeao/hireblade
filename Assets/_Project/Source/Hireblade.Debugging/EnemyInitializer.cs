@@ -1,4 +1,4 @@
-﻿#if UNITY_EDITOR || DEBUG
+#if UNITY_EDITOR || DEBUG
 using Hireblade.Gameplay.Enemies;
 using Hireblade.Gameplay.Particles.Manager;
 using Hireblade.Gameplay.Weapons.Manager;
@@ -16,7 +16,7 @@ namespace Hireblade.Debugging
             ParticleManager particleManager = FindAnyObjectByType<ParticleManager>();
             WeaponManager weaponManager = FindAnyObjectByType<WeaponManager>();
             
-            basicEnemy.SetUp(particleManager.Factory, weaponManager.Factory);
+            basicEnemy.Initialize(particleManager.Factory, weaponManager.Factory);
         }
     }
 }

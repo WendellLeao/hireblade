@@ -1,4 +1,4 @@
-﻿#if UNITY_EDITOR || DEBUG
+#if UNITY_EDITOR || DEBUG
 using Hireblade.Gameplay.Cameras.Manager;
 using Hireblade.Gameplay.Particles.Manager;
 using Hireblade.Gameplay.Weapons.Manager;
@@ -17,7 +17,7 @@ namespace Hireblade.Debugging
 
             if (TryGetComponent(out ICharacter character))
             {
-                character.SetUp(particleManager.Factory, weaponManager.Factory, cameraManager);
+                character.Initialize(particleManager.Factory, weaponManager.Factory, cameraManager);
             }
         }
     }

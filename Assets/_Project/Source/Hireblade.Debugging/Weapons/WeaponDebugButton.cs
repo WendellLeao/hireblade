@@ -1,4 +1,4 @@
-﻿#if UNITY_EDITOR || DEBUG
+#if UNITY_EDITOR || DEBUG
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,7 +16,7 @@ namespace Hireblade.Debugging.Weapons
         private IWeaponHolder _weaponHolder;
         private WeaponData _weaponData;
 
-        public void Setup(IWeaponHolder weaponHolder, WeaponData weaponData)
+        public void Initialize(IWeaponHolder weaponHolder, WeaponData weaponData)
         {
             _weaponHolder = weaponHolder;
             _weaponData = weaponData;

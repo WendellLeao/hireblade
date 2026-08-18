@@ -21,7 +21,7 @@ namespace Hireblade.Gameplay.Characters.Manager
         private IWeaponFactory _weaponFactory;
         private ICameraProvider _cameraProvider;
 
-        public void SetUp(IPoolingService poolingService, IEventService eventService, IParticleFactory particleFactory,
+        public void Initialize(IPoolingService poolingService, IEventService eventService, IParticleFactory particleFactory,
             IWeaponFactory weaponFactory, ICameraProvider cameraProvider)
         {
             _poolingService = poolingService;
@@ -32,7 +32,7 @@ namespace Hireblade.Gameplay.Characters.Manager
 
             characterSpawner.OnCharacterSpawned += HandleCharacterSpawned;
 
-            characterSpawner.SetUp(_poolingService, _eventService, _particleFactory, _weaponFactory, _cameraProvider);
+            characterSpawner.Initialize(_poolingService, _eventService, _particleFactory, _weaponFactory, _cameraProvider);
         }
 
         private void Update()
@@ -49,7 +49,7 @@ namespace Hireblade.Gameplay.Characters.Manager
         {
             characterSpawner.OnCharacterSpawned -= HandleCharacterSpawned;
 
-            characterSpawner.Dispose();
+            characterSpawner.Shutdown();
 
             for (int i = _characters.Count - 1; i >= 0; i--)
             {
@@ -59,7 +59,7 @@ namespace Hireblade.Gameplay.Characters.Manager
 
         private void DisposeCharacter(ICharacter character)
         {
-            character.Dispose();
+            character.Shutdown();
 
             character.OnDied -= HandleCharacterDied;
 

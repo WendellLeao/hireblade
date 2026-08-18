@@ -17,7 +17,7 @@ namespace Hireblade.UI.System
             IEventService eventService = Locator.Get<IEventService>();
 
             // TODO: camera service
-            healthViewsManager.SetUp(Camera.main, poolingService, eventService);
+            healthViewsManager.Initialize(Camera.main, poolingService, eventService);
         }
     }
 }

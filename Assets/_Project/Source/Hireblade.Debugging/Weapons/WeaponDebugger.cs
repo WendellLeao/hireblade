@@ -1,4 +1,4 @@
-﻿#if UNITY_EDITOR || DEBUG
+#if UNITY_EDITOR || DEBUG
 using Hireblade.Gameplay.Characters;
 using UnityEngine;
 using Hireblade.Gameplay.Weapons;
@@ -24,7 +24,7 @@ namespace Hireblade.Debugging.Weapons
             {
                 WeaponDebugButton newDebugButton = Instantiate(debugButtonPrefab, layoutGroupTransform);
                 
-                newDebugButton.Setup(weaponHolder, data);
+                newDebugButton.Initialize(weaponHolder, data);
             }
         }
     }

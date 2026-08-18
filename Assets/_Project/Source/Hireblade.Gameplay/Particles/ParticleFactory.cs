@@ -24,7 +24,7 @@ namespace Hireblade.Gameplay.Particles
 
             _particles.Add(particle);
 
-            particle.SetUp();
+            particle.Initialize();
 
             particle.OnCompleted += DisposeParticle;
 
@@ -42,7 +42,7 @@ namespace Hireblade.Gameplay.Particles
 
         public void DisposeParticle(IParticle particle)
         {
-            particle.Dispose();
+            particle.Shutdown();
 
             particle.OnCompleted -= DisposeParticle;
 
@@ -51,7 +51,7 @@ namespace Hireblade.Gameplay.Particles
             _poolingService.ReleaseObjectToPool(particle);
         }
 
-        public void Dispose()
+        public void Shutdown()
         {
             for (int i = _particles.Count - 1; i >= 0; i--)
             {

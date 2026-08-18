@@ -9,7 +9,7 @@ namespace Hireblade.Gameplay.Spells
         [SerializeField]
         private float force = 10f;
 
-        public void SetUp()
+        public void Initialize()
         {
             rigidBody.AddRelativeForce(transform.forward * force, ForceMode.Impulse);
         }

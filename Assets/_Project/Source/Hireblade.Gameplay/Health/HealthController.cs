@@ -20,7 +20,7 @@ namespace Hireblade.Gameplay.Health
         public Transform HealthBarParent => healthBarParent;
         public float HealthRatio => _healthModel.HealthRatio;
 
-        public void SetUp()
+        public void Initialize()
         {
             _healthModel = new HealthModel(data);
         }

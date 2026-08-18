@@ -9,14 +9,14 @@ namespace Hireblade.Gameplay.Commands
         private AttackCommand _attackCommand;
         private Coroutine _executeAttackCommandRoutine;
 
-        public void SetUp(IWeaponHolder weaponHolder)
+        public void Initialize(IWeaponHolder weaponHolder)
         {
             _attackCommand = new AttackCommand(weaponHolder);
 
             _executeAttackCommandRoutine = StartCoroutine(ExecuteAttackCommandRoutine());
         }
 
-        public void Dispose()
+        public void Shutdown()
         {
             if (_executeAttackCommandRoutine != null)
             {

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Hireblade.Events.Health;
 using WendellLeao.Events;
 using WendellLeao.Pooling;
@@ -18,7 +18,7 @@ namespace Hireblade.Gameplay.Characters
         private IWeaponFactory _weaponFactory;
         private ICameraProvider _cameraProvider;
 
-        public void SetUp(IPoolingService poolingService, IEventService eventService, IParticleFactory particleFactory,
+        public void Initialize(IPoolingService poolingService, IEventService eventService, IParticleFactory particleFactory,
             IWeaponFactory weaponFactory, ICameraProvider cameraProvider)
         {
             _eventService = eventService;
@@ -26,14 +26,14 @@ namespace Hireblade.Gameplay.Characters
             _weaponFactory = weaponFactory;
             _cameraProvider = cameraProvider;
             
-            base.SetUp(poolingService);
+            base.Initialize(poolingService);
         }
 
         protected override ICharacter SpawnEntity()
         {
             ICharacter character = base.SpawnEntity();
             
-            character.SetUp(_particleFactory, _weaponFactory, _cameraProvider);
+            character.Initialize(_particleFactory, _weaponFactory, _cameraProvider);
             
             _eventService.DispatchEvent(new HealthSpawnedEvent(character.Health));
             

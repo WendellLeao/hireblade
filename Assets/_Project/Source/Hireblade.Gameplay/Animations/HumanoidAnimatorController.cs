@@ -28,7 +28,7 @@ namespace Hireblade.Gameplay.Animations
         private IMoveableAgent _moveableAgent;
         private float _smoothedSpeed;
 
-        public void SetUp(IHealth health, IDamageable damageable, IWeaponHolder weaponHolder, IMoveableAgent moveableAgent)
+        public void Initialize(IHealth health, IDamageable damageable, IWeaponHolder weaponHolder, IMoveableAgent moveableAgent)
         {
             _health = health;
             _damageable = damageable;
@@ -40,7 +40,7 @@ namespace Hireblade.Gameplay.Animations
             SubscribeEvents();
         }
 
-        public void Dispose()
+        public void Shutdown()
         {
             UnsubscribeEvents();
         }
