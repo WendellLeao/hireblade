@@ -288,6 +288,13 @@
       },
       "url": "https://packages.unity.com"
     },
+    "com.wendellleao.unitystarterkit": {
+      "version": "https://github.com/WendellLeao/unity-starter-kit.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "cf69f9124346c0a806cfa67b6edb06ac5221a7a5"
+    },
     "com.unity.modules.accessibility": {
       "version": "1.0.0",
       "depth": 0,
