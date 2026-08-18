@@ -23,14 +23,14 @@ namespace Hireblade.Gameplay.Shared
         private CancellationTokenSource _releaseEntityCts;
         private IPoolingService _poolingService;
 
-        public void SetUp(IPoolingService poolingService)
+        public void Initialize(IPoolingService poolingService)
         {
             _poolingService = poolingService;
 
             SpawnEntity();
         }
 
-        public void Dispose()
+        public void Shutdown()
         {
             _releaseEntityCts?.Cancel();
             _releaseEntityCts?.Dispose();

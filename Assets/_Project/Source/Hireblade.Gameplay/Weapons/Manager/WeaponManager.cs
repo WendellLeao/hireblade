@@ -11,14 +11,14 @@ namespace Hireblade.Gameplay.Weapons.Manager
 
         public IWeaponFactory Factory => _weaponFactory;
 
-        public void SetUp(IPoolingService poolingService, IParticleFactory particleFactory, ISpellFactory spellFactory)
+        public void Initialize(IPoolingService poolingService, IParticleFactory particleFactory, ISpellFactory spellFactory)
         {
             _weaponFactory = new WeaponFactory(poolingService, particleFactory, spellFactory);
         }
 
         private void OnDestroy()
         {
-            _weaponFactory?.Dispose();
+            _weaponFactory?.Shutdown();
         }
     }
 }

@@ -26,7 +26,7 @@ namespace Hireblade.UI
         private float _defaultAmount;
         private bool _mustEvaluatingTimer;
 
-        public void SetUp(float defaultAmount)
+        public void Initialize(float defaultAmount)
         {
             _defaultAmount = defaultAmount;
 

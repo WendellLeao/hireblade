@@ -28,14 +28,14 @@ namespace Hireblade.UI.Health
 
         public string PoolId { get; set; }
 
-        public void SetUp(Camera mainCamera, IHealth health)
+        public void Initialize(Camera mainCamera, IHealth health)
         {
             _mainCamera = mainCamera;
             _health = health;
 
             _imageFiller = GetComponent<ImageFiller>();
 
-            _imageFiller.SetUp(_health.HealthRatio);
+            _imageFiller.Initialize(_health.HealthRatio);
 
             _health.OnHealthChanged += HandleHealthChanged;
             _health.OnDepleted += HandleHealthDepleted;
@@ -43,7 +43,7 @@ namespace Hireblade.UI.Health
             canvasGroup.alpha = 1f;
         }
 
-        public void Dispose()
+        public void Shutdown()
         {
             _health.OnHealthChanged -= HandleHealthChanged;
             _health.OnDepleted -= HandleHealthDepleted;

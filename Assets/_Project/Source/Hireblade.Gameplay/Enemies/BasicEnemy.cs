@@ -34,7 +34,7 @@ namespace Hireblade.Gameplay.Enemies
         public string PoolId { get; set; }
         public IHealth Health => _health;
 
-        public void SetUp(IParticleFactory particleFactory, IWeaponFactory weaponFactory)
+        public void Initialize(IParticleFactory particleFactory, IWeaponFactory weaponFactory)
         {
             if (_isEnabled)
             {
@@ -53,7 +53,7 @@ namespace Hireblade.Gameplay.Enemies
             _health.OnDepleted += HandleHealthDepleted;
         }
 
-        public void Dispose()
+        public void Shutdown()
         {
             if (!_isEnabled)
             {
@@ -62,11 +62,11 @@ namespace Hireblade.Gameplay.Enemies
 
             _isEnabled = false;
 
-            _weaponHolder.Dispose();
-            _damageable.Dispose();
-            _commandInvoker.Dispose();
-            _humanoidAnimatorController.Dispose();
-            _damageableView.Dispose();
+            _weaponHolder.Shutdown();
+            _damageable.Shutdown();
+            _commandInvoker.Shutdown();
+            _humanoidAnimatorController.Shutdown();
+            _damageableView.Shutdown();
 
             _health.OnDepleted -= HandleHealthDepleted;
         }
@@ -93,13 +93,13 @@ namespace Hireblade.Gameplay.Enemies
 
         private void SetUpComponents()
         {
-            _health.SetUp();
-            _damageable.SetUp(_health);
-            _weaponHolder.SetUp(_weaponFactory);
-            _moveableAgent.SetUp(cameraProvider: null, _particleFactory);
-            _commandInvoker.SetUp(_weaponHolder);
-            _humanoidAnimatorController.SetUp(_health, _damageable, _weaponHolder, _moveableAgent);
-            _damageableView.SetUp(_particleFactory, _damageable);
+            _health.Initialize();
+            _damageable.Initialize(_health);
+            _weaponHolder.Initialize(_weaponFactory);
+            _moveableAgent.Initialize(cameraProvider: null, _particleFactory);
+            _commandInvoker.Initialize(_weaponHolder);
+            _humanoidAnimatorController.Initialize(_health, _damageable, _weaponHolder, _moveableAgent);
+            _damageableView.Initialize(_particleFactory, _damageable);
         }
 
         private void HandleHealthDepleted()
@@ -115,13 +115,13 @@ namespace Hireblade.Gameplay.Enemies
         [Button("SetUp_Debug")]
         public void SetUp_Debug()
         {
-            SetUp(_particleFactory, _weaponFactory);
+            Initialize(_particleFactory, _weaponFactory);
         }
 
         [Button("Dispose_Debug")]
         public void Dispose_Debug()
         {
-            Dispose();
+            Shutdown();
         }
 #endif
     }

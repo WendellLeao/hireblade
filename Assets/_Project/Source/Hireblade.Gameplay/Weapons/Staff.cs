@@ -17,12 +17,12 @@ namespace Hireblade.Gameplay.Weapons
         public WeaponData Data => _data;
         public string PoolId { get; set; }
 
-        public void SetUp(WeaponData data)
+        public void Initialize(WeaponData data)
         {
             _data = data;
         }
 
-        public void Dispose()
+        public void Shutdown()
         { }
 
         public void Execute()

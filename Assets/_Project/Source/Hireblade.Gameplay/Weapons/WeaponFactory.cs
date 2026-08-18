@@ -30,7 +30,7 @@ namespace Hireblade.Gameplay.Weapons
 
             _weapons.Add(weapon);
 
-            weapon.SetUp(data);
+            weapon.Initialize(data);
 
             if (weapon is IParticleEmitter particleEmitter)
             {
@@ -47,14 +47,14 @@ namespace Hireblade.Gameplay.Weapons
 
         public void DisposeWeapon(IWeapon weapon)
         {
-            weapon.Dispose();
+            weapon.Shutdown();
 
             _weapons.Remove(weapon);
 
             _poolingService.ReleaseObjectToPool(weapon);
         }
 
-        public void Dispose()
+        public void Shutdown()
         {
             for (int i = _weapons.Count - 1; i >= 0; i--)
             {

@@ -31,7 +31,7 @@ namespace Hireblade.Gameplay.Characters
         public string PoolId { get; set; }
         public IHealth Health => _health;
 
-        public void SetUp(IParticleFactory particleFactory, IWeaponFactory weaponFactory, ICameraProvider cameraProvider)
+        public void Initialize(IParticleFactory particleFactory, IWeaponFactory weaponFactory, ICameraProvider cameraProvider)
         {
             if (_isEnabled)
             {
@@ -53,7 +53,7 @@ namespace Hireblade.Gameplay.Characters
             SubscribeEvent();
         }
 
-        public void Dispose()
+        public void Shutdown()
         {
             if (!_isEnabled)
             {
@@ -62,11 +62,11 @@ namespace Hireblade.Gameplay.Characters
 
             _isEnabled = false;
 
-            _weaponHolder.Dispose();
-            _damageable.Dispose();
-            _commandInvoker.Dispose();
-            _humanoidAnimatorController.Dispose();
-            _damageableView.Dispose();
+            _weaponHolder.Shutdown();
+            _damageable.Shutdown();
+            _commandInvoker.Shutdown();
+            _humanoidAnimatorController.Shutdown();
+            _damageableView.Shutdown();
 
             UnsubscribeEvent();
         }
@@ -93,13 +93,13 @@ namespace Hireblade.Gameplay.Characters
 
         private void SetUpComponents()
         {
-            _health.SetUp();
-            _damageable.SetUp(_health);
-            _weaponHolder.SetUp(_weaponFactory);
-            _moveableAgent.SetUp(_cameraProvider, _particleFactory);
-            _commandInvoker.SetUp(_weaponHolder);
-            _humanoidAnimatorController.SetUp(_health, _damageable, _weaponHolder, _moveableAgent);
-            _damageableView.SetUp(_particleFactory, _damageable);
+            _health.Initialize();
+            _damageable.Initialize(_health);
+            _weaponHolder.Initialize(_weaponFactory);
+            _moveableAgent.Initialize(_cameraProvider, _particleFactory);
+            _commandInvoker.Initialize(_weaponHolder);
+            _humanoidAnimatorController.Initialize(_health, _damageable, _weaponHolder, _moveableAgent);
+            _damageableView.Initialize(_particleFactory, _damageable);
         }
 
         private void SubscribeEvent()
@@ -130,13 +130,13 @@ namespace Hireblade.Gameplay.Characters
         [Button("SetUp_Debug")]
         public void SetUp_Debug()
         {
-            SetUp(_particleFactory, _weaponFactory, _cameraProvider);
+            Initialize(_particleFactory, _weaponFactory, _cameraProvider);
         }
 
         [Button("Dispose_Debug")]
         public void Dispose_Debug()
         {
-            Dispose();
+            Shutdown();
         }
 #endif
     }

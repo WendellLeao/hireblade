@@ -17,7 +17,7 @@ namespace Hireblade.Gameplay.Particles
 
         public string PoolId { get; set; }
 
-        public void SetUp()
+        public void Initialize()
         {
             if (_isPlaying)
             {
@@ -34,7 +34,7 @@ namespace Hireblade.Gameplay.Particles
             WaitForParticleToCompleteAsync(_waitForParticleCts.Token).Forget();
         }
 
-        public void Dispose()
+        public void Shutdown()
         {
             if (!_isPlaying)
             {

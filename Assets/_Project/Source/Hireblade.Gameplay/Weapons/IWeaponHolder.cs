@@ -9,8 +9,8 @@ namespace Hireblade.Gameplay.Weapons
 
         public IWeapon Weapon { get; }
 
-        public void SetUp(IWeaponFactory weaponFactory);
-        public void Dispose();
+        public void Initialize(IWeaponFactory weaponFactory);
+        public void Shutdown();
         public void ChangeWeapon(WeaponData weaponData);
         public void ExecuteWeapon();
         public void FinishWeaponExecution();

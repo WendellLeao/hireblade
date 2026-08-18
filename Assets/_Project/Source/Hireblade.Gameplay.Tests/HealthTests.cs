@@ -14,7 +14,7 @@ namespace Hireblade.Gameplay.Tests
         private HealthController _sut;
 
         [SetUp]
-        public void SetUp()
+        public void Initialize()
         {
             _mockHealthData = GetMockHealthData();
             _mockDamageData = GetMockDamageData();
@@ -28,7 +28,7 @@ namespace Hireblade.Gameplay.Tests
         [TearDown]
         public void TearDown()
         {
-            _humbleEntity.Dispose();
+            _humbleEntity.Shutdown();
             
             DestroyImmediate(_mockHealthData);
             DestroyImmediate(_mockDamageData);
@@ -44,7 +44,7 @@ namespace Hireblade.Gameplay.Tests
             
             _sut.SetHealthDataForTests(_mockHealthData);
 
-            _humbleEntity.SetUp();
+            _humbleEntity.Initialize();
             
             // Act
             _damageController.TakeDamage(_mockDamageData);

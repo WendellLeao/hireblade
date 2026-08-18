@@ -23,7 +23,7 @@ namespace Hireblade.Gameplay.Navigation
 
         public Vector3 Velocity => navMeshAgent.velocity;
 
-        public void SetUp(ICameraProvider cameraProvider, IParticleFactory particleFactory)
+        public void Initialize(ICameraProvider cameraProvider, IParticleFactory particleFactory)
         {
             _cameraProvider = cameraProvider;
             _particleFactory = particleFactory;

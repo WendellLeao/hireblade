@@ -7,6 +7,6 @@ namespace Hireblade.Gameplay.Spells
     {
         public event Action<ISpell> OnHit;
 
-        public void SetUp();
+        public void Initialize();
     }
 }

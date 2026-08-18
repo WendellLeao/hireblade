@@ -18,7 +18,7 @@ namespace Hireblade.UI.Health.Manager
         private IPoolingService _poolingService;
         private IEventService _eventService;
 
-        public void SetUp(Camera mainCamera, IPoolingService poolingService, IEventService eventService)
+        public void Initialize(Camera mainCamera, IPoolingService poolingService, IEventService eventService)
         {
             _mainCamera = mainCamera;
             _poolingService = poolingService;
@@ -59,7 +59,7 @@ namespace Hireblade.UI.Health.Manager
 
         private void DisposeHealthView(HealthView healthView)
         {
-            healthView.Dispose();
+            healthView.Shutdown();
 
             healthView.OnHealthDepleted -= HandleHealthDepleted;
 
@@ -81,7 +81,7 @@ namespace Hireblade.UI.Health.Manager
 
             healthView.OnHealthDepleted += HandleHealthDepleted;
 
-            healthView.SetUp(_mainCamera, health);
+            healthView.Initialize(_mainCamera, health);
         }
 
         private void HandleHealthDepleted(HealthView healthView)

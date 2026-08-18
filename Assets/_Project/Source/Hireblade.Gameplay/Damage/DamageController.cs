@@ -15,14 +15,14 @@ namespace Hireblade.Gameplay.Damage
         private bool _isInvincible;
         private bool _isEnabled;
 
-        public void SetUp(IHealth health)
+        public void Initialize(IHealth health)
         {
             _health = health;
 
             _isEnabled = true;
         }
 
-        public void Dispose()
+        public void Shutdown()
         {
             _isEnabled = false;
         }

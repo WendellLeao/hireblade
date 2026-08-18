@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Hireblade.Core;
 using WendellLeao.Pooling;
 using Hireblade.Gameplay.Particles;
@@ -12,8 +12,8 @@ namespace Hireblade.Gameplay.Enemies
 
         public IHealth Health { get; }
 
-        public void SetUp(IParticleFactory particleFactory, IWeaponFactory weaponFactory);
-        public void Dispose();
+        public void Initialize(IParticleFactory particleFactory, IWeaponFactory weaponFactory);
+        public void Shutdown();
         public void Tick(float deltaTime);
     }
 }

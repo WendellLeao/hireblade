@@ -12,12 +12,12 @@ namespace Hireblade.Gameplay.Commands
 
         private readonly Dictionary<CommandType, ICommand> _commands = new();
 
-        public void SetUp(IWeaponHolder weaponHolder)
+        public void Initialize(IWeaponHolder weaponHolder)
         {
             _commands.TryAdd(CommandType.Attack, new AttackCommand(weaponHolder));
         }
 
-        public void Dispose()
+        public void Shutdown()
         { }
 
         public void Tick(float deltaTime)

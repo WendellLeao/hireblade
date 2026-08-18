@@ -10,14 +10,14 @@ namespace Hireblade.Gameplay.Spells.Manager
 
         public ISpellFactory Factory => _spellFactory;
 
-        public void SetUp(IPoolingService poolingService, IParticleFactory particleFactory)
+        public void Initialize(IPoolingService poolingService, IParticleFactory particleFactory)
         {
             _spellFactory = new SpellFactory(poolingService, particleFactory);
         }
 
         private void OnDestroy()
         {
-            _spellFactory?.Dispose();
+            _spellFactory?.Shutdown();
         }
     }
 }

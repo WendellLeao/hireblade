@@ -27,7 +27,7 @@ namespace Hireblade.Gameplay.Spells
 
             _spells.Add(spell);
 
-            spell.SetUp();
+            spell.Initialize();
 
             SetSpellPositionAndRotation(position, direction, spell);
 
@@ -41,7 +41,7 @@ namespace Hireblade.Gameplay.Spells
             return spell;
         }
 
-        public void Dispose()
+        public void Shutdown()
         {
             for (int i = _spells.Count - 1; i >= 0; i--)
             {

@@ -9,18 +9,18 @@ namespace Hireblade.Gameplay.Tests
         private IHealth _health;
         private IDamageable _damageable;
 
-        public void SetUp()
+        public void Initialize()
         {
             _health = GetComponent<IHealth>();
             _damageable = GetComponent<IDamageable>();
 
-            _health.SetUp();
-            _damageable.SetUp(_health);
+            _health.Initialize();
+            _damageable.Initialize(_health);
         }
 
-        public void Dispose()
+        public void Shutdown()
         {
-            _damageable.Dispose();
+            _damageable.Shutdown();
         }
     }
 }

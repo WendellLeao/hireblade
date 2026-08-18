@@ -19,7 +19,7 @@ namespace Hireblade.Gameplay.Enemies.Manager
         private IParticleFactory _particleFactory;
         private IWeaponFactory _weaponFactory;
 
-        public void SetUp(IPoolingService poolingService, IEventService eventService, IParticleFactory particleFactory,
+        public void Initialize(IPoolingService poolingService, IEventService eventService, IParticleFactory particleFactory,
             IWeaponFactory weaponFactory)
         {
             _poolingService = poolingService;
@@ -29,7 +29,7 @@ namespace Hireblade.Gameplay.Enemies.Manager
 
             enemySpawner.OnEnemySpawned += HandleEnemySpawned;
 
-            enemySpawner.SetUp(_poolingService, _eventService, _particleFactory, _weaponFactory);
+            enemySpawner.Initialize(_poolingService, _eventService, _particleFactory, _weaponFactory);
         }
 
         private void Update()
@@ -46,7 +46,7 @@ namespace Hireblade.Gameplay.Enemies.Manager
         {
             enemySpawner.OnEnemySpawned -= HandleEnemySpawned;
 
-            enemySpawner.Dispose();
+            enemySpawner.Shutdown();
 
             for (int i = _enemies.Count - 1; i >= 0; i--)
             {
@@ -56,7 +56,7 @@ namespace Hireblade.Gameplay.Enemies.Manager
 
         private void DisposeEnemy(IEnemy enemy)
         {
-            enemy.Dispose();
+            enemy.Shutdown();
 
             enemy.OnDied -= HandleEnemyDied;
 

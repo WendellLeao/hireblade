@@ -23,7 +23,7 @@ namespace Hireblade.Gameplay.Weapons
         public WeaponData Data => _data;
         public string PoolId { get; set; }
 
-        public void SetUp(WeaponData data)
+        public void Initialize(WeaponData data)
         {
             _data = data;
 
@@ -34,7 +34,7 @@ namespace Hireblade.Gameplay.Weapons
             _isEnabled = true;
         }
 
-        public void Dispose()
+        public void Shutdown()
         {
             _isEnabled = false;
         }

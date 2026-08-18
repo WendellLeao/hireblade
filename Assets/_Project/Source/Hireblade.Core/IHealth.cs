@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using UnityEngine;
 
 namespace Hireblade.Core
@@ -11,7 +11,7 @@ namespace Hireblade.Core
         public Transform HealthBarParent { get; }
         public float HealthRatio { get; }
 
-        public void SetUp();
+        public void Initialize();
         public void IncrementHealth(float amount);
         public void DecrementHealth(float amount);
     }

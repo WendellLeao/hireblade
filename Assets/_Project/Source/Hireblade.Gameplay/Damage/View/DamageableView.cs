@@ -11,7 +11,7 @@ namespace Hireblade.Gameplay.Damage.View
         private float _damagePerSecondCountdown;
         private bool _isDamagingPerSecond;
 
-        public void SetUp(IParticleFactory particleFactory, IDamageable damageable)
+        public void Initialize(IParticleFactory particleFactory, IDamageable damageable)
         {
             _particleFactory = particleFactory;
             _damageable = damageable;
@@ -19,7 +19,7 @@ namespace Hireblade.Gameplay.Damage.View
             _damageable.OnDamageTaken += HandleDamageTaken;
         }
 
-        public void Dispose()
+        public void Shutdown()
         {
             _damageable.OnDamageTaken -= HandleDamageTaken;
         }
