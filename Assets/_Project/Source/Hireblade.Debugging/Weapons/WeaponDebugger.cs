@@ -1,0 +1,32 @@
+﻿#if UNITY_EDITOR || DEBUG
+using Hireblade.Gameplay;
+using Hireblade.Gameplay.Characters;
+using UnityEngine;
+
+namespace Hireblade.Debugging.Weapons
+{
+    internal sealed class WeaponDebugger : MonoBehaviour
+    {
+        [SerializeField]
+        private WeaponData[] weaponData;
+        [SerializeField]
+        private WeaponDebugButton debugButtonPrefab;
+        [SerializeField]
+        private RectTransform layoutGroupTransform;
+
+        private void Start()
+        {
+            Character character = FindFirstObjectByType<Character>();
+
+            IWeaponHolder weaponHolder = character.GetComponent<IWeaponHolder>();
+            
+            foreach (WeaponData data in weaponData)
+            {
+                WeaponDebugButton newDebugButton = Instantiate(debugButtonPrefab, layoutGroupTransform);
+                
+                newDebugButton.Setup(weaponHolder, data);
+            }
+        }
+    }
+}
+#endif

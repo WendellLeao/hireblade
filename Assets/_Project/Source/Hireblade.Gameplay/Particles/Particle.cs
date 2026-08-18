@@ -1,0 +1,78 @@
+using System;
+using System.Threading;
+using Cysharp.Threading.Tasks;
+using UnityEngine;
+
+namespace Hireblade.Gameplay.Particles
+{
+    internal sealed class SimpleParticle : MonoBehaviour, IParticle
+    {
+        public event Action<IParticle> OnCompleted;
+
+        [SerializeField]
+        private ParticleSystem particle;
+
+        private CancellationTokenSource _waitForParticleCts;
+        private bool _isPlaying;
+
+        public string PoolId { get; set; }
+
+        public void SetUp()
+        {
+            if (_isPlaying)
+            {
+                return;
+            }
+
+            _isPlaying = true;
+
+            particle.Play();
+
+            _waitForParticleCts?.Cancel();
+            _waitForParticleCts = new CancellationTokenSource();
+
+            WaitForParticleToCompleteAsync(_waitForParticleCts.Token).Forget();
+        }
+
+        public void Dispose()
+        {
+            if (!_isPlaying)
+            {
+                return;
+            }
+
+            _isPlaying = false;
+
+            particle.Stop(withChildren: true, ParticleSystemStopBehavior.StopEmittingAndClear);
+
+            DisposeCancellationTokenSource();
+        }
+
+        private async UniTask WaitForParticleToCompleteAsync(CancellationToken token)
+        {
+            while (IsParticleAlive())
+            {
+                await UniTask.Yield(token);
+            }
+
+            if (token.IsCancellationRequested)
+            {
+                return;
+            }
+
+            OnCompleted?.Invoke(this);
+        }
+
+        private void DisposeCancellationTokenSource()
+        {
+            _waitForParticleCts?.Cancel();
+            _waitForParticleCts?.Dispose();
+            _waitForParticleCts = null;
+        }
+
+        private bool IsParticleAlive()
+        {
+            return particle && particle.gameObject && particle.IsAlive();
+        }
+    }
+}

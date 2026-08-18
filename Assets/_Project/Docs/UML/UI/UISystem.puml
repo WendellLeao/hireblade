@@ -16,7 +16,7 @@ together {
         IScreenService --> IUIScreen
     }
     
-    package Fantasy.UI {
+    package Hireblade.UI {
         Class Billboard
         Class ImageFiller
         
