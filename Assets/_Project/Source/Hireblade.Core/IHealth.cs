@@ -1,5 +1,4 @@
 using System;
-using UnityEngine;
 
 namespace Hireblade.Core
 {
@@ -7,8 +6,7 @@ namespace Hireblade.Core
     {
         public event Action<float> OnHealthChanged;
         public event Action OnDepleted;
-        
-        public Transform HealthBarParent { get; }
+
         public float HealthRatio { get; }
 
         public void Initialize();

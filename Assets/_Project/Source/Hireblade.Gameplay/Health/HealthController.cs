@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Hireblade.Gameplay.Health
 {
-    public sealed class HealthController : MonoBehaviour, IHealth
+    public sealed class HealthController : MonoBehaviour, IHealth, IHealthBarAnchor
     {
         public event Action<float> OnHealthChanged;
         public event Action OnDepleted;
