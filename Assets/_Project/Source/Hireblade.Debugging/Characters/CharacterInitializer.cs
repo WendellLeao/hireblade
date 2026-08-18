@@ -1,11 +1,11 @@
 #if UNITY_EDITOR || DEBUG
 using Hireblade.Gameplay.Cameras.Manager;
+using Hireblade.Gameplay.Characters;
 using Hireblade.Gameplay.Particles.Manager;
 using Hireblade.Gameplay.Weapons.Manager;
 using UnityEngine;
-using Hireblade.Gameplay.Characters;
 
-namespace Hireblade.Debugging
+namespace Hireblade.Debugging.Characters
 {
     internal sealed class CharacterInitializer : MonoBehaviour
     {

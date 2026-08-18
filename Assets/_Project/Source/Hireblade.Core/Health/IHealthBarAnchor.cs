@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Hireblade.Core
+namespace Hireblade.Core.Health
 {
     public interface IHealthBarAnchor
     {

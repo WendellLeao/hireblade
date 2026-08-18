@@ -1,4 +1,4 @@
-using Hireblade.Core;
+using Hireblade.Core.Health;
 using WendellLeao.Events;
 
 namespace Hireblade.Events.Health

@@ -1,5 +1,5 @@
 using System;
-using Hireblade.Core;
+using Hireblade.Core.Health;
 using WendellLeao.Pooling;
 using Hireblade.Gameplay.Particles;
 using Hireblade.Gameplay.Weapons;

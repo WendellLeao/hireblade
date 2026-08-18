@@ -1,4 +1,4 @@
-using Hireblade.Core;
+using Hireblade.Core.Health;
 using Hireblade.Gameplay.Damage;
 using Hireblade.Gameplay.Navigation;
 using Hireblade.Gameplay.Weapons;

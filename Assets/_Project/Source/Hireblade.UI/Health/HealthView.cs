@@ -1,6 +1,6 @@
 using System;
 using DG.Tweening;
-using Hireblade.Core;
+using Hireblade.Core.Health;
 using UnityEngine;
 using WendellLeao.Pooling;
 
