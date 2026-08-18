@@ -1,5 +1,5 @@
 using System;
-using Hireblade.Core;
+using Hireblade.Core.Health;
 
 namespace Hireblade.Gameplay.Damage
 {

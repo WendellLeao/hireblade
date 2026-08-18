@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Hireblade.Core;
+using Hireblade.Core.Health;
 using Hireblade.Events.Health;
 using UnityEngine;
 using WendellLeao.Events;

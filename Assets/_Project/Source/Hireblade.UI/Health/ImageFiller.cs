@@ -3,7 +3,7 @@ using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Hireblade.UI
+namespace Hireblade.UI.Health
 {
     internal sealed class ImageFiller : MonoBehaviour
     {

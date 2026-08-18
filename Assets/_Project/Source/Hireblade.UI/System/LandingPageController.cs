@@ -2,7 +2,7 @@ using UnityEngine;
 using WendellLeao.ServiceLocator;
 using WendellLeao.Screens;
 
-namespace Hireblade.UI
+namespace Hireblade.UI.System
 {
     // TODO: this is temporary. The title screen must be loaded after the startup scene finishes its processes.
     internal sealed class LandingPageController : MonoBehaviour

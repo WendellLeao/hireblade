@@ -4,7 +4,7 @@ using Hireblade.Gameplay.Particles.Manager;
 using Hireblade.Gameplay.Weapons.Manager;
 using UnityEngine;
 
-namespace Hireblade.Debugging
+namespace Hireblade.Debugging.Enemies
 {
     internal sealed class EnemyInitializer : MonoBehaviour
     {

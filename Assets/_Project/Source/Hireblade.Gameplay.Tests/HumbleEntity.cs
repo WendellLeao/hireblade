@@ -1,4 +1,4 @@
-using Hireblade.Core;
+using Hireblade.Core.Health;
 using UnityEngine;
 using Hireblade.Gameplay.Damage;
 
