@@ -1,5 +1,6 @@
 using System;
 using DG.Tweening;
+using Fantasy.Core;
 using UnityEngine;
 using WendellLeao.Pooling;
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using Fantasy.Core;
 using WendellLeao.Pooling;
 
 namespace Fantasy.Gameplay

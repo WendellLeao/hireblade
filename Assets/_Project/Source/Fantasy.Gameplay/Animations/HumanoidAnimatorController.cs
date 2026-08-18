@@ -1,4 +1,5 @@
 using System;
+using Fantasy.Core;
 using UnityEngine;
 using Random = UnityEngine.Random;
 

@@ -1,3 +1,4 @@
+using Fantasy.Core;
 using UnityEngine;
 
 namespace Fantasy.Gameplay.Tests

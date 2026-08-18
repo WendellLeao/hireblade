@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Fantasy.Core;
 using Fantasy.Events.Health;
 using UnityEngine;
 using WendellLeao.Events;

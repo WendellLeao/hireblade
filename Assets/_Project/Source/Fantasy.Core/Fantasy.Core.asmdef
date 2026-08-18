@@ -1,6 +1,6 @@
 {
-    "name": "Fantasy",
-    "rootNamespace": "Fantasy",
+    "name": "Fantasy.Core",
+    "rootNamespace": "Fantasy.Core",
     "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],

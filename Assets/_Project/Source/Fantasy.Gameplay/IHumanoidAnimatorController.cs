@@ -1,4 +1,6 @@
-﻿namespace Fantasy.Gameplay
+﻿using Fantasy.Core;
+
+namespace Fantasy.Gameplay
 {
     internal interface IHumanoidAnimatorController
     {

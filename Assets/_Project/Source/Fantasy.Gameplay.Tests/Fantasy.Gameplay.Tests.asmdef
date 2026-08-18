@@ -5,7 +5,8 @@
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
         "Fantasy",
-        "Fantasy.Gameplay"
+        "Fantasy.Gameplay",
+        "Fantasy.Core"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

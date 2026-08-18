@@ -1,4 +1,5 @@
 using System;
+using Fantasy.Core;
 
 namespace Fantasy.Gameplay
 {
