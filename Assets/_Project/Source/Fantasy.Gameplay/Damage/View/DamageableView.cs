@@ -1,8 +1,8 @@
-using Leaosoft;
+using UnityEngine;
 
 namespace Fantasy.Gameplay.Damage.View
 {
-    internal sealed class DamageableView : EntityComponent, IDamageableView
+    internal sealed class DamageableView : MonoBehaviour, IDamageableView
     {
         private IParticleFactory _particleFactory;
         private IDamageable _damageable;
@@ -14,28 +14,17 @@ namespace Fantasy.Gameplay.Damage.View
         {
             _particleFactory = particleFactory;
             _damageable = damageable;
-            
-            base.SetUp();
-        }
 
-        protected override void OnSetUp()
-        {
-            base.OnSetUp();
-            
             _damageable.OnDamageTaken += HandleDamageTaken;
         }
 
-        protected override void OnDispose()
+        public void Dispose()
         {
-            base.OnDispose();
-            
             _damageable.OnDamageTaken -= HandleDamageTaken;
         }
 
-        protected override void OnTick(float deltaTime)
+        public void Tick(float deltaTime)
         {
-            base.OnTick(deltaTime);
-
             if (_isDamagingPerSecond)
             {
                 TickCachedParticle(deltaTime);
@@ -52,10 +41,10 @@ namespace Fantasy.Gameplay.Damage.View
             _cachedParticle ??= _particleFactory.EmitParticle(damageData.DpsParticlePoolData, transform);
 
             _isDamagingPerSecond = damageData.HasDamagePerSecond;
-            
+
             _damagePerSecondCountdown += damageData.DamagePerSecondDuration;
         }
-        
+
         private void TickCachedParticle(float deltaTime)
         {
             _damagePerSecondCountdown -= deltaTime;
@@ -65,7 +54,7 @@ namespace Fantasy.Gameplay.Damage.View
                 DisposeCachedParticle();
             }
         }
-        
+
         private void DisposeCachedParticle()
         {
             _particleFactory.DisposeParticle(_cachedParticle);

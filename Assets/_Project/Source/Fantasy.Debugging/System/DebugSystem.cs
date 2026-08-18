@@ -1,17 +1,15 @@
-﻿#if UNITY_EDITOR || DEBUG
+#if UNITY_EDITOR || DEBUG
 using UnityEngine;
 
 namespace Fantasy.Debugging.System
 {
-    internal sealed class DebugSystem : Leaosoft.System
+    internal sealed class DebugSystem : MonoBehaviour
     {
         [SerializeField]
         private Canvas canvas;
-        
-        protected override void OnTick(float deltaTime)
-        {
-            base.OnTick(deltaTime);
 
+        private void Update()
+        {
             if (Input.GetKeyDown(KeyCode.F1))
             {
                 ToggleCanvasActive();

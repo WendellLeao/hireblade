@@ -5,14 +5,14 @@ using Fantasy.Gameplay.Particles.Manager;
 using Fantasy.Gameplay.Spells.Manager;
 using Fantasy.Gameplay.Weapons.Manager;
 using Fantasy.Gameplay.Characters.Manager;
-using Leaosoft.Events;
-using Leaosoft.Pooling;
-using Leaosoft.Services;
 using UnityEngine;
+using WendellLeao.Events;
+using WendellLeao.Pooling;
+using WendellLeao.ServiceLocator;
 
 namespace Fantasy.Gameplay.System
 {
-    internal sealed class GameplaySystem : Leaosoft.System
+    internal sealed class GameplaySystem : MonoBehaviour
     {
         [SerializeField]
         private CursorManager cursorManager;
@@ -29,22 +29,17 @@ namespace Fantasy.Gameplay.System
         [SerializeField]
         private EnemyManager enemyManager;
 
-        protected override void OnInitialize()
+        private void Awake()
         {
-            base.OnInitialize();
-            
-            IPoolingService poolingService = ServiceLocator.GetService<IPoolingService>();
-            IEventService eventService = ServiceLocator.GetService<IEventService>();
+            IPoolingService poolingService = Locator.Get<IPoolingService>();
+            IEventService eventService = Locator.Get<IEventService>();
 
             cursorManager.SetUp();
-            cameraManager.SetUp();
             particleManager.SetUp(poolingService);
             spellManager.SetUp(poolingService, particleManager);
             weaponManager.SetUp(poolingService, particleManager, spellManager);
             characterManager.SetUp(poolingService, eventService, particleManager, weaponManager, cameraManager);
             enemyManager.SetUp(poolingService, eventService, particleManager, weaponManager);
-            
-            RegisterManagers(cursorManager, cameraManager, particleManager, spellManager, weaponManager, characterManager,enemyManager);
         }
     }
 }

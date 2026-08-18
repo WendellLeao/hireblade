@@ -1,13 +1,12 @@
-﻿using System;
+using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
-using Leaosoft;
-using Leaosoft.Pooling;
 using UnityEngine;
+using WendellLeao.Pooling;
 
 namespace Fantasy.Gameplay
 {
-    internal abstract class BasicEntitySpawner<TEntity> : MonoBehaviour where TEntity : IEntity
+    internal abstract class BasicEntitySpawner<TEntity> : MonoBehaviour where TEntity : IPooledObject
     {
         [Header("Objects")]
         [SerializeField]
@@ -27,10 +26,10 @@ namespace Fantasy.Gameplay
         public void SetUp(IPoolingService poolingService)
         {
             _poolingService = poolingService;
-            
+
             SpawnEntity();
         }
-        
+
         public void Dispose()
         {
             _releaseEntityCts?.Cancel();
@@ -42,10 +41,10 @@ namespace Fantasy.Gameplay
         {
             _releaseEntityCts?.Cancel();
             _releaseEntityCts = new CancellationTokenSource();
-            
+
             RespawnEntityAsync(entity, _releaseEntityCts.Token).Forget();
         }
-        
+
         protected virtual TEntity SpawnEntity()
         {
             if (!_poolingService.TryGetObjectFromPool(poolData.Id, spawnPoint, out IPooledObject pooledObject))
@@ -55,7 +54,7 @@ namespace Fantasy.Gameplay
 
             return (TEntity)pooledObject;
         }
-        
+
         private async UniTask<TEntity> RespawnEntityAsync(TEntity entity, CancellationToken token)
         {
             try
@@ -78,19 +77,19 @@ namespace Fantasy.Gameplay
                 _releaseEntityCts?.Dispose();
                 _releaseEntityCts = null;
             }
-            
+
             return default;
         }
-        
+
         private async UniTask ReleaseEntity(TEntity entity, float delay, CancellationToken token)
         {
             if (entity is not IPooledObject pooledObject)
             {
                 throw new InvalidOperationException($"Entity of type {entity.GetType().Name} does not implement {nameof(IPooledObject)}!");
             }
-            
+
             await UniTask.Delay(TimeSpan.FromSeconds(delay), cancellationToken: token);
-            
+
             _poolingService.ReleaseObjectToPool(pooledObject);
         }
     }

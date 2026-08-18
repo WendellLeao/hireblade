@@ -1,9 +1,8 @@
-﻿using Leaosoft;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Fantasy.Gameplay
 {
-    internal interface IDamager : IEntityComponent
+    internal interface IDamager
     {
         public bool TryApplyDamage(Collider other);
     }

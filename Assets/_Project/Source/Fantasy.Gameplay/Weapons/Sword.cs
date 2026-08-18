@@ -1,22 +1,22 @@
-using Leaosoft;
-using Leaosoft.Pooling;
 using UnityEngine;
+using WendellLeao.Pooling;
 
 namespace Fantasy.Gameplay.Weapons
 {
-    internal sealed class Sword : Entity, IMeleeWeapon
+    internal sealed class Sword : MonoBehaviour, IMeleeWeapon
     {
         [Header("Components")]
         [SerializeField]
         private CapsuleCollider capsuleCollider;
-        
+
         [Header("Data")]
         [SerializeField]
         private PoolData bloodParticlesPoolData;
-        
+
         private IParticleFactory _particleFactory;
         private IDamager _damager;
         private WeaponData _data;
+        private bool _isEnabled;
 
         public WeaponData Data => _data;
         public string PoolId { get; set; }
@@ -24,10 +24,19 @@ namespace Fantasy.Gameplay.Weapons
         public void SetUp(WeaponData data)
         {
             _data = data;
-            
-            base.SetUp();
+
+            _damager = GetComponent<IDamager>();
+
+            SetColliderEnabled(false);
+
+            _isEnabled = true;
         }
-        
+
+        public void Dispose()
+        {
+            _isEnabled = false;
+        }
+
         public void Execute()
         {
             SetColliderEnabled(false);
@@ -38,28 +47,15 @@ namespace Fantasy.Gameplay.Weapons
             SetColliderEnabled(false);
         }
 
-        protected override void OnSetUp()
-        {
-            base.OnSetUp();
-
-            _damager = GetComponent<IDamager>();
-            
-            _damager.SetUp();
-            
-            RegisterComponents(_damager);
-            
-            SetColliderEnabled(false);
-        }
-
         private void OnTriggerEnter(Collider other)
         {
-            if (!IsEnabled)
+            if (!_isEnabled)
             {
                 return;
             }
-            
+
             _damager.TryApplyDamage(other);
-            
+
             _particleFactory.EmitParticle(bloodParticlesPoolData, transform.position, Quaternion.identity);
         }
 
@@ -67,7 +63,7 @@ namespace Fantasy.Gameplay.Weapons
         {
             capsuleCollider.enabled = isEnabled;
         }
-        
+
         public void SetParticleFactory(IParticleFactory particleFactory)
         {
             _particleFactory = particleFactory;

@@ -1,27 +1,23 @@
 using Fantasy.UI.Health.Manager;
-using Leaosoft.Events;
-using Leaosoft.Pooling;
-using Leaosoft.Services;
 using UnityEngine;
+using WendellLeao.Events;
+using WendellLeao.Pooling;
+using WendellLeao.ServiceLocator;
 
 namespace Fantasy.UI.System
 {
-    internal sealed class UISystem : Leaosoft.System
+    internal sealed class UISystem : MonoBehaviour
     {
         [SerializeField]
         private HealthViewManager healthViewsManager;
-        
-        protected override void OnInitialize()
+
+        private void Awake()
         {
-            base.OnInitialize();
-            
-            IPoolingService poolingService = ServiceLocator.GetService<IPoolingService>();
-            IEventService eventService = ServiceLocator.GetService<IEventService>();
-                
+            IPoolingService poolingService = Locator.Get<IPoolingService>();
+            IEventService eventService = Locator.Get<IEventService>();
+
             // TODO: camera service
             healthViewsManager.SetUp(Camera.main, poolingService, eventService);
-            
-            RegisterManagers(healthViewsManager);
         }
     }
 }

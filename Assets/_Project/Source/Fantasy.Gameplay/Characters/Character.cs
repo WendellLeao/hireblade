@@ -1,13 +1,13 @@
 using System;
-using Leaosoft;
 using NaughtyAttributes;
+using UnityEngine;
 
 namespace Fantasy.Gameplay.Characters
 {
-    public sealed class Character : Entity, ICharacter
+    public sealed class Character : MonoBehaviour, ICharacter
     {
         public event Action<ICharacter> OnDied;
-        
+
         private IParticleFactory _particleFactory;
         private IWeaponFactory _weaponFactory;
         private ICameraProvider _cameraProvider;
@@ -18,40 +18,58 @@ namespace Fantasy.Gameplay.Characters
         private ICommandInvoker _commandInvoker;
         private IHumanoidAnimatorController _humanoidAnimatorController;
         private IDamageableView _damageableView;
+        private bool _isEnabled;
 
         public string PoolId { get; set; }
         public IHealth Health => _health;
 
         public void SetUp(IParticleFactory particleFactory, IWeaponFactory weaponFactory, ICameraProvider cameraProvider)
         {
+            if (_isEnabled)
+            {
+                return;
+            }
+
+            _isEnabled = true;
+
             _particleFactory = particleFactory;
             _weaponFactory = weaponFactory;
             _cameraProvider = cameraProvider;
-            
-            base.SetUp();
-        }
-
-        protected override void OnSetUp()
-        {
-            base.OnSetUp();
 
             CacheComponents();
-            
+
             SetUpComponents();
-            
-            RegisterComponents(_health, _damageable, _weaponHolder, _moveableAgent, _commandInvoker,
-                _humanoidAnimatorController, _damageableView);
-            
+
             _cameraProvider.VirtualCamera.SetTarget(transform);
 
             SubscribeEvent();
         }
 
-        protected override void OnDispose()
+        public void Dispose()
         {
-            base.OnDispose();
-            
+            if (!_isEnabled)
+            {
+                return;
+            }
+
+            _isEnabled = false;
+
+            _weaponHolder.Dispose();
+            _damageable.Dispose();
+            _commandInvoker.Dispose();
+            _humanoidAnimatorController.Dispose();
+            _damageableView.Dispose();
+
             UnsubscribeEvent();
+        }
+
+        public void Tick(float deltaTime)
+        {
+            _damageable.Tick(deltaTime);
+            _moveableAgent.Tick(deltaTime);
+            _commandInvoker.Tick(deltaTime);
+            _humanoidAnimatorController.Tick(deltaTime);
+            _damageableView.Tick(deltaTime);
         }
 
         private void CacheComponents()
@@ -75,26 +93,26 @@ namespace Fantasy.Gameplay.Characters
             _humanoidAnimatorController.SetUp(_health, _damageable, _weaponHolder, _moveableAgent);
             _damageableView.SetUp(_particleFactory, _damageable);
         }
-        
+
         private void SubscribeEvent()
         {
             _health.OnDepleted += HandleHealthDepleted;
-            
+
             _weaponHolder.OnWeaponExecuted += HandleWeaponExecute;
         }
-        
+
         private void UnsubscribeEvent()
         {
             _health.OnDepleted -= HandleHealthDepleted;
-            
+
             _weaponHolder.OnWeaponExecuted -= HandleWeaponExecute;
         }
-        
+
         private void HandleHealthDepleted()
         {
             OnDied?.Invoke(this);
         }
-        
+
         private void HandleWeaponExecute()
         {
             _moveableAgent.ResetPath();

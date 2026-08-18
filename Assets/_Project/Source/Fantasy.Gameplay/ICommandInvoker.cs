@@ -1,9 +1,9 @@
-﻿using Leaosoft;
-
-namespace Fantasy.Gameplay
+﻿namespace Fantasy.Gameplay
 {
-    internal interface ICommandInvoker : IEntityComponent
+    internal interface ICommandInvoker
     {
         public void SetUp(IWeaponHolder weaponHolder);
+        public void Dispose();
+        public void Tick(float deltaTime);
     }
 }

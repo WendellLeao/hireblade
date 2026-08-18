@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bdc8372c12d9428daf43367c69d9e74b, type: 3}
+  m_Script: {fileID: 11500000, guid: 62ec18a41d6c20e4f82d63c1e4647dbe, type: 3}
   m_Name: TitleScreenData
   m_EditorClassIdentifier: 
   id: title_screen

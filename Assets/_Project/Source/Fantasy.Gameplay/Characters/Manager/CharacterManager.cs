@@ -1,21 +1,23 @@
-using Leaosoft;
-using Leaosoft.Events;
-using Leaosoft.Pooling;
+using System.Collections.Generic;
 using UnityEngine;
+using WendellLeao.Events;
+using WendellLeao.Pooling;
 
 namespace Fantasy.Gameplay.Characters.Manager
 {
-    internal sealed class CharacterManager : EntityManager<ICharacter>
+    internal sealed class CharacterManager : MonoBehaviour
     {
         [SerializeField]
         private CharacterSpawner characterSpawner;
-        
+
+        private readonly List<ICharacter> _characters = new();
+
         private IPoolingService _poolingService;
         private IEventService _eventService;
         private IParticleFactory _particleFactory;
         private IWeaponFactory _weaponFactory;
         private ICameraProvider _cameraProvider;
-        
+
         public void SetUp(IPoolingService poolingService, IEventService eventService, IParticleFactory particleFactory,
             IWeaponFactory weaponFactory, ICameraProvider cameraProvider)
         {
@@ -24,45 +26,53 @@ namespace Fantasy.Gameplay.Characters.Manager
             _particleFactory = particleFactory;
             _weaponFactory = weaponFactory;
             _cameraProvider = cameraProvider;
-            
-            base.SetUp();
-        }
-
-        protected override void OnSetUp()
-        {
-            base.OnSetUp();
 
             characterSpawner.OnCharacterSpawned += HandleCharacterSpawned;
-            
+
             characterSpawner.SetUp(_poolingService, _eventService, _particleFactory, _weaponFactory, _cameraProvider);
         }
 
-        protected override void OnDispose()
+        private void Update()
         {
-            base.OnDispose();
-            
+            float deltaTime = Time.deltaTime;
+
+            foreach (ICharacter character in _characters)
+            {
+                character.Tick(deltaTime);
+            }
+        }
+
+        private void OnDestroy()
+        {
             characterSpawner.OnCharacterSpawned -= HandleCharacterSpawned;
 
             characterSpawner.Dispose();
+
+            for (int i = _characters.Count - 1; i >= 0; i--)
+            {
+                DisposeCharacter(_characters[i]);
+            }
         }
 
-        protected override void DisposeEntity(ICharacter character)
+        private void DisposeCharacter(ICharacter character)
         {
-            base.DisposeEntity(character);
-            
+            character.Dispose();
+
             character.OnDied -= HandleCharacterDied;
+
+            _characters.Remove(character);
         }
 
         private void HandleCharacterSpawned(ICharacter character)
         {
-            RegisterEntity(character);
-            
+            _characters.Add(character);
+
             character.OnDied += HandleCharacterDied;
         }
-        
+
         private void HandleCharacterDied(ICharacter character)
         {
-            DisposeEntity(character);
+            DisposeCharacter(character);
 
             characterSpawner.RespawnEntity(character);
         }

@@ -1,20 +1,20 @@
-using Leaosoft;
-using Leaosoft.Pooling;
+using System.Collections.Generic;
 using UnityEngine;
+using WendellLeao.Pooling;
 
 namespace Fantasy.Gameplay.Particles.Manager
 {
-    public sealed class ParticleManager : EntityManager<IParticle>, IParticleFactory
+    public sealed class ParticleManager : MonoBehaviour, IParticleFactory
     {
+        private readonly List<IParticle> _particles = new();
+
         private IPoolingService _poolingService;
-        
+
         public void SetUp(IPoolingService poolingService)
         {
             _poolingService = poolingService;
-            
-            base.SetUp();
         }
-        
+
         public IParticle EmitParticle(PoolData particlePoolData, Transform parent)
         {
             if (!_poolingService.TryGetObjectFromPool(particlePoolData.Id, parent, out IParticle particle))
@@ -22,36 +22,41 @@ namespace Fantasy.Gameplay.Particles.Manager
                 return null;
             }
 
-            RegisterEntity(particle);
-            
+            _particles.Add(particle);
+
             particle.SetUp();
-            
-            particle.OnCompleted += DisposeEntity;
-            
+
+            particle.OnCompleted += DisposeParticle;
+
             return particle;
         }
-        
+
         public IParticle EmitParticle(PoolData particlePoolData, Vector3 position, Quaternion rotation)
         {
             IParticle particle = EmitParticle(particlePoolData, parent: null);
 
             particle.transform.SetPositionAndRotation(position, rotation);
-            
+
             return particle;
         }
 
         public void DisposeParticle(IParticle particle)
         {
-            DisposeEntity(particle);
+            particle.Dispose();
+
+            particle.OnCompleted -= DisposeParticle;
+
+            _particles.Remove(particle);
+
+            _poolingService.ReleaseObjectToPool(particle);
         }
 
-        protected override void DisposeEntity(IParticle particle)
+        private void OnDestroy()
         {
-            base.DisposeEntity(particle);
-
-            particle.OnCompleted -= DisposeEntity;
-            
-            _poolingService.ReleaseObjectToPool(particle);
+            for (int i = _particles.Count - 1; i >= 0; i--)
+            {
+                DisposeParticle(_particles[i]);
+            }
         }
     }
 }

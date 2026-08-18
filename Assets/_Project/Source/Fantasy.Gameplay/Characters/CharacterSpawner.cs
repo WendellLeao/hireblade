@@ -1,7 +1,7 @@
 ﻿using System;
 using Fantasy.Events.Health;
-using Leaosoft.Events;
-using Leaosoft.Pooling;
+using WendellLeao.Events;
+using WendellLeao.Pooling;
 
 namespace Fantasy.Gameplay.Characters
 {

@@ -1,10 +1,9 @@
-using Leaosoft;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace Fantasy.Gameplay.Weapons
 {
-    internal sealed class Staff : Entity, IWeapon, ISpellCaster
+    internal sealed class Staff : MonoBehaviour, IWeapon, ISpellCaster
     {
         [SerializeField]
         private SpellData[] spellData;
@@ -20,20 +19,21 @@ namespace Fantasy.Gameplay.Weapons
         public void SetUp(WeaponData data)
         {
             _data = data;
-            
-            base.SetUp();
         }
+
+        public void Dispose()
+        { }
 
         public void Execute()
         { }
-        
+
         public void FinishExecution()
         { }
-        
+
         public void CastSpell()
         {
             SpellData randomSpellData = spellData[Random.Range(0, spellData.Length)];
-            
+
             _spellFactory.CastSpell(randomSpellData, spawnPoint.position, direction: transform.forward);
         }
 

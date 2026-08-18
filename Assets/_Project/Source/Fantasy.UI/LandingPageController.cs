@@ -1,7 +1,6 @@
-using Leaosoft.Services;
-using Leaosoft.UI;
-using Leaosoft.UI.Screens;
 using UnityEngine;
+using WendellLeao.ServiceLocator;
+using WendellLeao.Screens;
 
 namespace Fantasy.UI
 {
@@ -15,8 +14,8 @@ namespace Fantasy.UI
         private void Start()
         {
             Cursor.lockState = CursorLockMode.None;
-            
-            IScreenService screenService = ServiceLocator.GetService<IScreenService>();
+
+            IScreenService screenService = Locator.Get<IScreenService>();
 
             screenService.OpenScreenAsync(titleScreenData);
         }

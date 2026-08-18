@@ -1,9 +1,8 @@
-using Leaosoft;
 using UnityEngine;
 
 namespace Fantasy.Gameplay.Damage
 {
-    internal sealed class Damager : EntityComponent, IDamager
+    internal sealed class Damager : MonoBehaviour, IDamager
     {
         [SerializeField]
         private DamageData data;
@@ -14,9 +13,9 @@ namespace Fantasy.Gameplay.Damage
             {
                 return false;
             }
-            
+
             damageable.TakeDamage(data);
-            
+
             return true;
         }
     }

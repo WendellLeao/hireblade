@@ -1,26 +1,31 @@
-﻿using System;
-using Leaosoft;
+using System;
 using NaughtyAttributes;
 using UnityEngine;
 
 namespace Fantasy.Gameplay.Damage
 {
-    public sealed class DamageController : EntityComponent, IDamageable
+    public sealed class DamageController : MonoBehaviour, IDamageable
     {
         public event Action<DamageData> OnDamageTaken;
-        
+
         private IHealth _health;
         private float _damagePerSecondDuration;
         private float _amountDamagePerSecond;
         private bool _isInvincible;
+        private bool _isEnabled;
 
         public void SetUp(IHealth health)
         {
             _health = health;
-            
-            base.SetUp();
+
+            _isEnabled = true;
         }
-        
+
+        public void Dispose()
+        {
+            _isEnabled = false;
+        }
+
         public void TakeDamage(DamageData damageData)
         {
             if (!CanTakeDamage())
@@ -33,16 +38,14 @@ namespace Fantasy.Gameplay.Damage
                 _damagePerSecondDuration += damageData.DamagePerSecondDuration;
                 _amountDamagePerSecond += damageData.AmountPerSecond;
             }
-            
+
             _health.DecrementHealth(damageData.Amount);
-            
+
             OnDamageTaken?.Invoke(damageData);
         }
-        
-        protected override void OnTick(float deltaTime)
+
+        public void Tick(float deltaTime)
         {
-            base.OnTick(deltaTime);
-            
             if (_damagePerSecondDuration > 0f)
             {
                 ApplyDamagePerSecond(deltaTime);
@@ -50,19 +53,19 @@ namespace Fantasy.Gameplay.Damage
                 _damagePerSecondDuration -= deltaTime;
             }
         }
-        
+
         private void ApplyDamagePerSecond(float deltaTime)
         {
             float amount = _amountDamagePerSecond * deltaTime;
 
             _health.DecrementHealth(amount);
         }
-        
+
         private bool CanTakeDamage()
         {
-            return IsEnabled && !_isInvincible && _health.HealthRatio > 0f;
+            return _isEnabled && !_isInvincible && _health.HealthRatio > 0f;
         }
-        
+
         public void SetIsInvincible(bool isInvincible)
         {
             _isInvincible = isInvincible;
@@ -72,20 +75,20 @@ namespace Fantasy.Gameplay.Damage
         [Button("TakeDamage_DecreaseCurrentHealthBy50")]
         public void TakeDamage_DecreaseCurrentHealthBy50()
         {
-            DamageData mockDamageData = ScriptableObject.CreateInstance<DamageData>(); 
-            
+            DamageData mockDamageData = ScriptableObject.CreateInstance<DamageData>();
+
             mockDamageData.SetAmountForTests(50);
-            
+
             TakeDamage(mockDamageData);
         }
-        
+
         [Button("TakeDamage_Die")]
         public void TakeDamage_Die()
         {
-            DamageData mockDamageData = ScriptableObject.CreateInstance<DamageData>(); 
-            
+            DamageData mockDamageData = ScriptableObject.CreateInstance<DamageData>();
+
             mockDamageData.SetAmountForTests(99999999);
-            
+
             TakeDamage(mockDamageData);
         }
 #endif
