@@ -1,11 +1,8 @@
 using Hireblade.Gameplay.Cameras.Manager;
 using Hireblade.Gameplay.Cursor.Manager;
 using Hireblade.Gameplay.Enemies.Manager;
-using Hireblade.Gameplay.Particles;
 using Hireblade.Gameplay.Particles.Manager;
-using Hireblade.Gameplay.Spells;
 using Hireblade.Gameplay.Spells.Manager;
-using Hireblade.Gameplay.Weapons;
 using Hireblade.Gameplay.Weapons.Manager;
 using Hireblade.Gameplay.Characters.Manager;
 using UnityEngine;
@@ -38,21 +35,11 @@ namespace Hireblade.Gameplay.System
             IEventService eventService = Locator.Get<IEventService>();
 
             cursorManager.SetUp();
-
             particleManager.SetUp(poolingService);
-
-            IParticleFactory particleFactory = particleManager.Factory;
-
-            spellManager.SetUp(poolingService, particleFactory);
-
-            ISpellFactory spellFactory = spellManager.Factory;
-
-            weaponManager.SetUp(poolingService, particleFactory, spellFactory);
-
-            IWeaponFactory weaponFactory = weaponManager.Factory;
-
-            characterManager.SetUp(poolingService, eventService, particleFactory, weaponFactory, cameraManager);
-            enemyManager.SetUp(poolingService, eventService, particleFactory, weaponFactory);
+            spellManager.SetUp(poolingService, particleManager.Factory);
+            weaponManager.SetUp(poolingService, particleManager.Factory, spellManager.Factory);
+            characterManager.SetUp(poolingService, eventService, particleManager.Factory, weaponManager.Factory, cameraManager);
+            enemyManager.SetUp(poolingService, eventService, particleManager.Factory, weaponManager.Factory);
         }
     }
 }
