@@ -2,7 +2,7 @@ using Hireblade.Utilities;
 using WendellLeao.Pooling;
 using UnityEngine;
 
-namespace Hireblade.Gameplay
+namespace Hireblade.Gameplay.Weapons
 {
     [CreateAssetMenu(menuName = PathUtility.WeaponsMenuPath + "/WeaponData", fileName = "NewWeaponData")]
     public sealed class WeaponData : ScriptableObject

@@ -1,4 +1,7 @@
-namespace Hireblade.Gameplay
+
+using Hireblade.Gameplay.Spells;
+
+namespace Hireblade.Gameplay.Weapons
 {
     internal interface ISpellCaster
     {

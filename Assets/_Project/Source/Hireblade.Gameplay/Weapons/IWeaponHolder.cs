@@ -1,6 +1,6 @@
 using System;
 
-namespace Hireblade.Gameplay
+namespace Hireblade.Gameplay.Weapons
 {
     public interface IWeaponHolder
     {

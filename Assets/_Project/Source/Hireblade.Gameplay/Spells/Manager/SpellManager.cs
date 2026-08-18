@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using WendellLeao.Pooling;
+using Hireblade.Gameplay.Particles;
 
 namespace Hireblade.Gameplay.Spells.Manager
 {

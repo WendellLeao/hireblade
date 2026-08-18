@@ -1,7 +1,7 @@
 using System;
 using Hireblade.Core;
 
-namespace Hireblade.Gameplay
+namespace Hireblade.Gameplay.Damage
 {
     public interface IDamageable
     {

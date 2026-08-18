@@ -4,7 +4,7 @@ using Cysharp.Threading.Tasks;
 using UnityEngine;
 using WendellLeao.Pooling;
 
-namespace Hireblade.Gameplay
+namespace Hireblade.Gameplay.Shared
 {
     internal abstract class BasicEntitySpawner<TEntity> : MonoBehaviour where TEntity : IPooledObject
     {

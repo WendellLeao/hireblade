@@ -1,6 +1,9 @@
 ﻿using Hireblade.Core;
+using Hireblade.Gameplay.Damage;
+using Hireblade.Gameplay.Navigation;
+using Hireblade.Gameplay.Weapons;
 
-namespace Hireblade.Gameplay
+namespace Hireblade.Gameplay.Animations
 {
     internal interface IHumanoidAnimatorController
     {

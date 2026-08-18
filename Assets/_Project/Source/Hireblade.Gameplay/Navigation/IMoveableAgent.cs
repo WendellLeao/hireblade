@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
+using Hireblade.Gameplay.Cameras;
+using Hireblade.Gameplay.Particles;
 
-namespace Hireblade.Gameplay
+namespace Hireblade.Gameplay.Navigation
 {
     internal interface IMoveableAgent
     {

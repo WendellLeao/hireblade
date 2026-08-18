@@ -1,6 +1,8 @@
 using System;
 using UnityEngine;
 using WendellLeao.Pooling;
+using Hireblade.Gameplay.Damage;
+using Hireblade.Gameplay.Particles;
 
 namespace Hireblade.Gameplay.Spells
 {

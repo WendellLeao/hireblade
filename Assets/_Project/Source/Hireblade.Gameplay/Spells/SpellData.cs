@@ -2,7 +2,7 @@ using Hireblade.Utilities;
 using WendellLeao.Pooling;
 using UnityEngine;
 
-namespace Hireblade.Gameplay
+namespace Hireblade.Gameplay.Spells
 {
     [CreateAssetMenu(menuName = PathUtility.SpellsMenuPath + "/SpellData", fileName = "NewSpellData")]
     public sealed class SpellData : ScriptableObject

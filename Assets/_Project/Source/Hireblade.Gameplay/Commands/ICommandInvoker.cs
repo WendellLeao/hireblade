@@ -1,4 +1,7 @@
-﻿namespace Hireblade.Gameplay
+﻿
+using Hireblade.Gameplay.Weapons;
+
+namespace Hireblade.Gameplay.Commands
 {
     internal interface ICommandInvoker
     {

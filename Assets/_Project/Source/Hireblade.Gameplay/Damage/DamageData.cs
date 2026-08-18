@@ -3,7 +3,7 @@ using WendellLeao.Pooling;
 using NaughtyAttributes;
 using UnityEngine;
 
-namespace Hireblade.Gameplay
+namespace Hireblade.Gameplay.Damage
 {
     [CreateAssetMenu(menuName = PathUtility.DamageMenuPath + "/DamageData", fileName = "NewDamageData")]
     public sealed class DamageData : ScriptableObject

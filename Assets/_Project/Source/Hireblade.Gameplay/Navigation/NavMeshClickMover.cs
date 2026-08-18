@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.AI;
 using WendellLeao.Pooling;
+using Hireblade.Gameplay.Cameras;
+using Hireblade.Gameplay.Particles;
 
 namespace Hireblade.Gameplay.Navigation
 {
