@@ -1,4 +1,3 @@
-
 using Hireblade.Gameplay.Particles;
 
 namespace Hireblade.Gameplay.Damage

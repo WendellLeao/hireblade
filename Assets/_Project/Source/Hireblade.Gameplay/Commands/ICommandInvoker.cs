@@ -1,4 +1,3 @@
-
 using Hireblade.Gameplay.Weapons;
 
 namespace Hireblade.Gameplay.Commands
