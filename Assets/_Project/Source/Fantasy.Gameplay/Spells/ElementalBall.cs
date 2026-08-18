@@ -1,48 +1,37 @@
 using System;
-using Leaosoft;
-using Leaosoft.Pooling;
 using UnityEngine;
+using WendellLeao.Pooling;
 
 namespace Fantasy.Gameplay.Spells
 {
-    internal sealed class ElementalBall : Entity, ISpell, IParticleEmitter
+    internal sealed class ElementalBall : MonoBehaviour, ISpell, IParticleEmitter
     {
         public event Action<ISpell> OnHit;
-        
+
+        [Header("Data")]
         [SerializeField]
         private PoolData collisionParticlePoolData;
-        
+
         private IParticleFactory _particleFactory;
+        private ApplyForwardForce _applyForwardForce;
         private IDamager _damager;
 
         public string PoolId { get; set; }
-        
-        protected override void InitializeComponents()
-        {
-            if (TryGetComponent(out ApplyForwardForce applyForwardForce))
-            {
-                applyForwardForce.Initialize();
-            }
-            
-            if (TryGetComponent(out _damager))
-            {
-                _damager.Initialize();
-            }
-        }
 
-        protected override void OnInitialize()
+        public void SetUp()
         {
-            base.OnInitialize();
-            
-            Begin();
+            _applyForwardForce = GetComponent<ApplyForwardForce>();
+            _damager = GetComponent<IDamager>();
+
+            _applyForwardForce.SetUp();
         }
 
         private void OnTriggerEnter(Collider other)
         {
             _damager.TryApplyDamage(other);
-            
+
             _particleFactory.EmitParticle(collisionParticlePoolData, transform.position, Quaternion.identity);
-            
+
             OnHit?.Invoke(this);
         }
 

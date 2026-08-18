@@ -2,6 +2,8 @@
 {
     internal interface ICommandInvoker
     {
-        public void Initialize(IWeaponHolder weaponHolder);
+        public void SetUp(IWeaponHolder weaponHolder);
+        public void Dispose();
+        public void Tick(float deltaTime);
     }
 }

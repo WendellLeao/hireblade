@@ -1,11 +1,11 @@
-﻿using UnityEngine;
 using System;
-using Leaosoft;
+using Fantasy.Core;
+using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace Fantasy.Gameplay.Animations
 {
-    internal sealed class HumanoidAnimatorController : EntityComponent, IHumanoidAnimatorController
+    internal sealed class HumanoidAnimatorController : MonoBehaviour, IHumanoidAnimatorController
     {
         private static readonly int Velocity = Animator.StringToHash("Velocity");
         private static readonly int MovesetType = Animator.StringToHash("MovesetType");
@@ -25,36 +25,25 @@ namespace Fantasy.Gameplay.Animations
         private IMoveableAgent _moveableAgent;
         private float _smoothedSpeed;
 
-        public void Initialize(IHealth health, IDamageable damageable, IWeaponHolder weaponHolder, IMoveableAgent moveableAgent)
+        public void SetUp(IHealth health, IDamageable damageable, IWeaponHolder weaponHolder, IMoveableAgent moveableAgent)
         {
             _health = health;
             _damageable = damageable;
             _weaponHolder = weaponHolder;
             _moveableAgent = moveableAgent;
 
-            base.Initialize();
-        }
-
-        protected override void OnBegin()
-        {
-            base.OnBegin();
-            
             HandleWeaponMovesetType(_weaponHolder.Weapon);
-            
+
             SubscribeEvents();
         }
 
-        protected override void OnStop()
+        public void Dispose()
         {
-            base.OnStop();
-            
             UnsubscribeEvents();
         }
 
-        protected override void OnTick(float deltaTime)
+        public void Tick(float deltaTime)
         {
-            base.OnTick(deltaTime);
-            
             SetVelocity(_moveableAgent.Velocity.magnitude, deltaTime);
         }
 
@@ -63,7 +52,7 @@ namespace Fantasy.Gameplay.Animations
             _health.OnDepleted += HandleHealthDepleted;
 
             _damageable.OnDamageTaken += HandleDamageTaken;
-            
+
             _weaponHolder.OnWeaponChanged += HandleWeaponMovesetType;
             _weaponHolder.OnWeaponExecuted += HandleWeaponExecute;
         }
@@ -73,7 +62,7 @@ namespace Fantasy.Gameplay.Animations
             _health.OnDepleted -= HandleHealthDepleted;
 
             _damageable.OnDamageTaken -= HandleDamageTaken;
-            
+
             _weaponHolder.OnWeaponChanged -= HandleWeaponMovesetType;
             _weaponHolder.OnWeaponExecuted -= HandleWeaponExecute;
         }
@@ -81,23 +70,23 @@ namespace Fantasy.Gameplay.Animations
         private void HandleHealthDepleted()
         {
             int randomDeathType = Random.Range(0, Enum.GetValues(typeof(DeathType)).Length);
-            
+
             animator.SetInteger(id: DeathType, randomDeathType);
             animator.SetTrigger(id: Die);
         }
-        
+
         private void HandleDamageTaken(DamageData damageData)
         {
             animator.SetTrigger(id: TakeDamage);
         }
-        
+
         private void HandleWeaponMovesetType(IWeapon weapon)
         {
             WeaponData weaponData = weapon.Data;
-            
+
             animator.SetInteger(id: MovesetType, (int)weaponData.MovesetType);
         }
-        
+
         private void HandleWeaponExecute()
         {
             animator.SetTrigger(id: ExecuteWeapon);

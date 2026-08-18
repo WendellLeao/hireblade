@@ -43,11 +43,8 @@ namespace Fantasy.Gameplay.Tests
             _mockHealthData.SetMaxHealthForTests(100);
             
             _sut.SetHealthDataForTests(_mockHealthData);
-            
-            _humbleEntity.AddComponentsForTests(_sut, _damageController);
-            
-            _humbleEntity.Initialize();
-            _humbleEntity.Begin();
+
+            _humbleEntity.SetUp();
             
             // Act
             _damageController.TakeDamage(_mockDamageData);

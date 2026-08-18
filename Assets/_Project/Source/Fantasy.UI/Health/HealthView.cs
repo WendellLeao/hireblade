@@ -1,87 +1,71 @@
 using System;
 using DG.Tweening;
-using Leaosoft;
-using Leaosoft.Pooling;
+using Fantasy.Core;
 using UnityEngine;
+using WendellLeao.Pooling;
 
 namespace Fantasy.UI.Health
 {
-    internal sealed class HealthView : Entity, IEntity, IPooledObject
+    internal sealed class HealthView : MonoBehaviour, IPooledObject
     {
         public event Action<HealthView> OnHealthDepleted;
-        
-        [SerializeField]
-        private CanvasGroup canvasGroup;
+
+        [Header("Objects")]
         [SerializeField]
         private Billboard billboard;
+        [SerializeField]
+        private CanvasGroup canvasGroup;
 
         [Header("Canvas Group Fade Settings")]
         [SerializeField]
         private float canvasGroupFadeDuration = 0.5f;
         [SerializeField]
         private float canvasGroupFadeDelay = 2f;
-        
+
         private Camera _mainCamera;
         private IHealth _health;
         private ImageFiller _imageFiller;
 
         public string PoolId { get; set; }
-        
-        public void Initialize(Camera mainCamera, IHealth health)
+
+        public void SetUp(Camera mainCamera, IHealth health)
         {
             _mainCamera = mainCamera;
             _health = health;
 
-            base.Initialize();
-        }
+            _imageFiller = GetComponent<ImageFiller>();
 
-        protected override void InitializeComponents()
-        {
-            if (TryGetComponent(out _imageFiller))
-            {
-                _imageFiller.Initialize(_health.HealthRatio);
-            }
-        }
+            _imageFiller.SetUp(_health.HealthRatio);
 
-        protected override void OnInitialize()
-        {
-            base.OnInitialize();
-            
             _health.OnHealthChanged += HandleHealthChanged;
             _health.OnDepleted += HandleHealthDepleted;
-            
-            Begin();
-        }
-
-        protected override void OnDispose()
-        {
-            base.OnDispose();
-            
-            _health.OnHealthChanged -= HandleHealthChanged;
-            _health.OnDepleted -= HandleHealthDepleted;
-        }
-
-        protected override void OnBegin()
-        {
-            base.OnBegin();
 
             canvasGroup.alpha = 1f;
         }
 
-        protected override void OnLateTick(float deltaTime)
+        public void Dispose()
         {
-            base.OnLateTick(deltaTime);
+            _health.OnHealthChanged -= HandleHealthChanged;
+            _health.OnDepleted -= HandleHealthDepleted;
+        }
 
+        public void Tick(float deltaTime)
+        {
+            _imageFiller.Tick(deltaTime);
+        }
+
+        public void LateTick(float deltaTime)
+        {
             Vector3 worldPosition = transform.position + _mainCamera.transform.forward;
-            
+
             billboard.LookAt(worldPosition);
         }
-        
+
         private void HandleHealthChanged(float healthRatio)
         {
             _imageFiller.UpdateFillAmount(healthRatio);
         }
-        
+
         private void HandleHealthDepleted()
         {
             canvasGroup

@@ -1,8 +1,12 @@
-﻿namespace Fantasy.Gameplay
+﻿using Fantasy.Core;
+
+namespace Fantasy.Gameplay
 {
     internal interface IHumanoidAnimatorController
     {
-        public void Initialize(IHealth health, IDamageable damageable, IWeaponHolder weaponHolder,
+        public void SetUp(IHealth health, IDamageable damageable, IWeaponHolder weaponHolder,
             IMoveableAgent moveableAgent);
+        public void Dispose();
+        public void Tick(float deltaTime);
     }
 }

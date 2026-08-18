@@ -6,10 +6,11 @@ namespace Fantasy.Gameplay
     {
         public event Action<IWeapon> OnWeaponChanged;
         public event Action OnWeaponExecuted;
-        
+
         public IWeapon Weapon { get; }
 
-        public void Initialize(IWeaponFactory weaponFactory);
+        public void SetUp(IWeaponFactory weaponFactory);
+        public void Dispose();
         public void ChangeWeapon(WeaponData weaponData);
         public void ExecuteWeapon();
         public void FinishWeaponExecution();

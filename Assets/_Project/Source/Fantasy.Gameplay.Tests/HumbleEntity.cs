@@ -1,20 +1,25 @@
-﻿using Leaosoft;
+using Fantasy.Core;
+using UnityEngine;
 
 namespace Fantasy.Gameplay.Tests
 {
-    internal sealed class HumbleEntity : Entity
+    internal sealed class HumbleEntity : MonoBehaviour
     {
-        protected override void InitializeComponents()
+        private IHealth _health;
+        private IDamageable _damageable;
+
+        public void SetUp()
         {
-            if (TryGetComponent(out IHealth healthController))
-            {
-                healthController.Initialize();
-            }
-            
-            if (TryGetComponent(out IDamageable damageController))
-            {
-                damageController.Initialize(healthController);
-            }
+            _health = GetComponent<IHealth>();
+            _damageable = GetComponent<IDamageable>();
+
+            _health.SetUp();
+            _damageable.SetUp(_health);
+        }
+
+        public void Dispose()
+        {
+            _damageable.Dispose();
         }
     }
 }

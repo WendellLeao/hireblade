@@ -288,6 +288,82 @@
       },
       "url": "https://packages.unity.com"
     },
+    "com.wendellleao.audioservice": {
+      "version": "https://github.com/WendellLeao/audio-service.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.wendellleao.servicelocator": "https://github.com/WendellLeao/service-locator.git",
+        "com.wendellleao.poolingservice": "https://github.com/WendellLeao/pooling-service.git",
+        "com.cysharp.unitask": "https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask"
+      },
+      "hash": "c1e06cd4852080df4941a19adcae30cf206109e3"
+    },
+    "com.wendellleao.eventservice": {
+      "version": "https://github.com/WendellLeao/event-service.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.wendellleao.servicelocator": "https://github.com/WendellLeao/service-locator.git"
+      },
+      "hash": "91b4d158cb1a09e68a26c7fdff86285c20cc513f"
+    },
+    "com.wendellleao.poolingservice": {
+      "version": "https://github.com/WendellLeao/pooling-service.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.wendellleao.servicelocator": "https://github.com/WendellLeao/service-locator.git"
+      },
+      "hash": "b08d69e420e3a13e217b0c8c1c5ed20192bf3b4b"
+    },
+    "com.wendellleao.saveservice": {
+      "version": "https://github.com/WendellLeao/save-service.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.wendellleao.servicelocator": "https://github.com/WendellLeao/service-locator.git"
+      },
+      "hash": "a5460ec3354b9cb0398247f23f849f9bbb8dbbfa"
+    },
+    "com.wendellleao.scenebootstrap": {
+      "version": "https://github.com/WendellLeao/scene-bootstrap.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "b27e0b0ce0af8250f37dfdbf04ccdf315c205904"
+    },
+    "com.wendellleao.scenesearchwindow": {
+      "version": "https://github.com/WendellLeao/scene-search-window.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "7e9fc4945605d6ecc0c3484a9b73704a0b03a77e"
+    },
+    "com.wendellleao.screenservice": {
+      "version": "https://github.com/WendellLeao/screen-service.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.wendellleao.servicelocator": "https://github.com/WendellLeao/service-locator.git",
+        "com.cysharp.unitask": "https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask"
+      },
+      "hash": "cdd2ee7328b28490b94c2e78b796a6ed63aedd34"
+    },
+    "com.wendellleao.servicelocator": {
+      "version": "https://github.com/WendellLeao/service-locator.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "36de7a975166e603e24fd56c76f35ba7e876c37c"
+    },
+    "com.wendellleao.unitystarterkit": {
+      "version": "https://github.com/WendellLeao/unity-starter-kit.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "cf69f9124346c0a806cfa67b6edb06ac5221a7a5"
+    },
     "com.unity.modules.accessibility": {
       "version": "1.0.0",
       "depth": 0,

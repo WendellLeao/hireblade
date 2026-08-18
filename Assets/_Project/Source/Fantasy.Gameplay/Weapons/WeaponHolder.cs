@@ -1,11 +1,10 @@
 using System;
-using Leaosoft;
 using NaughtyAttributes;
 using UnityEngine;
 
 namespace Fantasy.Gameplay.Weapons
 {
-    internal sealed class WeaponHolder : EntityComponent, IWeaponHolder
+    internal sealed class WeaponHolder : MonoBehaviour, IWeaponHolder
     {
         public event Action<IWeapon> OnWeaponChanged;
         public event Action OnWeaponExecuted;
@@ -14,43 +13,53 @@ namespace Fantasy.Gameplay.Weapons
         private WeaponData data;
         [SerializeField]
         private Transform parent;
-        
+
         private IWeaponFactory _weaponFactory;
         private IWeapon _weapon;
+        private bool _isEnabled;
 
         public IWeapon Weapon => _weapon;
-        
-        public void Initialize(IWeaponFactory weaponFactory)
+
+        public void SetUp(IWeaponFactory weaponFactory)
         {
             _weaponFactory = weaponFactory;
-            
-            base.Initialize();
+
+            _isEnabled = true;
+
+            ChangeWeapon(data);
+        }
+
+        public void Dispose()
+        {
+            _isEnabled = false;
+
+            _weapon?.Dispose();
         }
 
         public void ChangeWeapon(WeaponData weaponData)
         {
-            if (!IsEnabled)
+            if (!_isEnabled)
             {
                 return;
             }
-            
+
             DisposeWeapon();
-            
+
             _weapon = _weaponFactory.CreateWeapon(weaponData, parent);
-            
+
             OnWeaponChanged?.Invoke(_weapon);
         }
 
         [Button]
         public void ExecuteWeapon()
         {
-            if (!IsEnabled)
+            if (!_isEnabled)
             {
                 return;
             }
-                  
+
             _weapon.Execute();
-            
+
             OnWeaponExecuted?.Invoke();
         }
 
@@ -58,30 +67,14 @@ namespace Fantasy.Gameplay.Weapons
         {
             _weapon.FinishExecution();
         }
-        
-        protected override void OnBegin()
-        {
-            base.OnBegin();
 
-            ChangeWeapon(data);
-            
-            _weapon?.Begin();
-        }
-
-        protected override void OnStop()
-        {
-            base.OnStop();
-            
-            _weapon?.Stop();
-        }
-        
         private void DisposeWeapon()
         {
             if (_weapon == null)
             {
                 return;
             }
-            
+
             _weaponFactory.DisposeWeapon(_weapon);
         }
     }

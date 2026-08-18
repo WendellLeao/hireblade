@@ -1,52 +1,73 @@
+using System.Collections.Generic;
+using Fantasy.Core;
 using Fantasy.Events.Health;
-using Leaosoft;
-using Leaosoft.Events;
-using Leaosoft.Pooling;
 using UnityEngine;
+using WendellLeao.Events;
+using WendellLeao.Pooling;
 
 namespace Fantasy.UI.Health.Manager
 {
-    internal sealed class HealthViewManager : EntityManager<HealthView>
+    internal sealed class HealthViewManager : MonoBehaviour
     {
         [SerializeField]
         private PoolData healthViewPoolData;
-        
+
+        private readonly List<HealthView> _healthViews = new();
+
         private Camera _mainCamera;
         private IPoolingService _poolingService;
         private IEventService _eventService;
-        
-        public void Initialize(Camera mainCamera, IPoolingService poolingService, IEventService eventService)
+
+        public void SetUp(Camera mainCamera, IPoolingService poolingService, IEventService eventService)
         {
             _mainCamera = mainCamera;
             _poolingService = poolingService;
             _eventService = eventService;
-            
-            base.Initialize();
-        }
 
-        protected override void OnInitialize()
-        {
-            base.OnInitialize();
-            
             _eventService.AddEventListener<HealthSpawnedEvent>(HandleHealthSpawned);
         }
 
-        protected override void OnDispose()
+        private void Update()
         {
-            base.OnDispose();
-            
-            _eventService.RemoveEventListener<HealthSpawnedEvent>(HandleHealthSpawned);
+            float deltaTime = Time.deltaTime;
+
+            foreach (HealthView healthView in _healthViews)
+            {
+                healthView.Tick(deltaTime);
+            }
         }
 
-        protected override void DisposeEntity(HealthView healthView)
+        private void LateUpdate()
         {
-            base.DisposeEntity(healthView);
-            
+            float deltaTime = Time.deltaTime;
+
+            foreach (HealthView healthView in _healthViews)
+            {
+                healthView.LateTick(deltaTime);
+            }
+        }
+
+        private void OnDestroy()
+        {
+            _eventService.RemoveEventListener<HealthSpawnedEvent>(HandleHealthSpawned);
+
+            for (int i = _healthViews.Count - 1; i >= 0; i--)
+            {
+                DisposeHealthView(_healthViews[i]);
+            }
+        }
+
+        private void DisposeHealthView(HealthView healthView)
+        {
+            healthView.Dispose();
+
             healthView.OnHealthDepleted -= HandleHealthDepleted;
-            
+
+            _healthViews.Remove(healthView);
+
             _poolingService.ReleaseObjectToPool(healthView);
         }
-        
+
         private void HandleHealthSpawned(HealthSpawnedEvent healthSpawnedEvent)
         {
             IHealth health = healthSpawnedEvent.Health;
@@ -55,17 +76,17 @@ namespace Fantasy.UI.Health.Manager
             {
                 return;
             }
-            
-            RegisterEntity(healthView);
+
+            _healthViews.Add(healthView);
 
             healthView.OnHealthDepleted += HandleHealthDepleted;
-            
-            healthView.Initialize(_mainCamera, health);
+
+            healthView.SetUp(_mainCamera, health);
         }
 
         private void HandleHealthDepleted(HealthView healthView)
         {
-            DisposeEntity(healthView);
+            DisposeHealthView(healthView);
         }
     }
 }

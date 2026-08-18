@@ -1,28 +1,26 @@
 using System.Collections.Generic;
 using Fantasy.Commands;
-using Leaosoft;
 using UnityEngine;
 
 namespace Fantasy.Gameplay.Commands
 {
-    internal sealed class CommandInputReader : EntityComponent, ICommandInvoker
+    internal sealed class CommandInputReader : MonoBehaviour, ICommandInvoker
     {
         [SerializeField]
         private CommandCollectionData commandCollectionData;
-        
+
         private readonly Dictionary<CommandType, ICommand> _commands = new();
 
-        public void Initialize(IWeaponHolder weaponHolder)
+        public void SetUp(IWeaponHolder weaponHolder)
         {
             _commands.TryAdd(CommandType.Attack, new AttackCommand(weaponHolder));
-            
-            base.Initialize();
         }
-        
-        protected override void OnTick(float deltaTime)
-        {
-            base.OnTick(deltaTime);
 
+        public void Dispose()
+        { }
+
+        public void Tick(float deltaTime)
+        {
             ReadCommands();
         }
 
@@ -33,7 +31,7 @@ namespace Fantasy.Gameplay.Commands
                 if (HasPressedCommandKey(keyValuePair.Key))
                 {
                     ICommand command = keyValuePair.Value;
-                    
+
                     command.Execute();
                 }
             }
@@ -45,7 +43,7 @@ namespace Fantasy.Gameplay.Commands
             {
                 return false;
             }
-            
+
             return Input.GetKeyDown(data.KeyCode);
         }
     }

@@ -1,18 +1,17 @@
 using DG.Tweening;
-using Leaosoft;
 using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Fantasy.UI
 {
-    internal sealed class ImageFiller : EntityComponent
+    internal sealed class ImageFiller : MonoBehaviour
     {
         [SerializeField]
         private Image firstLayerImage;
         [SerializeField]
         private float animationDuration;
-        
+
         [SerializeField]
         private bool hasSecondLayerImage;
         [ShowIf(condition: "hasSecondLayerImage")]
@@ -27,29 +26,10 @@ namespace Fantasy.UI
         private float _defaultAmount;
         private bool _mustEvaluatingTimer;
 
-        public void Initialize(float defaultAmount)
+        public void SetUp(float defaultAmount)
         {
             _defaultAmount = defaultAmount;
-            
-            base.Initialize();
-        }
-        
-        public void UpdateFillAmount(float amount)
-        {
-            _cachedAmount = amount;
-            
-            firstLayerImage.DOFillAmount(endValue: _cachedAmount, animationDuration);
 
-            if (hasSecondLayerImage)
-            {
-                SetupSecondLayerImageTimer();
-            }
-        }
-
-        protected override void OnInitialize()
-        {
-            base.OnInitialize();
-            
             firstLayerImage.fillAmount = _defaultAmount;
 
             if (hasSecondLayerImage)
@@ -58,10 +38,20 @@ namespace Fantasy.UI
             }
         }
 
-        protected override void OnTick(float deltaTime)
+        public void UpdateFillAmount(float amount)
         {
-            base.OnTick(deltaTime);
-            
+            _cachedAmount = amount;
+
+            firstLayerImage.DOFillAmount(endValue: _cachedAmount, animationDuration);
+
+            if (hasSecondLayerImage)
+            {
+                SetupSecondLayerImageTimer();
+            }
+        }
+
+        public void Tick(float deltaTime)
+        {
             if (!_mustEvaluatingTimer)
             {
                 return;
@@ -69,16 +59,16 @@ namespace Fantasy.UI
 
             EvaluateSecondLayerImageTimer();
         }
-        
+
         private void SetupSecondLayerImageTimer()
         {
             if (_cachedAmount < secondLayerImage.fillAmount)
             {
                 _timer = secondLayerDelay;
-                _mustEvaluatingTimer = true;    
+                _mustEvaluatingTimer = true;
                 return;
             }
-            
+
             UpdateSecondLayerImageFillAmount();
         }
 
@@ -99,7 +89,7 @@ namespace Fantasy.UI
 
             ResetSecondLayerImageTimer();
         }
-        
+
         private void ResetSecondLayerImageTimer()
         {
             _timer = 0f;

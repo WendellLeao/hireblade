@@ -1,51 +1,64 @@
-using Leaosoft;
-using Leaosoft.Pooling;
+using System.Collections.Generic;
 using UnityEngine;
+using WendellLeao.Pooling;
 
 namespace Fantasy.Gameplay.Spells.Manager
 {
-    internal sealed class SpellManager : EntityManager<ISpell>, ISpellFactory
+    internal sealed class SpellManager : MonoBehaviour, ISpellFactory
     {
+        private readonly List<ISpell> _spells = new();
+
         private IPoolingService _poolingService;
         private IParticleFactory _particleFactory;
-        
-        public void Initialize(IPoolingService poolingService, IParticleFactory particleFactory)
+
+        public void SetUp(IPoolingService poolingService, IParticleFactory particleFactory)
         {
             _poolingService = poolingService;
             _particleFactory = particleFactory;
-            
-            base.Initialize();
         }
-        
+
         public ISpell CastSpell(SpellData data, Vector3 position, Vector3 direction)
         {
             if (!_poolingService.TryGetObjectFromPool(data.PoolData.Id, parent: null, out ISpell spell))
             {
                 return null;
             }
-            
-            RegisterEntity(spell);
 
-            spell.Initialize();
+            _spells.Add(spell);
+
+            spell.SetUp();
 
             SetSpellPositionAndRotation(position, direction, spell);
 
-            spell.OnHit += DisposeEntity;
-            
+            spell.OnHit += HandleSpellHit;
+
             if (spell is IParticleEmitter particleEmitter)
             {
                 particleEmitter.SetParticleFactory(_particleFactory);
             }
-            
+
             return spell;
         }
 
-        protected override void DisposeEntity(ISpell spell)
+        private void OnDestroy()
         {
-            base.DisposeEntity(spell);
+            for (int i = _spells.Count - 1; i >= 0; i--)
+            {
+                DisposeSpell(_spells[i]);
+            }
+        }
 
-            spell.OnHit -= DisposeEntity;
-            
+        private void HandleSpellHit(ISpell spell)
+        {
+            DisposeSpell(spell);
+        }
+
+        private void DisposeSpell(ISpell spell)
+        {
+            spell.OnHit -= HandleSpellHit;
+
+            _spells.Remove(spell);
+
             _poolingService.ReleaseObjectToPool(spell);
         }
 

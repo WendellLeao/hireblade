@@ -1,11 +1,12 @@
 using System;
-using Leaosoft;
-using Leaosoft.Pooling;
+using WendellLeao.Pooling;
 
 namespace Fantasy.Gameplay
 {
-    public interface ISpell : IEntity, IPooledObject
+    public interface ISpell : IPooledObject
     {
         public event Action<ISpell> OnHit;
+
+        public void SetUp();
     }
 }

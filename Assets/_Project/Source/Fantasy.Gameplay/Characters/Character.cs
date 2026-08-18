@@ -1,94 +1,111 @@
 using System;
-using Leaosoft;
+using Fantasy.Core;
 using NaughtyAttributes;
+using UnityEngine;
 
 namespace Fantasy.Gameplay.Characters
 {
-    public sealed class Character : Entity, ICharacter
+    public sealed class Character : MonoBehaviour, ICharacter
     {
         public event Action<ICharacter> OnDied;
-        
+
         private IParticleFactory _particleFactory;
         private IWeaponFactory _weaponFactory;
-        private IHealth _health;
-        private IWeaponHolder _weaponHolder;
-        private IMoveableAgent _navMeshClickMover;
         private ICameraProvider _cameraProvider;
+        private IHealth _health;
+        private IDamageable _damageable;
+        private IWeaponHolder _weaponHolder;
+        private IMoveableAgent _moveableAgent;
+        private ICommandInvoker _commandInvoker;
+        private IHumanoidAnimatorController _humanoidAnimatorController;
+        private IDamageableView _damageableView;
+        private bool _isEnabled;
 
         public string PoolId { get; set; }
         public IHealth Health => _health;
 
-        public void Initialize(IParticleFactory particleFactory, IWeaponFactory weaponFactory, ICameraProvider cameraProvider)
+        public void SetUp(IParticleFactory particleFactory, IWeaponFactory weaponFactory, ICameraProvider cameraProvider)
         {
+            if (_isEnabled)
+            {
+                return;
+            }
+
+            _isEnabled = true;
+
             _particleFactory = particleFactory;
             _weaponFactory = weaponFactory;
             _cameraProvider = cameraProvider;
-            
-            base.Initialize();
-        }
 
-        protected override void InitializeComponents()
-        {
-            if (TryGetComponent(out _health))
-            {
-                _health.Initialize();
-            }
-            
-            if (TryGetComponent(out IDamageable damageable))
-            {
-                damageable.Initialize(_health);
-            }
+            CacheComponents();
 
-            if (TryGetComponent(out _weaponHolder))
-            {
-                _weaponHolder.Initialize(_weaponFactory);
-            }
+            SetUpComponents();
 
-            if (TryGetComponent(out _navMeshClickMover))
-            {
-                _navMeshClickMover.Initialize(_cameraProvider, _particleFactory);
-            }
-
-            if (TryGetComponent(out ICommandInvoker commandInvoker))
-            {
-                commandInvoker.Initialize(_weaponHolder);
-            }
-            
-            if (TryGetComponent(out IHumanoidAnimatorController humanoidAnimatorController))
-            {
-                humanoidAnimatorController.Initialize(_health, damageable, _weaponHolder, _navMeshClickMover);
-            }
-            
-            if (TryGetComponent(out IDamageableView damageableView))
-            {
-                damageableView.Initialize(_particleFactory, damageable);
-            }
-        }
-
-        protected override void OnInitialize()
-        {
-            base.OnInitialize();
-            
             _cameraProvider.VirtualCamera.SetTarget(transform);
-            
-            Begin();
+
+            SubscribeEvent();
         }
 
-        protected override void OnBegin()
+        public void Dispose()
         {
-            base.OnBegin();
+            if (!_isEnabled)
+            {
+                return;
+            }
 
+            _isEnabled = false;
+
+            _weaponHolder.Dispose();
+            _damageable.Dispose();
+            _commandInvoker.Dispose();
+            _humanoidAnimatorController.Dispose();
+            _damageableView.Dispose();
+
+            UnsubscribeEvent();
+        }
+
+        public void Tick(float deltaTime)
+        {
+            _damageable.Tick(deltaTime);
+            _moveableAgent.Tick(deltaTime);
+            _commandInvoker.Tick(deltaTime);
+            _humanoidAnimatorController.Tick(deltaTime);
+            _damageableView.Tick(deltaTime);
+        }
+
+        private void CacheComponents()
+        {
+            _health = GetComponent<IHealth>();
+            _damageable = GetComponent<IDamageable>();
+            _weaponHolder = GetComponent<IWeaponHolder>();
+            _moveableAgent = GetComponent<IMoveableAgent>();
+            _commandInvoker = GetComponent<ICommandInvoker>();
+            _humanoidAnimatorController = GetComponent<IHumanoidAnimatorController>();
+            _damageableView = GetComponent<IDamageableView>();
+        }
+
+        private void SetUpComponents()
+        {
+            _health.SetUp();
+            _damageable.SetUp(_health);
+            _weaponHolder.SetUp(_weaponFactory);
+            _moveableAgent.SetUp(_cameraProvider, _particleFactory);
+            _commandInvoker.SetUp(_weaponHolder);
+            _humanoidAnimatorController.SetUp(_health, _damageable, _weaponHolder, _moveableAgent);
+            _damageableView.SetUp(_particleFactory, _damageable);
+        }
+
+        private void SubscribeEvent()
+        {
             _health.OnDepleted += HandleHealthDepleted;
-            
+
             _weaponHolder.OnWeaponExecuted += HandleWeaponExecute;
         }
 
-        protected override void OnStop()
+        private void UnsubscribeEvent()
         {
-            base.OnStop();
-            
             _health.OnDepleted -= HandleHealthDepleted;
-            
+
             _weaponHolder.OnWeaponExecuted -= HandleWeaponExecute;
         }
 
@@ -96,23 +113,23 @@ namespace Fantasy.Gameplay.Characters
         {
             OnDied?.Invoke(this);
         }
-        
+
         private void HandleWeaponExecute()
         {
-            _navMeshClickMover.ResetPath();
+            _moveableAgent.ResetPath();
         }
 
 #if UNITY_EDITOR
-        [Button]
-        public void BeginDebug()
+        [Button("SetUp_Debug")]
+        public void SetUp_Debug()
         {
-            Begin();
+            SetUp(_particleFactory, _weaponFactory, _cameraProvider);
         }
 
-        [Button]
-        public void StopDebug()
+        [Button("Dispose_Debug")]
+        public void Dispose_Debug()
         {
-            Stop();
+            Dispose();
         }
 #endif
     }

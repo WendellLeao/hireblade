@@ -1,33 +1,30 @@
-﻿using Leaosoft;
-using Leaosoft.Pooling;
 using UnityEngine;
 using UnityEngine.AI;
+using WendellLeao.Pooling;
 
 namespace Fantasy.Gameplay.Navigation
 {
-    internal sealed class NavMeshClickMover : EntityComponent, IMoveableAgent
+    internal sealed class NavMeshClickMover : MonoBehaviour, IMoveableAgent
     {
         [SerializeField]
         private NavMeshAgent navMeshAgent;
         [SerializeField]
         private LayerMask walkableLayerMask;
-        
+
         [Header("Particle")]
         [SerializeField]
         private PoolData clickSurfaceParticlePoolData;
-        
+
         private ICameraProvider _cameraProvider;
         private IParticleFactory _particleFactory;
         private RaycastHit _cachedHitInfo;
 
         public Vector3 Velocity => navMeshAgent.velocity;
 
-        public void Initialize(ICameraProvider cameraProvider, IParticleFactory particleFactory)
+        public void SetUp(ICameraProvider cameraProvider, IParticleFactory particleFactory)
         {
             _cameraProvider = cameraProvider;
             _particleFactory = particleFactory;
-            
-            base.Initialize();
         }
 
         public void ResetPath()
@@ -36,10 +33,8 @@ namespace Fantasy.Gameplay.Navigation
             navMeshAgent.velocity = Vector3.zero;
         }
 
-        protected override void OnTick(float deltaTime)
+        public void Tick(float deltaTime)
         {
-            base.OnTick(deltaTime);
-            
             if (Input.GetMouseButtonDown(1))
             {
                 HandleNavMeshAgentDestination();
@@ -53,7 +48,7 @@ namespace Fantasy.Gameplay.Navigation
             if (Physics.Raycast(ray.origin, ray.direction, out _cachedHitInfo, maxDistance: Mathf.Infinity, walkableLayerMask))
             {
                 Vector3 hitInfoPoint = _cachedHitInfo.point;
-                
+
                 SetDestination(hitInfoPoint);
 
                 EmitClickOnSurfaceParticle(hitInfoPoint);
@@ -65,7 +60,7 @@ namespace Fantasy.Gameplay.Navigation
             Vector3 particlePosition = hitInfoPoint + new Vector3(0f, 0.1f, 0f);
 
             GameObject clickSurfaceParticlePrefab = clickSurfaceParticlePoolData.Prefab;
-            
+
             _particleFactory.EmitParticle(clickSurfaceParticlePoolData, particlePosition, clickSurfaceParticlePrefab.transform.rotation);
         }
 

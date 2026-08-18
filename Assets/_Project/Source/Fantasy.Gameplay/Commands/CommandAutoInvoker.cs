@@ -1,44 +1,37 @@
 using System.Collections;
-using Leaosoft;
 using UnityEngine;
 
 namespace Fantasy.Gameplay.Commands
 {
-    internal sealed class CommandAutoInvoker : EntityComponent, ICommandInvoker
+    internal sealed class CommandAutoInvoker : MonoBehaviour, ICommandInvoker
     {
         private AttackCommand _attackCommand;
         private Coroutine _executeAttackCommandRoutine;
 
-        public void Initialize(IWeaponHolder weaponHolder)
+        public void SetUp(IWeaponHolder weaponHolder)
         {
             _attackCommand = new AttackCommand(weaponHolder);
-            
-            base.Initialize();
-        }
 
-        protected override void OnBegin()
-        {
-            base.OnBegin();
-            
             _executeAttackCommandRoutine = StartCoroutine(ExecuteAttackCommandRoutine());
         }
 
-        protected override void OnStop()
+        public void Dispose()
         {
-            base.OnStop();
-            
             if (_executeAttackCommandRoutine != null)
             {
                 StopCoroutine(_executeAttackCommandRoutine);
             }
         }
 
+        public void Tick(float deltaTime)
+        { }
+
         private IEnumerator ExecuteAttackCommandRoutine()
         {
             while (true)
             {
                 yield return new WaitForSeconds(Random.Range(3f, 5f));
-                
+
                 _attackCommand.Execute();
             }
         }

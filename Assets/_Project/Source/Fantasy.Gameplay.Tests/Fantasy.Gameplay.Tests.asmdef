@@ -4,9 +4,9 @@
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
-        "Leaosoft",
         "Fantasy",
-        "Fantasy.Gameplay"
+        "Fantasy.Gameplay",
+        "Fantasy.Core"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

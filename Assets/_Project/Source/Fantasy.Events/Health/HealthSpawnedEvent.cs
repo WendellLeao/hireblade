@@ -1,4 +1,5 @@
-using Leaosoft.Events;
+using Fantasy.Core;
+using WendellLeao.Events;
 
 namespace Fantasy.Events.Health
 {

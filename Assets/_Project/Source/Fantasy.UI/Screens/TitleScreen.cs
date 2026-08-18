@@ -1,8 +1,7 @@
-using Leaosoft.Services;
-using Leaosoft.UI;
-using Leaosoft.UI.Screens;
 using UnityEngine;
 using UnityEngine.UI;
+using WendellLeao.ServiceLocator;
+using WendellLeao.Screens;
 
 namespace Fantasy.UI.Screens
 {
@@ -21,21 +20,21 @@ namespace Fantasy.UI.Screens
         protected override void OnSubscribeEvents()
         {
             base.OnSubscribeEvents();
-            
+
             playButton.onClick.AddListener(HandlePlayButtonClick);
         }
 
         protected override void OnUnsubscribeEvents()
         {
             base.OnUnsubscribeEvents();
-            
+
             playButton.onClick.RemoveListener(HandlePlayButtonClick);
         }
 
         private void HandlePlayButtonClick()
         {
-            IScreenService screenService = ServiceLocator.GetService<IScreenService>();
-            
+            IScreenService screenService = Locator.Get<IScreenService>();
+
             screenService.OpenScreenAsync(playConfirmationScreenData);
         }
     }
