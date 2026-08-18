@@ -1,8 +1,11 @@
 ﻿using System;
 using Hireblade.Core;
 using WendellLeao.Pooling;
+using Hireblade.Gameplay.Cameras;
+using Hireblade.Gameplay.Particles;
+using Hireblade.Gameplay.Weapons;
 
-namespace Hireblade.Gameplay
+namespace Hireblade.Gameplay.Characters
 {
     public interface ICharacter : IPooledObject
     {

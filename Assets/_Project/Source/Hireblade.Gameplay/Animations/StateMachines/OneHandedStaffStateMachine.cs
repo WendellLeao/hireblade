@@ -1,6 +1,7 @@
 ﻿using System;
 using NaughtyAttributes;
 using UnityEngine;
+using Hireblade.Gameplay.Weapons;
 
 namespace Hireblade.Gameplay.Animations.StateMachines
 {

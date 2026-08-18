@@ -1,6 +1,9 @@
 using System;
 using Hireblade.Core;
 using UnityEngine;
+using Hireblade.Gameplay.Damage;
+using Hireblade.Gameplay.Navigation;
+using Hireblade.Gameplay.Weapons;
 using Random = UnityEngine.Random;
 
 namespace Hireblade.Gameplay.Animations

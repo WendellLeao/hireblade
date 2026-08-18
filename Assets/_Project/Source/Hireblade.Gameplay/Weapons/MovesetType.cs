@@ -1,4 +1,4 @@
-﻿namespace Hireblade.Gameplay
+﻿namespace Hireblade.Gameplay.Weapons
 {
     public enum MovesetType
     {

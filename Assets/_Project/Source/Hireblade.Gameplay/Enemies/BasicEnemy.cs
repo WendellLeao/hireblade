@@ -3,6 +3,12 @@ using Hireblade.Core;
 using NaughtyAttributes;
 using UnityEngine;
 using WendellLeao.Pooling;
+using Hireblade.Gameplay.Animations;
+using Hireblade.Gameplay.Commands;
+using Hireblade.Gameplay.Damage;
+using Hireblade.Gameplay.Navigation;
+using Hireblade.Gameplay.Particles;
+using Hireblade.Gameplay.Weapons;
 
 namespace Hireblade.Gameplay.Enemies
 {

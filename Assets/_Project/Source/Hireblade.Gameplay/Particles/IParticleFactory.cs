@@ -1,7 +1,7 @@
 using WendellLeao.Pooling;
 using UnityEngine;
 
-namespace Hireblade.Gameplay
+namespace Hireblade.Gameplay.Particles
 {
     public interface IParticleFactory
     {

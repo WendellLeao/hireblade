@@ -2,6 +2,10 @@
 using Hireblade.Events.Health;
 using WendellLeao.Events;
 using WendellLeao.Pooling;
+using Hireblade.Gameplay.Shared;
+using Hireblade.Gameplay.Cameras;
+using Hireblade.Gameplay.Particles;
+using Hireblade.Gameplay.Weapons;
 
 namespace Hireblade.Gameplay.Characters
 {

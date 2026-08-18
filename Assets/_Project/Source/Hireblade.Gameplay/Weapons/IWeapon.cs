@@ -1,6 +1,6 @@
 using WendellLeao.Pooling;
 
-namespace Hireblade.Gameplay
+namespace Hireblade.Gameplay.Weapons
 {
     public interface IWeapon : IPooledObject
     {

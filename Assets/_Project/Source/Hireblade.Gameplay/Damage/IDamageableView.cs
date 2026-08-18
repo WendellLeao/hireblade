@@ -1,4 +1,7 @@
-﻿namespace Hireblade.Gameplay
+﻿
+using Hireblade.Gameplay.Particles;
+
+namespace Hireblade.Gameplay.Damage
 {
     internal interface IDamageableView
     {

@@ -1,9 +1,9 @@
 ﻿#if UNITY_EDITOR || DEBUG
-using Hireblade.Gameplay;
 using Hireblade.Gameplay.Cameras.Manager;
 using Hireblade.Gameplay.Particles.Manager;
 using Hireblade.Gameplay.Weapons.Manager;
 using UnityEngine;
+using Hireblade.Gameplay.Characters;
 
 namespace Hireblade.Debugging
 {

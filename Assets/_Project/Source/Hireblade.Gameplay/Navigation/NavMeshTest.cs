@@ -1,4 +1,6 @@
 using UnityEngine;
+using Hireblade.Gameplay.Cameras;
+using Hireblade.Gameplay.Particles;
 
 namespace Hireblade.Gameplay.Navigation
 {

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Hireblade.Commands;
 using UnityEngine;
+using Hireblade.Gameplay.Weapons;
 
 namespace Hireblade.Gameplay.Commands
 {

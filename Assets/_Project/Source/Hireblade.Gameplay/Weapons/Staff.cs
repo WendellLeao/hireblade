@@ -1,4 +1,5 @@
 using UnityEngine;
+using Hireblade.Gameplay.Spells;
 using Random = UnityEngine.Random;
 
 namespace Hireblade.Gameplay.Weapons

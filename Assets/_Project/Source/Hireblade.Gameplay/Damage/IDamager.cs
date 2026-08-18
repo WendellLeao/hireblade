@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Hireblade.Gameplay
+namespace Hireblade.Gameplay.Damage
 {
     internal interface IDamager
     {

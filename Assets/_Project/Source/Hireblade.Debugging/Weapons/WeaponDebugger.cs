@@ -1,7 +1,7 @@
 ﻿#if UNITY_EDITOR || DEBUG
-using Hireblade.Gameplay;
 using Hireblade.Gameplay.Characters;
 using UnityEngine;
+using Hireblade.Gameplay.Weapons;
 
 namespace Hireblade.Debugging.Weapons
 {

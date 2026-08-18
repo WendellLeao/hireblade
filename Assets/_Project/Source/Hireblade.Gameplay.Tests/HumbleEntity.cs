@@ -1,5 +1,6 @@
 using Hireblade.Core;
 using UnityEngine;
+using Hireblade.Gameplay.Damage;
 
 namespace Hireblade.Gameplay.Tests
 {

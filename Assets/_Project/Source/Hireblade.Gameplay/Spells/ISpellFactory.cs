@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Hireblade.Gameplay
+namespace Hireblade.Gameplay.Spells
 {
     public interface ISpellFactory
     {

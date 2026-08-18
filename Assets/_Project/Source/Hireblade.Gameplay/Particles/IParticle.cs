@@ -1,7 +1,7 @@
 using System;
 using WendellLeao.Pooling;
 
-namespace Hireblade.Gameplay
+namespace Hireblade.Gameplay.Particles
 {
     public interface IParticle : IPooledObject
     {

@@ -1,8 +1,8 @@
 ﻿#if UNITY_EDITOR || DEBUG
-using Hireblade.Gameplay;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Hireblade.Gameplay.Weapons;
 
 namespace Hireblade.Debugging.Weapons
 {

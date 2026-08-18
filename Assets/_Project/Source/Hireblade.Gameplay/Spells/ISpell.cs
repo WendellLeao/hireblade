@@ -1,7 +1,7 @@
 using System;
 using WendellLeao.Pooling;
 
-namespace Hireblade.Gameplay
+namespace Hireblade.Gameplay.Spells
 {
     public interface ISpell : IPooledObject
     {
