@@ -16,7 +16,7 @@ namespace Hireblade.Debugging
             ParticleManager particleManager = FindAnyObjectByType<ParticleManager>();
             WeaponManager weaponManager = FindAnyObjectByType<WeaponManager>();
             
-            basicEnemy.SetUp(particleManager, weaponManager);
+            basicEnemy.SetUp(particleManager.Factory, weaponManager.Factory);
         }
     }
 }

@@ -36,10 +36,10 @@ namespace Hireblade.Gameplay.System
 
             cursorManager.SetUp();
             particleManager.SetUp(poolingService);
-            spellManager.SetUp(poolingService, particleManager);
-            weaponManager.SetUp(poolingService, particleManager, spellManager);
-            characterManager.SetUp(poolingService, eventService, particleManager, weaponManager, cameraManager);
-            enemyManager.SetUp(poolingService, eventService, particleManager, weaponManager);
+            spellManager.SetUp(poolingService, particleManager.Factory);
+            weaponManager.SetUp(poolingService, particleManager.Factory, spellManager.Factory);
+            characterManager.SetUp(poolingService, eventService, particleManager.Factory, weaponManager.Factory, cameraManager);
+            enemyManager.SetUp(poolingService, eventService, particleManager.Factory, weaponManager.Factory);
         }
     }
 }

@@ -17,7 +17,7 @@ namespace Hireblade.Debugging
 
             if (TryGetComponent(out ICharacter character))
             {
-                character.SetUp(particleManager, weaponManager, cameraManager);
+                character.SetUp(particleManager.Factory, weaponManager.Factory, cameraManager);
             }
         }
     }

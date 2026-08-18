@@ -36,44 +36,53 @@ package Leaosoft {
             
             package Particles {
                 package Manager {
-                    ParticleManager ..|> IParticleFactory
+                    Class ParticleManager
                 }
-                
+
+                ParticleFactory ..|> IParticleFactory
+
                 SimpleParticle ..|> IParticle
-                
-                ParticleManager --> SimpleParticle
+
+                ParticleManager --> ParticleFactory
+                ParticleFactory --> SimpleParticle
             }
-            
+
             package Spells {
                 package Manager {
-                    SpellManager ..|> ISpellFactory
+                    Class SpellManager
                 }
-            
+
+                SpellFactory ..|> ISpellFactory
+
                 ElementalBall ..|> ISpell
                 Heal ..|> ISpell
-                
+
                 Heal --> IDamageable
-                
+
                 ElementalBall --> IParticleFactory
-                
+
                 ElementalBall *-- Damager
-                
-                SpellManager --> ElementalBall
-                SpellManager --> Heal
+
+                SpellManager --> SpellFactory
+                SpellFactory --> ElementalBall
+                SpellFactory --> Heal
             }
-            
+
             package Weapons {
                 package Manager {
                     Class WeaponManager
                 }
-                
+
+                WeaponFactory ..|> IWeaponFactory
+
                 Staff --> ISpellFactory
                 Sword --> IParticleFactory
-                
+
                 Sword *-- Damager
-                
-                WeaponManager --> Staff
-                WeaponManager --> Sword
+
+                WeaponManager --> WeaponFactory
+                WeaponFactory --> Staff
+                WeaponFactory --> Sword
             }
             
             package Characters {
