@@ -9,6 +9,7 @@
     "EnableHierarchyRows": true,
     "EnableHierarchyLines": false,
     "EnableHierarchyButtons": true,
+    "EnableHeaderUtilities": false,
     "EnableMajorShortcuts": true,
     "DisableHierarchyDesignerDuringPlayMode": true,
     "ExcludeFolderProperties": true,
