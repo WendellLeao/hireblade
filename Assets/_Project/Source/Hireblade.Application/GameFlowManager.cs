@@ -12,10 +12,10 @@ namespace Hireblade.Application
 {
     internal sealed class GameFlowManager : MonoBehaviour, IGameFlowService
     {
-        private const string TitleScreenScenePath = "Assets/_Project/Scenes/UI/TitleScreen.unity";
+        private const string MainMenuScenePath = "Assets/_Project/Scenes/UI/MainMenu.unity";
         private const string GameplayScenePath = "Assets/_Project/Scenes/Gameplay/Gameplay.unity";
 
-        private readonly TitleScreenFlowManager _titleScreenFlowManager = new();
+        private readonly MainMenuFlowManager _mainMenuFlowManager = new();
         private readonly GameplayFlowManager _gameplayFlowManager = new();
 
         private GameFlowState _currentState;
@@ -23,12 +23,12 @@ namespace Hireblade.Application
 
         public void Initialize()
         {
-            EnterTitleScreen();
+            EnterMainMenu();
         }
 
-        public void EnterTitleScreen()
+        public void EnterMainMenu()
         {
-            TransitionToAsync(GameFlowState.TitleScreen, TitleScreenScenePath).Forget();
+            TransitionToAsync(GameFlowState.MainMenu, MainMenuScenePath).Forget();
         }
 
         public void EnterGameplay()
@@ -67,7 +67,7 @@ namespace Hireblade.Application
         {
             return state switch
             {
-                GameFlowState.TitleScreen => _titleScreenFlowManager,
+                GameFlowState.MainMenu => _mainMenuFlowManager,
                 GameFlowState.Gameplay => _gameplayFlowManager,
                 _ => throw new ArgumentOutOfRangeException(nameof(state), state, message: null)
             };

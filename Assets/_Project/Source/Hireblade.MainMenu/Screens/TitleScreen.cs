@@ -1,13 +1,14 @@
-using Hireblade.Core;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
-using WendellLeao.ServiceLocator;
 using WendellLeao.Screens;
 
-namespace Hireblade.UI.Screens
+namespace Hireblade.MainMenu.Screens
 {
     internal sealed class TitleScreen : UIScreen
     {
+        public event Action OnPlayRequested;
+
         [Header("Objects")]
         [SerializeField]
         private Button playButton;
@@ -30,9 +31,7 @@ namespace Hireblade.UI.Screens
 
         private void HandlePlayButtonClick()
         {
-            IGameFlowService gameFlowService = Locator.Get<IGameFlowService>();
-
-            gameFlowService.EnterGameplay();
+            OnPlayRequested?.Invoke();
         }
     }
 }

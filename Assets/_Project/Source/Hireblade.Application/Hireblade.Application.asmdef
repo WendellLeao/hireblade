@@ -7,8 +7,8 @@
         "GUID:d5ff05603486df9448377f01bd51305f",
         "GUID:f51ebe6a0ceec4240a699833d6309b23",
         "Hireblade.Gameplay.UI",
-        "WendellLeao.ServiceLocator",
-        "WendellLeao.Screens"
+        "Hireblade.MainMenu",
+        "WendellLeao.ServiceLocator"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

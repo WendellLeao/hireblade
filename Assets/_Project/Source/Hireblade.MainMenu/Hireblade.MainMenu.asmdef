@@ -1,6 +1,6 @@
 {
-    "name": "Hireblade.UI",
-    "rootNamespace": "Hireblade.UI",
+    "name": "Hireblade.MainMenu",
+    "rootNamespace": "Hireblade.MainMenu",
     "references": [
         "GUID:ca76530d50b497f4eb3b5bf028c1daa4",
         "WendellLeao.ServiceLocator",
