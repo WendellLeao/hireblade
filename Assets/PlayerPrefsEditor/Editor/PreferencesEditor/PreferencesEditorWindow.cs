@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿// Copyright 2025 Cyber Chaos Games. All Rights Reserved.
+
+using UnityEngine;
 using UnityEditor;
 using UnityEditor.IMGUI.Controls;
 using UnityEditorInternal;
@@ -6,21 +8,21 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Collections.Generic;
-using BgTools.Utils;
-using BgTools.Dialogs;
+using CCG.Utils;
+using CCG.Dialogs;
 
 #if (UNITY_EDITOR_LINUX || UNITY_EDITOR_OSX)
 using System.Text;
 using System.Globalization;
 #endif
 
-namespace BgTools.PlayerPrefsEditor
+namespace CCG.PlayerPrefsEditor
 {
     public class PreferencesEditorWindow : EditorWindow
     {
 #region ErrorValues
         private readonly int ERROR_VALUE_INT = int.MinValue;
-        private readonly string ERROR_VALUE_STR = "<bgTool_error_24072017>";
+        private readonly string ERROR_VALUE_STR = "<ccgTools_error_24072017>";
         #endregion //ErrorValues
 
         private enum PreferencesEntrySortOrder
@@ -72,7 +74,7 @@ namespace BgTools.PlayerPrefsEditor
 #elif UNITY_EDITOR_OSX
         private readonly char[] invalidFilenameChars = { '$', '%', '&', '\\', '/', ':', '<', '>', '|', '~' };
 #endif
-        [MenuItem("Tools/BG Tools/PlayerPrefs Editor", false, 1)]
+        [MenuItem("Tools/CCG-Tools/PlayerPrefs Editor", false, 1)]
         static void ShowWindow()
         {
             PreferencesEditorWindow window = EditorWindow.GetWindow<PreferencesEditorWindow>(false, "Prefs Editor");
@@ -101,11 +103,11 @@ namespace BgTools.PlayerPrefsEditor
 #endif
             entryAccessor.PrefEntryChangedDelegate = () => { updateView = true; };
 
-            monitoring = EditorPrefs.GetBool("BGTools.PlayerPrefsEditor.WatchingForChanges", true);
+            monitoring = EditorPrefs.GetBool("CCG.PlayerPrefsEditor.WatchingForChanges", true);
             if(monitoring)
                 entryAccessor.StartMonitoring();
 
-            sortOrder = (PreferencesEntrySortOrder) EditorPrefs.GetInt("BGTools.PlayerPrefsEditor.SortOrder", 0);
+            sortOrder = (PreferencesEntrySortOrder) EditorPrefs.GetInt("CCG.PlayerPrefsEditor.SortOrder", 0);
             searchfield = new MySearchField();
             searchfield.DropdownSelectionDelegate = () => { PrepareData(); };
 
@@ -164,7 +166,7 @@ namespace BgTools.PlayerPrefsEditor
             userDefList = new ReorderableList(serializedObject, serializedObject.FindProperty("userDefList"), false, true, true, true);
             unityDefList = new ReorderableList(serializedObject, serializedObject.FindProperty("unityDefList"), false, true, false, false);
 
-            relSpliterPos = EditorPrefs.GetFloat("BGTools.PlayerPrefsEditor.RelativeSpliterPosition", 100 / position.width);
+            relSpliterPos = EditorPrefs.GetFloat("CCG.PlayerPrefsEditor.RelativeSpliterPosition", 100 / position.width);
 
             userDefList.drawHeaderCallback = (Rect rect) =>
             {
@@ -372,7 +374,7 @@ namespace BgTools.PlayerPrefsEditor
             if (Event.current.type == EventType.MouseUp)
             {
                 moveSplitterPos = false;
-                EditorPrefs.SetFloat("BGTools.PlayerPrefsEditor.RelativeSpliterPosition", relSpliterPos);
+                EditorPrefs.SetFloat("CCG.PlayerPrefsEditor.RelativeSpliterPosition", relSpliterPos);
             }
         }
 
@@ -430,7 +432,7 @@ namespace BgTools.PlayerPrefsEditor
                     {
                         sortOrder = 0;
                     }
-                    EditorPrefs.SetInt("BGTools.PlayerPrefsEditor.SortOrder", (int) sortOrder);
+                    EditorPrefs.SetInt("CCG.PlayerPrefsEditor.SortOrder", (int) sortOrder);
                     PrepareData(false);
                 }
 
@@ -439,7 +441,7 @@ namespace BgTools.PlayerPrefsEditor
                 {
                     monitoring = !monitoring;
 
-                    EditorPrefs.SetBool("BGTools.PlayerPrefsEditor.WatchingForChanges", monitoring);
+                    EditorPrefs.SetBool("CCG.PlayerPrefsEditor.WatchingForChanges", monitoring);
 
                     if (monitoring)
                         entryAccessor.StartMonitoring();
@@ -595,7 +597,10 @@ namespace BgTools.PlayerPrefsEditor
 
             // Seperate keys int unity defined and user defined
             Dictionary<bool, List<string>> groups = keys
-                .GroupBy( (key) => key.StartsWith("unity.") || key.StartsWith("UnityGraphicsQuality") )
+                .GroupBy( (key) => key.StartsWith("unity.") || key.StartsWith("unity_") ||
+                                   key.StartsWith("AddressablesRuntimeDataPath") || key.StartsWith("AddressablesRuntimeBuildLog") ||
+                                   key.StartsWith("UnityGraphicsQuality") ||
+                                   key.StartsWith("unity_connect.") )
                 .ToDictionary( (g) => g.Key, (g) => g.ToList() );
 
             unityDef = (groups.ContainsKey(true)) ? groups[true].ToArray() : new string[0];
@@ -698,3 +703,4 @@ public class MySearchField : SearchField
     public new string OnToolbarGUI(string text, params GUILayoutOption[] options) => this.OnToolbarGUI(GUILayoutUtility.GetRect(29f, 200f, 18f, 18f, EditorStyles.toolbarSearchField, options), text);
     public new string OnToolbarGUI(Rect rect, string text) => this.OnGUI(rect, text, EditorStyles.toolbarSearchField, EditorStyles.toolbarButton, EditorStyles.toolbarButton);
 }
+
