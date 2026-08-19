@@ -6,6 +6,7 @@
         "GUID:f08435d87fbdfb94b9825740ff07be80",
         "GUID:d5ff05603486df9448377f01bd51305f",
         "GUID:f51ebe6a0ceec4240a699833d6309b23",
+        "Hireblade.Cursor",
         "Hireblade.Gameplay.UI",
         "Hireblade.MainMenu",
         "WendellLeao.ServiceLocator"

@@ -1,6 +1,5 @@
 using Cysharp.Threading.Tasks;
 using Hireblade.Gameplay.Cameras.Manager;
-using Hireblade.Gameplay.Cursor.Manager;
 using Hireblade.Gameplay.Enemies.Manager;
 using Hireblade.Gameplay.Particles.Manager;
 using Hireblade.Gameplay.Spells.Manager;
@@ -15,8 +14,6 @@ namespace Hireblade.Gameplay.System
 {
     public sealed class GameplaySystem : MonoBehaviour
     {
-        [SerializeField]
-        private CursorManager cursorManager;
         [SerializeField]
         private CameraManager cameraManager;
         [SerializeField]
@@ -37,7 +34,6 @@ namespace Hireblade.Gameplay.System
             IPoolingService poolingService = Locator.Get<IPoolingService>();
             IEventService eventService = Locator.Get<IEventService>();
 
-            cursorManager.Initialize();
             particleManager.Initialize(poolingService);
             spellManager.Initialize(poolingService, particleManager.Factory);
             weaponManager.Initialize(poolingService, particleManager.Factory, spellManager.Factory);
