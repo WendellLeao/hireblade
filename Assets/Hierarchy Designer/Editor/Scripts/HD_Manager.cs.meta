@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 7b0c8af7e5d307743b889fd310a9420c
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 273928
+  packageName: Hierarchy Designer
+  packageVersion: 3.2.2
+  assetPath: Assets/Hierarchy Designer/Editor/Scripts/HD_Manager.cs
+  uploadId: 936790
