@@ -1,7 +1,5 @@
 fileFormatVersion: 2
-guid: 02b2fea24f2e74d40b0ea966449271f6
-timeCreated: 1508987359
-licenseType: Store
+guid: 561de8964cb564b89a590544867282d3
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
@@ -16,5 +14,5 @@ AssetOrigin:
   productId: 69534
   packageName: Fullscreen Editor
   packageVersion: 2.2.11
-  assetPath: Packages/com.mibdev.fullscreen-editor/Editor/Fullscreen.cs
+  assetPath: Packages/com.mibdev.fullscreen-editor/Editor/MacOS/Cocoa.cs
   uploadId: 955668

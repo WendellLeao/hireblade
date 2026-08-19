@@ -44,9 +44,9 @@ namespace FullscreenEditor {
         private const string FORUM_THREAD = "https://forum.unity.com/threads/released-fullscreen-editor.661519/";
 
         /// <summary>Current version of the Fullscreen Editor plugin.</summary>
-        public static readonly Version pluginVersion = new Version(2, 2, 9);
+        public static readonly Version pluginVersion = new Version(2, 2, 10);
         /// <summary>Release date of this version.</summary>
-        public static readonly DateTime pluginDate = new DateTime(2025, 05, 13);
+        public static readonly DateTime pluginDate = new DateTime(2025, 10, 11);
 
         private static readonly GUIContent resetSettingsContent = new GUIContent("Use Defaults", "Reset all settings to default ones");
         private static readonly GUIContent versionContent = new GUIContent(string.Format("Version: {0} ({1:d})", pluginVersion, pluginDate));
