@@ -11,11 +11,11 @@ namespace Hireblade.Application
         public async UniTask EnterAsync(Scene scene)
         {
             GameplaySystem gameplaySystem = SceneQuery.FindInScene<GameplaySystem>(scene);
-            GameplayUISystem gameplayUISystem = SceneQuery.FindInScene<GameplayUISystem>(scene);
+            UISystem uiSystem = SceneQuery.FindInScene<UISystem>(scene);
 
             await gameplaySystem.InitializeAsync();
 
-            gameplayUISystem.Initialize();
+            uiSystem.Initialize();
         }
     }
 }

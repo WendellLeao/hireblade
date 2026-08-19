@@ -6,7 +6,7 @@ using WendellLeao.ServiceLocator;
 
 namespace Hireblade.Gameplay.UI.System
 {
-    public sealed class GameplayUISystem : MonoBehaviour
+    public sealed class UISystem : MonoBehaviour
     {
         [SerializeField]
         private HealthViewManager healthViewsManager;
