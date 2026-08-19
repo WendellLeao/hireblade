@@ -1,7 +1,7 @@
 using Hireblade.Core.Health;
 using WendellLeao.Events;
 
-namespace Hireblade.Events.Health
+namespace Hireblade.Gameplay.Events.Health
 {
     public sealed class HealthSpawnedEvent : GameEvent
     {

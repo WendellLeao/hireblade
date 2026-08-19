@@ -1,5 +1,5 @@
 using System;
-using Hireblade.Events.Health;
+using Hireblade.Gameplay.Events.Health;
 using WendellLeao.Events;
 using WendellLeao.Pooling;
 using Hireblade.Gameplay.Shared;
