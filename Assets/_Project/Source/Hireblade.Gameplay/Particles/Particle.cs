@@ -45,7 +45,7 @@ namespace Hireblade.Gameplay.Particles
 
             particle.Stop(withChildren: true, ParticleSystemStopBehavior.StopEmittingAndClear);
 
-            ShutdownCancellationTokenSource();
+            DisposeCancellationTokenSource();
         }
 
         private async UniTask WaitForParticleToCompleteAsync(CancellationToken token)
@@ -63,7 +63,7 @@ namespace Hireblade.Gameplay.Particles
             OnCompleted?.Invoke(this);
         }
 
-        private void ShutdownCancellationTokenSource()
+        private void DisposeCancellationTokenSource()
         {
             _waitForParticleCts?.Cancel();
             _waitForParticleCts?.Dispose();

@@ -32,7 +32,7 @@ namespace Hireblade.Gameplay.Shared
 
         public void Shutdown()
         {
-            ShutdownCancellationTokenSource();
+            DisposeCancellationTokenSource();
         }
 
         public void RespawnEntity(TEntity entity)
@@ -91,7 +91,7 @@ namespace Hireblade.Gameplay.Shared
             _poolingService.ReleaseObjectToPool(pooledObject);
         }
         
-        private void ShutdownCancellationTokenSource()
+        private void DisposeCancellationTokenSource()
         {
             _releaseEntityCts?.Cancel();
             _releaseEntityCts?.Dispose();
