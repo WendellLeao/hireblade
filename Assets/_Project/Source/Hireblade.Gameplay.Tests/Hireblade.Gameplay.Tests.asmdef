@@ -4,7 +4,6 @@
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
-        "Hireblade",
         "Hireblade.Gameplay",
         "Hireblade.Core"
     ],
