@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 74f4af82f42410444a676229ae5dd6f7
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 273928
+  packageName: Hierarchy Designer
+  packageVersion: 3.2.2
+  assetPath: Assets/Hierarchy Designer/Editor/Scripts/HD_Menu.cs
+  uploadId: 936790

@@ -13,6 +13,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 69534
   packageName: Fullscreen Editor
-  packageVersion: 2.2.9
+  packageVersion: 2.2.11
   assetPath: Packages/com.mibdev.fullscreen-editor/Editor/GlobalToolbarHiding.cs
-  uploadId: 756553
+  uploadId: 955668
