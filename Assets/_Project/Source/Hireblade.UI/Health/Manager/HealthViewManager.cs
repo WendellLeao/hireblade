@@ -27,20 +27,16 @@ namespace Hireblade.UI.Health.Manager
             _eventService.AddEventListener<HealthSpawnedEvent>(HandleHealthSpawned);
         }
 
-        private void Update()
+        public void Tick(float deltaTime)
         {
-            float deltaTime = Time.deltaTime;
-
             foreach (HealthView healthView in _healthViews)
             {
                 healthView.Tick(deltaTime);
             }
         }
 
-        private void LateUpdate()
+        public void LateTick(float deltaTime)
         {
-            float deltaTime = Time.deltaTime;
-
             foreach (HealthView healthView in _healthViews)
             {
                 healthView.LateTick(deltaTime);

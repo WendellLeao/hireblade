@@ -35,10 +35,8 @@ namespace Hireblade.Gameplay.Characters.Manager
             characterSpawner.Initialize(_poolingService, _eventService, _particleFactory, _weaponFactory, _cameraProvider);
         }
 
-        private void Update()
+        public void Tick(float deltaTime)
         {
-            float deltaTime = Time.deltaTime;
-
             foreach (ICharacter character in _characters)
             {
                 character.Tick(deltaTime);

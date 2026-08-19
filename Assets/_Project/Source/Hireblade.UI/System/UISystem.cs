@@ -19,5 +19,15 @@ namespace Hireblade.UI.System
             // TODO: camera service
             healthViewsManager.Initialize(Camera.main, poolingService, eventService);
         }
+
+        private void Update()
+        {
+            healthViewsManager.Tick(Time.deltaTime);
+        }
+
+        private void LateUpdate()
+        {
+            healthViewsManager.LateTick(Time.deltaTime);
+        }
     }
 }

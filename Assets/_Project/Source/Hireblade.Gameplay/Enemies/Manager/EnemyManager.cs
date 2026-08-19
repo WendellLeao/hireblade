@@ -32,10 +32,8 @@ namespace Hireblade.Gameplay.Enemies.Manager
             enemySpawner.Initialize(_poolingService, _eventService, _particleFactory, _weaponFactory);
         }
 
-        private void Update()
+        public void Tick(float deltaTime)
         {
-            float deltaTime = Time.deltaTime;
-
             foreach (IEnemy enemy in _enemies)
             {
                 enemy.Tick(deltaTime);

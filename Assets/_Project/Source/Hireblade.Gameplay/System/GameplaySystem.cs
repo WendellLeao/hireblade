@@ -41,5 +41,13 @@ namespace Hireblade.Gameplay.System
             characterManager.Initialize(poolingService, eventService, particleManager.Factory, weaponManager.Factory, cameraManager);
             enemyManager.Initialize(poolingService, eventService, particleManager.Factory, weaponManager.Factory);
         }
+
+        private void Update()
+        {
+            float deltaTime = Time.deltaTime;
+
+            characterManager.Tick(deltaTime);
+            enemyManager.Tick(deltaTime);
+        }
     }
 }
