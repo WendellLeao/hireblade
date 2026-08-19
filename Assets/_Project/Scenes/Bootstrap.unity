@@ -119,6 +119,51 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &129465397
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 129465399}
+  - component: {fileID: 129465398}
+  m_Layer: 0
+  m_Name: AppRoot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &129465398
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 129465397}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30eb03db6941a1943b181b32acbc9353, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Hireblade.Application::Hireblade.Application.AppRoot
+  gameFlowManager: {fileID: 889311831}
+--- !u!4 &129465399
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 129465397}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &148551929
 GameObject:
   m_ObjectHideFlags: 0
@@ -128,7 +173,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 148551931}
-  - component: {fileID: 148551930}
   m_Layer: 0
   m_Name: GameServices
   m_TagString: Untagged
@@ -136,18 +180,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &148551930
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 148551929}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6d9cc83fe5657ba449d95cdc0caf9fba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: WendellLeao.StarterKit::WendellLeao.StarterKit.PersistentObject
 --- !u!4 &148551931
 Transform:
   m_ObjectHideFlags: 0
@@ -164,6 +196,7 @@ Transform:
   - {fileID: 1579335475}
   - {fileID: 164630601}
   - {fileID: 641924111}
+  - {fileID: 894391611}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &164630600
@@ -255,7 +288,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: WendellLeao.Pooling::WendellLeao.Pooling.PoolingService
   poolDataCollection: {fileID: 11400000, guid: ae9232c0555cd294c9e09a74b5d6d4d0, type: 2}
---- !u!1 &933594656
+--- !u!1 &889311830
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -263,34 +296,34 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 933594658}
-  - component: {fileID: 933594657}
+  - component: {fileID: 889311832}
+  - component: {fileID: 889311831}
   m_Layer: 0
-  m_Name: GameBootstrapper
+  m_Name: GameFlowManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &933594657
+--- !u!114 &889311831
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 933594656}
+  m_GameObject: {fileID: 889311830}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 22f9acf351c141e44a546880d3ea9a25, type: 3}
+  m_Script: {fileID: 11500000, guid: 0eb81eb227b1bdc42bb30e76f0fb4065, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: WendellLeao.SceneBootstrap::WendellLeao.SceneBootstrap.GameBootstrapper
---- !u!4 &933594658
+  m_EditorClassIdentifier: Hireblade.Application::Hireblade.Application.GameFlowManager
+--- !u!4 &889311832
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 933594656}
+  m_GameObject: {fileID: 889311830}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -299,6 +332,50 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &894391610
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 894391611}
+  - component: {fileID: 894391612}
+  m_Layer: 0
+  m_Name: ScreenService
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &894391611
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 894391610}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 148551931}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &894391612
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 894391610}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d530b9f364175042b5bc15cca45edb9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: WendellLeao.Screens::WendellLeao.Screens.ScreenService
 --- !u!1 &1579335474
 GameObject:
   m_ObjectHideFlags: 0
@@ -347,5 +424,6 @@ MonoBehaviour:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 933594658}
   - {fileID: 148551931}
+  - {fileID: 889311832}
+  - {fileID: 129465399}

@@ -5,7 +5,7 @@ using UnityEngine;
 using WendellLeao.Events;
 using WendellLeao.Pooling;
 
-namespace Hireblade.UI.Health.Manager
+namespace Hireblade.Gameplay.UI.Health.Manager
 {
     internal sealed class HealthViewManager : MonoBehaviour
     {

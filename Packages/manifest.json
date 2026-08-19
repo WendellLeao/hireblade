@@ -21,7 +21,6 @@
     "com.wendellleao.eventservice": "https://github.com/WendellLeao/event-service.git",
     "com.wendellleao.poolingservice": "https://github.com/WendellLeao/pooling-service.git",
     "com.wendellleao.saveservice": "https://github.com/WendellLeao/save-service.git",
-    "com.wendellleao.scenebootstrap": "https://github.com/WendellLeao/scene-bootstrap.git",
     "com.wendellleao.scenesearchwindow": "https://github.com/WendellLeao/scene-search-window.git",
     "com.wendellleao.screenservice": "https://github.com/WendellLeao/screen-service.git",
     "com.wendellleao.servicelocator": "https://github.com/WendellLeao/service-locator.git",

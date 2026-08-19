@@ -1,3 +1,5 @@
+using Cysharp.Threading.Tasks;
+using Hireblade.Core;
 using Hireblade.Gameplay.Cameras.Manager;
 using Hireblade.Gameplay.Cursor.Manager;
 using Hireblade.Gameplay.Enemies.Manager;
@@ -12,7 +14,7 @@ using WendellLeao.ServiceLocator;
 
 namespace Hireblade.Gameplay.System
 {
-    internal sealed class GameplaySystem : MonoBehaviour
+    public sealed class GameplaySystem : MonoBehaviour, IInitializableAsync
     {
         [SerializeField]
         private CursorManager cursorManager;
@@ -29,7 +31,9 @@ namespace Hireblade.Gameplay.System
         [SerializeField]
         private EnemyManager enemyManager;
 
-        private void Awake()
+        private bool _isInitialized;
+
+        public UniTask InitializeAsync()
         {
             IPoolingService poolingService = Locator.Get<IPoolingService>();
             IEventService eventService = Locator.Get<IEventService>();
@@ -40,10 +44,19 @@ namespace Hireblade.Gameplay.System
             weaponManager.Initialize(poolingService, particleManager.Factory, spellManager.Factory);
             characterManager.Initialize(poolingService, eventService, particleManager.Factory, weaponManager.Factory, cameraManager);
             enemyManager.Initialize(poolingService, eventService, particleManager.Factory, weaponManager.Factory);
+
+            _isInitialized = true;
+
+            return UniTask.CompletedTask;
         }
 
         private void Update()
         {
+            if (!_isInitialized)
+            {
+                return;
+            }
+
             float deltaTime = Time.deltaTime;
 
             characterManager.Tick(deltaTime);

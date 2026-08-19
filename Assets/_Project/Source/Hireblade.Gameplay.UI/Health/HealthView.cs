@@ -4,7 +4,7 @@ using Hireblade.Core.Health;
 using UnityEngine;
 using WendellLeao.Pooling;
 
-namespace Hireblade.UI.Health
+namespace Hireblade.Gameplay.UI.Health
 {
     internal sealed class HealthView : MonoBehaviour, IPooledObject
     {

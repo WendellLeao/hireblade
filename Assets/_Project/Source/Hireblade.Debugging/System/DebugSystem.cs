@@ -1,4 +1,6 @@
 #if UNITY_EDITOR || DEBUG
+using Cysharp.Threading.Tasks;
+using Hireblade.Gameplay.System;
 using UnityEngine;
 
 namespace Hireblade.Debugging.System
@@ -7,6 +9,16 @@ namespace Hireblade.Debugging.System
     {
         [SerializeField]
         private Canvas canvas;
+
+        private void Awake()
+        {
+            GameplaySystem gameplaySystem = FindAnyObjectByType<GameplaySystem>();
+
+            if (gameplaySystem != null)
+            {
+                gameplaySystem.InitializeAsync().Forget();
+            }
+        }
 
         private void Update()
         {

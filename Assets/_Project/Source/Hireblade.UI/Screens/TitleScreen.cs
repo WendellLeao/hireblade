@@ -1,3 +1,4 @@
+using Hireblade.Core;
 using UnityEngine;
 using UnityEngine.UI;
 using WendellLeao.ServiceLocator;
@@ -12,10 +13,6 @@ namespace Hireblade.UI.Screens
         private Button playButton;
         [SerializeField]
         private Button quitButton;
-
-        [Header("Data")]
-        [SerializeField]
-        private UIScreenData playConfirmationScreenData;
 
         protected override void OnSubscribeEvents()
         {
@@ -33,9 +30,9 @@ namespace Hireblade.UI.Screens
 
         private void HandlePlayButtonClick()
         {
-            IScreenService screenService = Locator.Get<IScreenService>();
+            IGameFlowService gameFlowService = Locator.Get<IGameFlowService>();
 
-            screenService.OpenScreenAsync(playConfirmationScreenData);
+            gameFlowService.EnterGameplay();
         }
     }
 }

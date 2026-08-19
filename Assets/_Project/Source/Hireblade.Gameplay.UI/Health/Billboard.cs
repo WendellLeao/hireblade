@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Hireblade.UI.Health
+namespace Hireblade.Gameplay.UI.Health
 {
     internal sealed class Billboard : MonoBehaviour
     {

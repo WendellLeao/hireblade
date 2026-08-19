@@ -1,32 +1,46 @@
-using Hireblade.UI.Health.Manager;
+using Hireblade.Gameplay.UI.Health.Manager;
 using UnityEngine;
 using WendellLeao.Events;
 using WendellLeao.Pooling;
 using WendellLeao.ServiceLocator;
 
-namespace Hireblade.UI.System
+namespace Hireblade.Gameplay.UI.System
 {
-    internal sealed class UISystem : MonoBehaviour
+    public sealed class GameplayUISystem : MonoBehaviour
     {
         [SerializeField]
         private HealthViewManager healthViewsManager;
 
-        private void Awake()
+        private bool _isInitialized;
+
+        public void Initialize()
         {
             IPoolingService poolingService = Locator.Get<IPoolingService>();
             IEventService eventService = Locator.Get<IEventService>();
 
             // TODO: camera service
             healthViewsManager.Initialize(Camera.main, poolingService, eventService);
+
+            _isInitialized = true;
         }
 
         private void Update()
         {
+            if (!_isInitialized)
+            {
+                return;
+            }
+
             healthViewsManager.Tick(Time.deltaTime);
         }
 
         private void LateUpdate()
         {
+            if (!_isInitialized)
+            {
+                return;
+            }
+
             healthViewsManager.LateTick(Time.deltaTime);
         }
     }

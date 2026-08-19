@@ -1,23 +1,24 @@
+using Cysharp.Threading.Tasks;
+using Hireblade.Core;
 using UnityEngine;
 using WendellLeao.ServiceLocator;
 using WendellLeao.Screens;
 
 namespace Hireblade.UI.System
 {
-    // TODO: this is temporary. The title screen must be loaded after the startup scene finishes its processes.
-    internal sealed class LandingPageController : MonoBehaviour
+    public sealed class MainMenuSystem : MonoBehaviour, IInitializableAsync
     {
         [Header("Data")]
         [SerializeField]
         private UIScreenData titleScreenData;
 
-        private void Start()
+        public async UniTask InitializeAsync()
         {
             Cursor.lockState = CursorLockMode.None;
 
             IScreenService screenService = Locator.Get<IScreenService>();
 
-            screenService.OpenScreenAsync(titleScreenData);
+            await screenService.OpenScreenAsync(titleScreenData);
         }
     }
 }

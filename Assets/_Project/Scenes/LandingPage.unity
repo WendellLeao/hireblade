@@ -130,7 +130,7 @@ GameObject:
   - component: {fileID: 780006640}
   - component: {fileID: 780006639}
   m_Layer: 0
-  m_Name: LandingPageController
+  m_Name: MainMenuSystem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
