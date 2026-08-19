@@ -6,7 +6,7 @@ using WendellLeao.Screens;
 
 namespace Hireblade.Application
 {
-    internal sealed class MainMenuFlowManager : IGameFlowStateManager
+    internal sealed class TitleScreenFlowManager : IGameFlowStateManager
     {
         public UniTask EnterAsync(Scene scene)
         {
