@@ -4,11 +4,11 @@
     "references": [
         "GUID:ca76530d50b497f4eb3b5bf028c1daa4",
         "GUID:f08435d87fbdfb94b9825740ff07be80",
-        "GUID:aff2331b68356914c842d48bdeea8a7e",
         "GUID:d5ff05603486df9448377f01bd51305f",
         "GUID:f51ebe6a0ceec4240a699833d6309b23",
         "Hireblade.Gameplay.UI",
-        "WendellLeao.ServiceLocator"
+        "WendellLeao.ServiceLocator",
+        "WendellLeao.Screens"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

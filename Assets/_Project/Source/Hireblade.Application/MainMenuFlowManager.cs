@@ -1,20 +1,21 @@
 using Cysharp.Threading.Tasks;
-using Hireblade.UI.System;
 using Hireblade.Utilities;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using WendellLeao.Screens;
 
 namespace Hireblade.Application
 {
     internal sealed class MainMenuFlowManager : IGameFlowStateManager
     {
-        public async UniTask EnterAsync(Scene scene)
+        public UniTask EnterAsync(Scene scene)
         {
-            MainMenuSystem mainMenuSystem = SceneQuery.FindInScene<MainMenuSystem>(scene);
+            Cursor.lockState = CursorLockMode.None;
 
-            await mainMenuSystem.InitializeAsync();
+            UIScreen titleScreen = SceneQuery.FindInScene<UIScreen>(scene);
+            titleScreen.Open();
 
-            Debug.Log("[MainMenuFlowManager] Main menu ready.");
+            return UniTask.CompletedTask;
         }
     }
 }

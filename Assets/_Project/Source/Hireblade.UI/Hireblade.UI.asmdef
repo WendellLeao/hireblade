@@ -3,7 +3,6 @@
     "rootNamespace": "Hireblade.UI",
     "references": [
         "GUID:ca76530d50b497f4eb3b5bf028c1daa4",
-        "GUID:f51ebe6a0ceec4240a699833d6309b23",
         "WendellLeao.ServiceLocator",
         "WendellLeao.Screens"
     ],

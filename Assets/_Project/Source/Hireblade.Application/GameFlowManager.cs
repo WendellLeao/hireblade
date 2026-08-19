@@ -12,8 +12,8 @@ namespace Hireblade.Application
 {
     internal sealed class GameFlowManager : MonoBehaviour, IGameFlowService
     {
-        private const string MainMenuScenePath = "Assets/_Project/Scenes/LandingPage.unity";
-        private const string GameplayScenePath = "Assets/_Project/Scenes/SampleScene.unity";
+        private const string MainMenuScenePath = "Assets/_Project/Scenes/UI/MainMenu.unity";
+        private const string GameplayScenePath = "Assets/_Project/Scenes/Gameplay/Gameplay.unity";
 
         private readonly MainMenuFlowManager _mainMenuFlowManager = new();
         private readonly GameplayFlowManager _gameplayFlowManager = new();
@@ -48,8 +48,6 @@ namespace Hireblade.Application
 
         private async UniTask TransitionToAsync(GameFlowState state, string scenePath)
         {
-            Debug.Log($"[GameFlowManager] {_currentState} -> {state}");
-
             string previousScenePath = _currentScenePath;
 
             _currentState = state;

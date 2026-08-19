@@ -9,8 +9,6 @@ namespace Hireblade.Application
 
         private void Start()
         {
-            Debug.Log("[AppRoot] Bootstrap complete. Services alive, starting the game flow.");
-
             gameFlowManager.Initialize();
         }
     }
