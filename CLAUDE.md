@@ -4,11 +4,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Hireblade is a top-down action RPG (MOBA-style, point-and-click controls) built in Unity 6 (6000.3.10f1) with URP. See `README.md` for the gameplay pitch and a recruiter-facing architecture summary.
+Hireblade is a top-down action RPG (MOBA-style, point-and-click controls) built in Unity 6 (6000.5.9f1) with URP. See `README.md` for the gameplay pitch and a recruiter-facing architecture summary.
 
 ## Working with this repository
 
-This is a Unity project with no external build/lint/test CLI scripts and no CI configured. All development happens through the Unity Editor (6000.3.10f1, matching `ProjectSettings/ProjectVersion.txt`).
+This is a Unity project with no external build/lint/test CLI scripts and no CI configured. All development happens through the Unity Editor (6000.5.9f1, matching `ProjectSettings/ProjectVersion.txt`).
 
 - **Play the game:** open the project in Unity Editor, load `Assets/_Project/Scenes/Bootstrap.unity`, and press Play. Every other scene is loaded additively at runtime by `GameFlowManager` and is not meant to be pressed-play directly except for isolated debugging.
 - **Run tests:** `Hireblade.Gameplay.Tests` (edit-mode NUnit) runs from the Editor's Test Runner window (`Window > General > Test Runner > EditMode`). It can also run headless via Unity's standard batchmode invocation, e.g. `Unity.exe -batchmode -projectPath . -runTests -testPlatform EditMode -testResults TestResults.xml -quit`.

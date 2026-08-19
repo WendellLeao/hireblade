@@ -6,7 +6,7 @@ Hireblade is a top-down action RPG with MOBA-style, point-and-click controls set
 
 ## Tech Stack
 
-- **Engine:** Unity 6 (6000.3.10f1), Universal Render Pipeline
+- **Engine:** Unity 6 (6000.5.9f1), Universal Render Pipeline
 - **Async:** [UniTask](https://github.com/Cysharp/UniTask) for allocation-light async/await over coroutines
 - **Navigation:** Unity NavMesh for point-and-click movement
 - **Camera:** Cinemachine
