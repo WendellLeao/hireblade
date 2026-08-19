@@ -20,7 +20,7 @@ Hireblade is split into focused assembly-definition modules under `Assets/_Proje
 | Module | Responsibility |
 |---|---|
 | `Hireblade.Application` | Boots the app and orchestrates transitions between game flow states |
-| `Hireblade.Core` | Cross-cutting interfaces shared across modules (`IHealth`, `IGameFlowService`, `IInitializableAsync`) with no gameplay logic |
+| `Hireblade.Core` | Cross-cutting interfaces shared across modules (`IHealth`, `IGameFlowService`) with no gameplay logic |
 | `Hireblade.Gameplay` | Core simulation: characters, enemies, weapons, spells, health, damage, navigation, cameras, particles |
 | `Hireblade.Gameplay.Events` | Typed event payloads that decouple gameplay from its subscribers |
 | `Hireblade.Gameplay.UI` | World-space and screen UI (health bars, HUD) driven entirely by events, never by direct gameplay references |

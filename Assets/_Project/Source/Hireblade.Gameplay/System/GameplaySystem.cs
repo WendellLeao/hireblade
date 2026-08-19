@@ -1,5 +1,4 @@
 using Cysharp.Threading.Tasks;
-using Hireblade.Core;
 using Hireblade.Gameplay.Cameras.Manager;
 using Hireblade.Gameplay.Cursor.Manager;
 using Hireblade.Gameplay.Enemies.Manager;
@@ -14,7 +13,7 @@ using WendellLeao.ServiceLocator;
 
 namespace Hireblade.Gameplay.System
 {
-    public sealed class GameplaySystem : MonoBehaviour, IInitializableAsync
+    public sealed class GameplaySystem : MonoBehaviour
     {
         [SerializeField]
         private CursorManager cursorManager;
