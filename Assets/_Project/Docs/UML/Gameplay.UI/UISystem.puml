@@ -1,0 +1,27 @@
+@startuml
+
+package Hireblade.Gameplay.UI {
+    Class Billboard
+    Class ImageFiller
+
+    package System {
+        Class UISystem
+    }
+
+    package Health {
+        Class HealthView
+
+        package Manager {
+            Class HealthViewManager
+        }
+
+        HealthView *-- Billboard
+        HealthView *-- ImageFiller
+
+        HealthViewManager --> HealthView
+    }
+
+    UISystem --> HealthViewManager
+}
+
+@enduml

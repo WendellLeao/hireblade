@@ -1,118 +1,160 @@
-﻿@startuml
+@startuml
 
-package Leaosoft {
-    package Gameplay {
-        package System {
-            Class GameplaySystem
-        }
-        
-        interface IDamageable {
-            void TakeDamage();
-        }
-        
-        Damager --> IDamageable
-        HealthController --> IDamageable
-        
-        interface IParticle
-        interface IParticleFactory {
-            IParticle EmitParticle();
-        }
-        
-        IParticleFactory --> IParticle
-        
-        interface ISpell
-        interface ISpellFactory {
-            ISpell CastSpell();
-        }
-        
-        ISpellFactory --> ISpell
-        
-        together {
-            package Cursor {
-                package Manager {
-                    Class CursorManager
-                }
-            }
-            
-            package Particles {
-                package Manager {
-                    Class ParticleManager
-                }
-
-                ParticleFactory ..|> IParticleFactory
-
-                SimpleParticle ..|> IParticle
-
-                ParticleManager --> ParticleFactory
-                ParticleFactory --> SimpleParticle
-            }
-
-            package Spells {
-                package Manager {
-                    Class SpellManager
-                }
-
-                SpellFactory ..|> ISpellFactory
-
-                ElementalBall ..|> ISpell
-                Heal ..|> ISpell
-
-                Heal --> IDamageable
-
-                ElementalBall --> IParticleFactory
-
-                ElementalBall *-- Damager
-
-                SpellManager --> SpellFactory
-                SpellFactory --> ElementalBall
-                SpellFactory --> Heal
-            }
-
-            package Weapons {
-                package Manager {
-                    Class WeaponManager
-                }
-
-                WeaponFactory ..|> IWeaponFactory
-
-                Staff --> ISpellFactory
-                Sword --> IParticleFactory
-
-                Sword *-- Damager
-
-                WeaponManager --> WeaponFactory
-                WeaponFactory --> Staff
-                WeaponFactory --> Sword
-            }
-            
-            package Characters {
-                package Manager {
-                    Class CharacterManager
-                }
-                
-                Character *-- HealthController
-                
-                CharacterManager --> Character
-            }
-            
-            package Enemies {
-                package Manager {
-                    Class EnemyManager
-                }
-                
-                BasicEnemy *-- HealthController
-                
-                EnemyManager --> BasicEnemy
-            }
-        }
-        
-        GameplaySystem --> CursorManager
-        GameplaySystem --> ParticleManager
-        GameplaySystem --> EnemyManager
-        GameplaySystem --> CharacterManager
-        GameplaySystem --> WeaponManager
-        GameplaySystem --> SpellManager
+package Hireblade.Gameplay {
+    package System {
+        Class GameplaySystem
     }
+
+    interface IDamageable {
+        void TakeDamage()
+    }
+    interface IDamager {
+        bool TryApplyDamage()
+    }
+
+    package Damage {
+        Class DamageController
+        Class Damager
+
+        DamageController ..|> IDamageable
+        Damager ..|> IDamager
+        Damager --> IDamageable
+    }
+
+    interface IParticle
+    interface IParticleFactory {
+        IParticle EmitParticle()
+    }
+    interface IParticleEmitter {
+        void SetParticleFactory()
+    }
+
+    IParticleFactory --> IParticle
+
+    interface ISpell
+    interface ISpellFactory {
+        ISpell CastSpell()
+    }
+
+    ISpellFactory --> ISpell
+
+    interface IWeapon
+    interface IWeaponFactory {
+        IWeapon CreateWeapon()
+    }
+    interface IWeaponHolder
+
+    IWeaponFactory --> IWeapon
+
+    together {
+        package Cursor {
+            package Manager {
+                Class CursorManager
+            }
+        }
+
+        package Cameras {
+            interface ICameraProvider
+
+            package Manager {
+                Class CameraManager
+            }
+
+            CameraManager ..|> ICameraProvider
+        }
+
+        package Particles {
+            package Manager {
+                Class ParticleManager
+            }
+
+            ParticleFactory ..|> IParticleFactory
+
+            SimpleParticle ..|> IParticle
+
+            ParticleManager --> ParticleFactory
+            ParticleFactory --> SimpleParticle
+        }
+
+        package Spells {
+            package Manager {
+                Class SpellManager
+            }
+
+            SpellFactory ..|> ISpellFactory
+
+            ElementalBall ..|> ISpell
+            ElementalBall ..|> IParticleEmitter
+            ElementalBall *-- Damager
+
+            SpellManager --> SpellFactory
+            SpellFactory --> ElementalBall
+        }
+
+        package Weapons {
+            package Manager {
+                Class WeaponManager
+            }
+
+            WeaponFactory ..|> IWeaponFactory
+            WeaponHolder ..|> IWeaponHolder
+
+            Staff ..|> IWeapon
+            Staff --> ISpellFactory
+
+            Sword ..|> IWeapon
+            Sword ..|> IParticleEmitter
+            Sword *-- Damager
+
+            WeaponHolder --> IWeaponFactory
+
+            WeaponManager --> WeaponFactory
+            WeaponFactory --> Staff
+            WeaponFactory --> Sword
+        }
+
+        package Characters {
+            package Manager {
+                Class CharacterManager
+            }
+
+            Character *-- HealthController
+            Character *-- DamageController
+            Character *-- WeaponHolder
+            Character --> ICameraProvider
+
+            CharacterManager --> Character
+        }
+
+        package Enemies {
+            package Manager {
+                Class EnemyManager
+            }
+
+            BasicEnemy *-- HealthController
+            BasicEnemy *-- DamageController
+            BasicEnemy *-- WeaponHolder
+
+            EnemyManager --> BasicEnemy
+        }
+    }
+
+    GameplaySystem --> CursorManager
+    GameplaySystem --> CameraManager
+    GameplaySystem --> ParticleManager
+    GameplaySystem --> EnemyManager
+    GameplaySystem --> CharacterManager
+    GameplaySystem --> WeaponManager
+    GameplaySystem --> SpellManager
 }
+
+note as N1
+  Character/BasicEnemy also compose
+  MoveableAgent, CommandInvoker,
+  HumanoidAnimatorController and
+  DamageableView (Navigation, Commands,
+  Animations, Damage.View), omitted
+  here for scope.
+end note
 
 @enduml
