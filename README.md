@@ -58,7 +58,7 @@ Cross-cutting services (pooling, events, input, screens, game flow) are exposed 
 - [`screen-service`](https://github.com/WendellLeao/screen-service)
 - [`audio-service`](https://github.com/WendellLeao/audio-service)
 - [`save-service`](https://github.com/WendellLeao/save-service)
-- [`scene-search-window`](https://github.com/WendellLeao/scene-search-window)
+- [`scene-switcher`](https://github.com/WendellLeao/scene-switcher)
 - [`unity-starter-kit`](https://github.com/WendellLeao/unity-starter-kit)
 
 ### Event-driven decoupling between gameplay and UI

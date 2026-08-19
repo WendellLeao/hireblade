@@ -21,6 +21,7 @@
     "com.wendellleao.eventservice": "https://github.com/WendellLeao/event-service.git",
     "com.wendellleao.poolingservice": "https://github.com/WendellLeao/pooling-service.git",
     "com.wendellleao.saveservice": "https://github.com/WendellLeao/save-service.git",
+    "com.wendellleao.sceneswitcher": "https://github.com/WendellLeao/scene-switcher.git",
     "com.wendellleao.screenservice": "https://github.com/WendellLeao/screen-service.git",
     "com.wendellleao.servicelocator": "https://github.com/WendellLeao/service-locator.git",
     "com.wendellleao.unitystarterkit": "https://github.com/WendellLeao/unity-starter-kit.git",

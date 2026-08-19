@@ -55,7 +55,7 @@ Managers receive dependencies through an explicit `Initialize(...)` call from th
 
 `WendellLeao.ServiceLocator` (`Locator.Register<T>()` / `Locator.Get<T>()`) exposes cross-cutting services as interfaces instead of static singletons: `IPoolingService`, `IEventService`, `IGameFlowService`, `IInputService`. These services are not project-local: they are standalone Unity packages (pulled in via `Packages/manifest.json` as git dependencies) maintained in their own repos:
 
-- `service-locator`, `event-service`, `pooling-service`, `screen-service`, `audio-service`, `save-service`, `scene-search-window`, `unity-starter-kit` (all under `github.com/WendellLeao`)
+- `service-locator`, `event-service`, `pooling-service`, `screen-service`, `audio-service`, `save-service`, `scene-switcher`, `unity-starter-kit` (all under `github.com/WendellLeao`)
 
 If a change looks like it needs a fix inside one of these services rather than in Hireblade itself, it belongs in that package's own repo, not as a local patch here.
 
