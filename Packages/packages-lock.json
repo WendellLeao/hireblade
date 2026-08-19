@@ -338,11 +338,10 @@
       "hash": "a5460ec3354b9cb0398247f23f849f9bbb8dbbfa"
     },
     "com.wendellleao.sceneswitcher": {
-      "version": "https://github.com/WendellLeao/scene-switcher.git",
+      "version": "file:com.wendellleao.sceneswitcher",
       "depth": 0,
-      "source": "git",
-      "dependencies": {},
-      "hash": "e6d6c3c528e02cd92b74781788978aa21d0f896c"
+      "source": "embedded",
+      "dependencies": {}
     },
     "com.wendellleao.screenservice": {
       "version": "https://github.com/WendellLeao/screen-service.git",

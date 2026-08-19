@@ -1,0 +1,3 @@
+[submodule "Packages/com.wendellleao.sceneswitcher"]
+	path = Packages/com.wendellleao.sceneswitcher
+	url = https://github.com/WendellLeao/scene-switcher.git
