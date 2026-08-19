@@ -50,11 +50,11 @@ namespace Hireblade.Gameplay.Enemies.Manager
 
             for (int i = _enemies.Count - 1; i >= 0; i--)
             {
-                DisposeEnemy(_enemies[i]);
+                ShutdownEnemy(_enemies[i]);
             }
         }
 
-        private void DisposeEnemy(IEnemy enemy)
+        private void ShutdownEnemy(IEnemy enemy)
         {
             enemy.Shutdown();
 
@@ -72,7 +72,7 @@ namespace Hireblade.Gameplay.Enemies.Manager
 
         private void HandleEnemyDied(IEnemy enemy)
         {
-            DisposeEnemy(enemy);
+            ShutdownEnemy(enemy);
 
             enemySpawner.RespawnEntity(enemy);
         }

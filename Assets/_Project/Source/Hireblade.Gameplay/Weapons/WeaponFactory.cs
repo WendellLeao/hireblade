@@ -45,7 +45,7 @@ namespace Hireblade.Gameplay.Weapons
             return weapon;
         }
 
-        public void DisposeWeapon(IWeapon weapon)
+        public void ShutdownWeapon(IWeapon weapon)
         {
             weapon.Shutdown();
 
@@ -58,7 +58,7 @@ namespace Hireblade.Gameplay.Weapons
         {
             for (int i = _weapons.Count - 1; i >= 0; i--)
             {
-                DisposeWeapon(_weapons[i]);
+                ShutdownWeapon(_weapons[i]);
             }
         }
     }

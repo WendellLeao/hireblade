@@ -53,11 +53,11 @@ namespace Hireblade.UI.Health.Manager
 
             for (int i = _healthViews.Count - 1; i >= 0; i--)
             {
-                DisposeHealthView(_healthViews[i]);
+                ShutdownHealthView(_healthViews[i]);
             }
         }
 
-        private void DisposeHealthView(HealthView healthView)
+        private void ShutdownHealthView(HealthView healthView)
         {
             healthView.Shutdown();
 
@@ -91,7 +91,7 @@ namespace Hireblade.UI.Health.Manager
 
         private void HandleHealthDepleted(HealthView healthView)
         {
-            DisposeHealthView(healthView);
+            ShutdownHealthView(healthView);
         }
     }
 }

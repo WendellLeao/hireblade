@@ -43,7 +43,7 @@ namespace Hireblade.Gameplay.Weapons
                 return;
             }
 
-            DisposeWeapon();
+            ShutdownWeapon();
 
             _weapon = _weaponFactory.CreateWeapon(weaponData, parent);
 
@@ -68,14 +68,14 @@ namespace Hireblade.Gameplay.Weapons
             _weapon.FinishExecution();
         }
 
-        private void DisposeWeapon()
+        private void ShutdownWeapon()
         {
             if (_weapon == null)
             {
                 return;
             }
 
-            _weaponFactory.DisposeWeapon(_weapon);
+            _weaponFactory.ShutdownWeapon(_weapon);
         }
     }
 }

@@ -26,7 +26,7 @@ namespace Hireblade.Gameplay.Particles
 
             particle.Initialize();
 
-            particle.OnCompleted += DisposeParticle;
+            particle.OnCompleted += ShutdownParticle;
 
             return particle;
         }
@@ -40,11 +40,11 @@ namespace Hireblade.Gameplay.Particles
             return particle;
         }
 
-        public void DisposeParticle(IParticle particle)
+        public void ShutdownParticle(IParticle particle)
         {
             particle.Shutdown();
 
-            particle.OnCompleted -= DisposeParticle;
+            particle.OnCompleted -= ShutdownParticle;
 
             _particles.Remove(particle);
 
@@ -55,7 +55,7 @@ namespace Hireblade.Gameplay.Particles
         {
             for (int i = _particles.Count - 1; i >= 0; i--)
             {
-                DisposeParticle(_particles[i]);
+                ShutdownParticle(_particles[i]);
             }
         }
     }

@@ -32,9 +32,7 @@ namespace Hireblade.Gameplay.Shared
 
         public void Shutdown()
         {
-            _releaseEntityCts?.Cancel();
-            _releaseEntityCts?.Dispose();
-            _releaseEntityCts = null;
+            ShutdownCancellationTokenSource();
         }
 
         public void RespawnEntity(TEntity entity)
@@ -91,6 +89,13 @@ namespace Hireblade.Gameplay.Shared
             await UniTask.Delay(TimeSpan.FromSeconds(delay), cancellationToken: token);
 
             _poolingService.ReleaseObjectToPool(pooledObject);
+        }
+        
+        private void ShutdownCancellationTokenSource()
+        {
+            _releaseEntityCts?.Cancel();
+            _releaseEntityCts?.Dispose();
+            _releaseEntityCts = null;
         }
     }
 }

@@ -52,13 +52,13 @@ namespace Hireblade.Gameplay.Damage.View
 
             if (_damagePerSecondCountdown <= 0f)
             {
-                DisposeCachedParticle();
+                ShutdownCachedParticle();
             }
         }
 
-        private void DisposeCachedParticle()
+        private void ShutdownCachedParticle()
         {
-            _particleFactory.DisposeParticle(_cachedParticle);
+            _particleFactory.ShutdownParticle(_cachedParticle);
 
             _cachedParticle = null;
             _isDamagingPerSecond = false;

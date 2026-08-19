@@ -54,6 +54,8 @@ namespace Hireblade.Gameplay.Health
             OnHealthChanged?.Invoke(HealthRatio);
         }
 
+        #region Debug & Testing
+
 #if UNITY_EDITOR
         [Button("IncrementHealth_IncrementBy50")]
         public void IncrementHealth_IncrementBy50()
@@ -66,5 +68,7 @@ namespace Hireblade.Gameplay.Health
             data = healthData;
         }
 #endif
+
+        #endregion
     }
 }

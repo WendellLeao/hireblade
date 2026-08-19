@@ -45,16 +45,16 @@ namespace Hireblade.Gameplay.Spells
         {
             for (int i = _spells.Count - 1; i >= 0; i--)
             {
-                DisposeSpell(_spells[i]);
+                ShutdownSpell(_spells[i]);
             }
         }
 
         private void HandleSpellHit(ISpell spell)
         {
-            DisposeSpell(spell);
+            ShutdownSpell(spell);
         }
 
-        private void DisposeSpell(ISpell spell)
+        private void ShutdownSpell(ISpell spell)
         {
             spell.OnHit -= HandleSpellHit;
 

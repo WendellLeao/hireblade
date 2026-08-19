@@ -72,6 +72,8 @@ namespace Hireblade.Gameplay.Damage
             _isInvincible = isInvincible;
         }
 
+        #region Debug & Testing
+
 #if UNITY_EDITOR
         [Button("TakeDamage_DecreaseCurrentHealthBy50")]
         public void TakeDamage_DecreaseCurrentHealthBy50()
@@ -93,5 +95,7 @@ namespace Hireblade.Gameplay.Damage
             TakeDamage(mockDamageData);
         }
 #endif
+
+        #endregion
     }
 }

@@ -13,11 +13,15 @@ namespace Hireblade.Gameplay.Health
 
         public float MaxHealth => maxHealth;
 
+        #region Debug & Testing
+
 #if UNITY_EDITOR
         public void SetMaxHealthForTests(float newMaxHealth)
         {
             maxHealth = newMaxHealth;
         }
 #endif
+
+        #endregion
     }
 }

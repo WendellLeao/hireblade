@@ -5,6 +5,6 @@ namespace Hireblade.Gameplay.Weapons
     public interface IWeaponFactory
     {
         public IWeapon CreateWeapon(WeaponData data, Transform parent);
-        public void DisposeWeapon(IWeapon weapon);
+        public void ShutdownWeapon(IWeapon weapon);
     }
 }

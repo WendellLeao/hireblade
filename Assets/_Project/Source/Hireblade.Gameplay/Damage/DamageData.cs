@@ -30,11 +30,15 @@ namespace Hireblade.Gameplay.Damage
         public float DamagePerSecondDuration => hasDamagePerSecond ? damagePerSecondDuration : 0f;
         public PoolData DpsParticlePoolData => hasDamagePerSecond ? dpsParticlePoolData : null;
 
+        #region Debug & Testing
+
 #if UNITY_EDITOR
         public void SetAmountForTests(float newAmount)
         {
             amount = newAmount;
         }
-#endif
+#endif        
+
+        #endregion
     }
 }

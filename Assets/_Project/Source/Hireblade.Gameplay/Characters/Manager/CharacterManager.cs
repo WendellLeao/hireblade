@@ -53,11 +53,11 @@ namespace Hireblade.Gameplay.Characters.Manager
 
             for (int i = _characters.Count - 1; i >= 0; i--)
             {
-                DisposeCharacter(_characters[i]);
+                ShutdownCharacter(_characters[i]);
             }
         }
 
-        private void DisposeCharacter(ICharacter character)
+        private void ShutdownCharacter(ICharacter character)
         {
             character.Shutdown();
 
@@ -75,7 +75,7 @@ namespace Hireblade.Gameplay.Characters.Manager
 
         private void HandleCharacterDied(ICharacter character)
         {
-            DisposeCharacter(character);
+            ShutdownCharacter(character);
 
             characterSpawner.RespawnEntity(character);
         }

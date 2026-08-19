@@ -46,7 +46,7 @@ namespace Hireblade.Gameplay.Characters
 
             CacheComponents();
 
-            SetUpComponents();
+            InitializeComponents();
 
             _cameraProvider.VirtualCamera.SetTarget(transform);
 
@@ -91,7 +91,7 @@ namespace Hireblade.Gameplay.Characters
             _damageableView = GetComponent<IDamageableView>();
         }
 
-        private void SetUpComponents()
+        private void InitializeComponents()
         {
             _health.Initialize();
             _damageable.Initialize(_health);
@@ -126,18 +126,22 @@ namespace Hireblade.Gameplay.Characters
             _moveableAgent.ResetPath();
         }
 
+        #region Debug & Testing
+
 #if UNITY_EDITOR
-        [Button("SetUp_Debug")]
-        public void SetUp_Debug()
+        [Button("Initialize_Debug")]
+        public void Initialize_Debug()
         {
             Initialize(_particleFactory, _weaponFactory, _cameraProvider);
         }
 
-        [Button("Dispose_Debug")]
-        public void Dispose_Debug()
+        [Button("Shutdown_Debug")]
+        public void Shutdown_Debug()
         {
             Shutdown();
         }
 #endif
+
+        #endregion
     }
 }
