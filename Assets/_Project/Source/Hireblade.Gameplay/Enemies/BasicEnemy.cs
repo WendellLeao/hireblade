@@ -14,9 +14,9 @@ using Hireblade.Gameplay.Weapons;
 
 namespace Hireblade.Gameplay.Enemies
 {
-    public sealed class BasicEnemy : MonoBehaviour, IEnemy
+    public sealed class BasicEnemy : MonoBehaviour, IPooledObject
     {
-        public event Action<IEnemy> OnDied;
+        public event Action<BasicEnemy> OnDied;
 
         [Header("Components")]
         [SerializeField]

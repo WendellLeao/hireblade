@@ -12,7 +12,7 @@ namespace Hireblade.Gameplay.Enemies.Manager
         [SerializeField]
         private EnemySpawner enemySpawner;
 
-        private readonly List<IEnemy> _enemies = new();
+        private readonly List<BasicEnemy> _enemies = new();
 
         private IPoolingService _poolingService;
         private IEventService _eventService;
@@ -34,7 +34,7 @@ namespace Hireblade.Gameplay.Enemies.Manager
 
         public void Tick(float deltaTime)
         {
-            foreach (IEnemy enemy in _enemies)
+            foreach (BasicEnemy enemy in _enemies)
             {
                 enemy.Tick(deltaTime);
             }
@@ -52,7 +52,7 @@ namespace Hireblade.Gameplay.Enemies.Manager
             }
         }
 
-        private void ShutdownEnemy(IEnemy enemy)
+        private void ShutdownEnemy(BasicEnemy enemy)
         {
             enemy.Shutdown();
 
@@ -61,14 +61,14 @@ namespace Hireblade.Gameplay.Enemies.Manager
             _enemies.Remove(enemy);
         }
 
-        private void HandleEnemySpawned(IEnemy enemy)
+        private void HandleEnemySpawned(BasicEnemy enemy)
         {
             _enemies.Add(enemy);
 
             enemy.OnDied += HandleEnemyDied;
         }
 
-        private void HandleEnemyDied(IEnemy enemy)
+        private void HandleEnemyDied(BasicEnemy enemy)
         {
             ShutdownEnemy(enemy);
 

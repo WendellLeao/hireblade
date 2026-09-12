@@ -8,9 +8,9 @@ using Hireblade.Gameplay.Weapons;
 
 namespace Hireblade.Gameplay.Enemies
 {
-    internal sealed class EnemySpawner : BasicEntitySpawner<IEnemy>
+    internal sealed class EnemySpawner : BasicEntitySpawner<BasicEnemy>
     {
-        public event Action<IEnemy> OnEnemySpawned;
+        public event Action<BasicEnemy> OnEnemySpawned;
 
         private IEventService _eventService;
         private IParticleFactory _particleFactory;
@@ -26,9 +26,9 @@ namespace Hireblade.Gameplay.Enemies
             base.Initialize(poolingService);
         }
 
-        protected override IEnemy SpawnEntity()
+        protected override BasicEnemy SpawnEntity()
         {
-            IEnemy enemy = base.SpawnEntity();
+            BasicEnemy enemy = base.SpawnEntity();
             
             enemy.Initialize(_particleFactory, _weaponFactory);
 
