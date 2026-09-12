@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Hireblade.Gameplay.Cameras
 {
-    internal sealed class VirtualCamera : MonoBehaviour, IVirtualCamera
+    public sealed class VirtualCamera : MonoBehaviour
     {
         [SerializeField]
         private CinemachineCamera cinemachineCamera;

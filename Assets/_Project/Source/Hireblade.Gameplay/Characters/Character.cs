@@ -6,30 +6,41 @@ using Hireblade.Gameplay.Animations;
 using Hireblade.Gameplay.Cameras;
 using Hireblade.Gameplay.Commands;
 using Hireblade.Gameplay.Damage;
+using Hireblade.Gameplay.Damage.View;
+using Hireblade.Gameplay.Health;
 using Hireblade.Gameplay.Navigation;
 using Hireblade.Gameplay.Particles;
 using Hireblade.Gameplay.Weapons;
+using WendellLeao.Pooling;
 
 namespace Hireblade.Gameplay.Characters
 {
-    public sealed class Character : MonoBehaviour, ICharacter
+    public sealed class Character : MonoBehaviour, IPooledObject
     {
-        public event Action<ICharacter> OnDied;
-
+        public event Action<Character> OnDied;
+        
+        [SerializeField]
+        private HealthController healthController;
+        [SerializeField]
+        private DamageController damageController;
+        [SerializeField]
+        private WeaponHolder weaponHolder;
+        [SerializeField]
+        private NavMeshClickMover navMeshClickMover;
+        [SerializeField]
+        private CommandInputReader commandInputReader;
+        [SerializeField]
+        private HumanoidAnimatorController humanoidAnimatorController;
+        [SerializeField]
+        private DamageableView damageableView;
+        
         private IParticleFactory _particleFactory;
         private IWeaponFactory _weaponFactory;
         private ICameraProvider _cameraProvider;
-        private IHealth _health;
-        private IDamageable _damageable;
-        private IWeaponHolder _weaponHolder;
-        private IMoveableAgent _moveableAgent;
-        private ICommandInvoker _commandInvoker;
-        private IHumanoidAnimatorController _humanoidAnimatorController;
-        private IDamageableView _damageableView;
         private bool _isEnabled;
 
         public string PoolId { get; set; }
-        public IHealth Health => _health;
+        public IHealth Health => healthController;
 
         public void Initialize(IParticleFactory particleFactory, IWeaponFactory weaponFactory, ICameraProvider cameraProvider)
         {
@@ -44,11 +55,9 @@ namespace Hireblade.Gameplay.Characters
             _weaponFactory = weaponFactory;
             _cameraProvider = cameraProvider;
 
-            CacheComponents();
-
             InitializeComponents();
 
-            _cameraProvider.VirtualCamera.SetTarget(transform);
+            _cameraProvider.SetVirtualCameraTarget(transform);
 
             SubscribeEvent();
         }
@@ -62,58 +71,47 @@ namespace Hireblade.Gameplay.Characters
 
             _isEnabled = false;
 
-            _weaponHolder.Shutdown();
-            _damageable.Shutdown();
-            _commandInvoker.Shutdown();
-            _humanoidAnimatorController.Shutdown();
-            _damageableView.Shutdown();
+            weaponHolder.Shutdown();
+            damageController.Shutdown();
+            commandInputReader.Shutdown();
+            humanoidAnimatorController.Shutdown();
+            damageableView.Shutdown();
 
             UnsubscribeEvent();
         }
 
         public void Tick(float deltaTime)
         {
-            _damageable.Tick(deltaTime);
-            _moveableAgent.Tick(deltaTime);
-            _commandInvoker.Tick(deltaTime);
-            _humanoidAnimatorController.Tick(deltaTime);
-            _damageableView.Tick(deltaTime);
-        }
-
-        private void CacheComponents()
-        {
-            _health = GetComponent<IHealth>();
-            _damageable = GetComponent<IDamageable>();
-            _weaponHolder = GetComponent<IWeaponHolder>();
-            _moveableAgent = GetComponent<IMoveableAgent>();
-            _commandInvoker = GetComponent<ICommandInvoker>();
-            _humanoidAnimatorController = GetComponent<IHumanoidAnimatorController>();
-            _damageableView = GetComponent<IDamageableView>();
+            damageController.Tick(deltaTime);
+            navMeshClickMover.Tick(deltaTime);
+            commandInputReader.Tick(deltaTime);
+            humanoidAnimatorController.Tick(deltaTime);
+            damageableView.Tick(deltaTime);
         }
 
         private void InitializeComponents()
         {
-            _health.Initialize();
-            _damageable.Initialize(_health);
-            _weaponHolder.Initialize(_weaponFactory);
-            _moveableAgent.Initialize(_cameraProvider, _particleFactory);
-            _commandInvoker.Initialize(_weaponHolder);
-            _humanoidAnimatorController.Initialize(_health, _damageable, _weaponHolder, _moveableAgent);
-            _damageableView.Initialize(_particleFactory, _damageable);
+            healthController.Initialize();
+            damageController.Initialize(healthController);
+            weaponHolder.Initialize(_weaponFactory);
+            navMeshClickMover.Initialize(_cameraProvider, _particleFactory);
+            commandInputReader.Initialize(weaponHolder);
+            humanoidAnimatorController.Initialize(healthController, damageController, weaponHolder, navMeshClickMover);
+            damageableView.Initialize(_particleFactory, damageController);
         }
 
         private void SubscribeEvent()
         {
-            _health.OnDepleted += HandleHealthDepleted;
+            healthController.OnDepleted += HandleHealthDepleted;
 
-            _weaponHolder.OnWeaponExecuted += HandleWeaponExecute;
+            weaponHolder.OnWeaponExecuted += HandleWeaponExecute;
         }
 
         private void UnsubscribeEvent()
         {
-            _health.OnDepleted -= HandleHealthDepleted;
+            healthController.OnDepleted -= HandleHealthDepleted;
 
-            _weaponHolder.OnWeaponExecuted -= HandleWeaponExecute;
+            weaponHolder.OnWeaponExecuted -= HandleWeaponExecute;
         }
 
         private void HandleHealthDepleted()
@@ -123,7 +121,7 @@ namespace Hireblade.Gameplay.Characters
 
         private void HandleWeaponExecute()
         {
-            _moveableAgent.ResetPath();
+            navMeshClickMover.ResetPath();
         }
 
         #region Debug & Testing

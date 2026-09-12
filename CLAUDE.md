@@ -63,9 +63,9 @@ If a change looks like it needs a fix inside one of these services rather than i
 
 `Health` is the reference example: `HealthData` (SO config) -> `HealthModel` (plain data/math) -> `HealthController` (MonoBehaviour implementing `IHealth`, exposes `OnHealthChanged`/`OnDepleted`) -> `HealthView` (UI, pooled, only listens to events/controller, never mutates simulation state). Follow this shape for new stat/resource systems rather than putting model math directly in a MonoBehaviour.
 
-### Composition roots use interfaces, not concrete types
+### Composition roots wire sibling components directly, interfaces only at real boundaries
 
-Entities such as `BasicEnemy` and `Character` cache sibling components exclusively through interfaces (`GetComponent<IDamageable>()`, `IWeaponHolder`, `IMoveableAgent`, `IHumanoidAnimatorController`, `ICommandInvoker`, `IDamageableView`, ...) and explicitly drive their `Initialize`/`Shutdown`/`Tick`. When adding a new capability to an entity, add an interface + component and wire it the same way rather than reaching for concrete types.
+Entities such as `BasicEnemy` and `Character` are composition roots: they hold their sibling components (`HealthController`, `DamageController`, `WeaponHolder`, `HumanoidAnimatorController`, ...) as `[SerializeField]` references to the concrete type and explicitly drive their `Initialize`/`Shutdown`/`Tick`. An interface is only introduced for a component when something outside the owning entity genuinely needs to consume or swap it polymorphically, for example `IDamageable` (any weapon/projectile can `TakeDamage` on it without knowing the concrete type) or `IMoveableAgent` (both `NavMeshClickMover` and `NavMeshTest` implement it, and `HumanoidAnimatorController` takes whichever one is passed in). A component that is only ever initialized/ticked/shut down by its own owning entity, and has exactly one implementation, does not get an interface, since it would add indirection without decoupling anything (`ICharacter`, `ICommandInvoker`, `IHumanoidAnimatorController` were removed for this reason). When adding a new capability to an entity, default to a concrete `[SerializeField]` reference; only add an interface when there is an actual external consumer or a second implementation to abstract over.
 
 ### Pooling and factories, not Instantiate/Destroy
 

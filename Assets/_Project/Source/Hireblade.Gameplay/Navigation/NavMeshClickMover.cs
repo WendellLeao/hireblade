@@ -45,7 +45,7 @@ namespace Hireblade.Gameplay.Navigation
 
         private void HandleNavMeshAgentDestination()
         {
-            Ray ray = _cameraProvider.MainCamera.ScreenPointToRay(Input.mousePosition);
+            Ray ray = _cameraProvider.ScreenPointToRay(Input.mousePosition);
 
             if (Physics.Raycast(ray.origin, ray.direction, out _cachedHitInfo, maxDistance: Mathf.Infinity, walkableLayerMask))
             {
