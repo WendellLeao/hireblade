@@ -48,7 +48,7 @@ namespace Hireblade.Gameplay.Characters
 
             InitializeComponents();
 
-            _cameraProvider.VirtualCamera.SetTarget(transform);
+            _cameraProvider.SetVirtualCameraTarget(transform);
 
             SubscribeEvent();
         }

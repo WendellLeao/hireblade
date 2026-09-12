@@ -13,8 +13,7 @@ namespace Hireblade.Gameplay.Characters
 
         public IHealth Health { get; }
 
-        public void Initialize(IParticleFactory particleFactory, IWeaponFactory weaponFactory,
-            ICameraProvider cameraProvider);
+        public void Initialize(IParticleFactory particleFactory, IWeaponFactory weaponFactory, ICameraProvider cameraProvider);
         public void Shutdown();
         public void Tick(float deltaTime);
     }
