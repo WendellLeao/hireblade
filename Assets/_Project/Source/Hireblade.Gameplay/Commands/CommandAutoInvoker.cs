@@ -4,7 +4,7 @@ using Hireblade.Gameplay.Weapons;
 
 namespace Hireblade.Gameplay.Commands
 {
-    internal sealed class CommandAutoInvoker : MonoBehaviour, ICommandInvoker
+    internal sealed class CommandAutoInvoker : MonoBehaviour
     {
         private AttackCommand _attackCommand;
         private Coroutine _executeAttackCommandRoutine;

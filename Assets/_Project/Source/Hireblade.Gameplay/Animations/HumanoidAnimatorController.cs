@@ -8,7 +8,7 @@ using Random = UnityEngine.Random;
 
 namespace Hireblade.Gameplay.Animations
 {
-    internal sealed class HumanoidAnimatorController : MonoBehaviour, IHumanoidAnimatorController
+    internal sealed class HumanoidAnimatorController : MonoBehaviour
     {
         private static readonly int Velocity = Animator.StringToHash("Velocity");
         private static readonly int MovesetType = Animator.StringToHash("MovesetType");

@@ -15,7 +15,7 @@ namespace Hireblade.Debugging.Characters
             WeaponManager weaponManager = FindAnyObjectByType<WeaponManager>();
             CameraManager cameraManager = FindAnyObjectByType<CameraManager>();
 
-            if (TryGetComponent(out ICharacter character))
+            if (TryGetComponent(out Character character))
             {
                 character.Initialize(particleManager.Factory, weaponManager.Factory, cameraManager);
             }

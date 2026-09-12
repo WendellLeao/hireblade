@@ -5,7 +5,7 @@ using Hireblade.Gameplay.Weapons;
 
 namespace Hireblade.Gameplay.Commands
 {
-    internal sealed class CommandInputReader : MonoBehaviour, ICommandInvoker
+    internal sealed class CommandInputReader : MonoBehaviour
     {
         [SerializeField]
         private CommandCollectionData commandCollectionData;

@@ -1,26 +1,30 @@
-using Hireblade.Core.Health;
 using UnityEngine;
 using Hireblade.Gameplay.Damage;
+using Hireblade.Gameplay.Health;
 
 namespace Hireblade.Gameplay.Tests
 {
     internal sealed class HumbleEntity : MonoBehaviour
     {
-        private IHealth _health;
-        private IDamageable _damageable;
+        private HealthController _healthController;
+        private DamageController _damageController;
 
         public void Initialize()
         {
-            _health = GetComponent<IHealth>();
-            _damageable = GetComponent<IDamageable>();
+            if (TryGetComponent(out _healthController))
+            {
+                _healthController.Initialize();
+            }
 
-            _health.Initialize();
-            _damageable.Initialize(_health);
+            if (TryGetComponent(out _damageController))
+            {
+                _damageController.Initialize(_healthController);
+            }
         }
 
         public void Shutdown()
         {
-            _damageable.Shutdown();
+            _damageController.Shutdown();
         }
     }
 }

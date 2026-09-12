@@ -13,7 +13,7 @@ namespace Hireblade.Gameplay.Characters.Manager
         [SerializeField]
         private CharacterSpawner characterSpawner;
 
-        private readonly List<ICharacter> _characters = new();
+        private readonly List<Character> _characters = new();
 
         private IPoolingService _poolingService;
         private IEventService _eventService;
@@ -37,7 +37,7 @@ namespace Hireblade.Gameplay.Characters.Manager
 
         public void Tick(float deltaTime)
         {
-            foreach (ICharacter character in _characters)
+            foreach (Character character in _characters)
             {
                 character.Tick(deltaTime);
             }
@@ -55,7 +55,7 @@ namespace Hireblade.Gameplay.Characters.Manager
             }
         }
 
-        private void ShutdownCharacter(ICharacter character)
+        private void ShutdownCharacter(Character character)
         {
             character.Shutdown();
 
@@ -64,14 +64,14 @@ namespace Hireblade.Gameplay.Characters.Manager
             _characters.Remove(character);
         }
 
-        private void HandleCharacterSpawned(ICharacter character)
+        private void HandleCharacterSpawned(Character character)
         {
             _characters.Add(character);
 
             character.OnDied += HandleCharacterDied;
         }
 
-        private void HandleCharacterDied(ICharacter character)
+        private void HandleCharacterDied(Character character)
         {
             ShutdownCharacter(character);
 

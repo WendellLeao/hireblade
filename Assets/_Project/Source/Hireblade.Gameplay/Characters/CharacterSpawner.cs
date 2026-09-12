@@ -9,9 +9,9 @@ using Hireblade.Gameplay.Weapons;
 
 namespace Hireblade.Gameplay.Characters
 {
-    internal sealed class CharacterSpawner : BasicEntitySpawner<ICharacter>
+    internal sealed class CharacterSpawner : BasicEntitySpawner<Character>
     {
-        public event Action<ICharacter> OnCharacterSpawned;
+        public event Action<Character> OnCharacterSpawned;
         
         private IEventService _eventService;
         private IParticleFactory _particleFactory;
@@ -29,9 +29,9 @@ namespace Hireblade.Gameplay.Characters
             base.Initialize(poolingService);
         }
 
-        protected override ICharacter SpawnEntity()
+        protected override Character SpawnEntity()
         {
-            ICharacter character = base.SpawnEntity();
+            Character character = base.SpawnEntity();
             
             character.Initialize(_particleFactory, _weaponFactory, _cameraProvider);
             
