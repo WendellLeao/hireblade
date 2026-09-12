@@ -26,7 +26,7 @@ namespace Hireblade.Gameplay.Enemies
         [SerializeField]
         private WeaponHolder weaponHolder;
         [SerializeField]
-        private NavMeshClickMover navMeshClickMover;
+        private NavMeshTest navMeshTest;
         [SerializeField]
         private CommandAutoInvoker commandAutoInvoker;
         [SerializeField]
@@ -83,7 +83,7 @@ namespace Hireblade.Gameplay.Enemies
         public void Tick(float deltaTime)
         {
             damageController.Tick(deltaTime);
-            navMeshClickMover.Tick(deltaTime);
+            navMeshTest.Tick(deltaTime);
             commandAutoInvoker.Tick(deltaTime);
             humanoidAnimatorController.Tick(deltaTime);
             damageableView.Tick(deltaTime);
@@ -94,9 +94,9 @@ namespace Hireblade.Gameplay.Enemies
             healthController.Initialize();
             damageController.Initialize(healthController);
             weaponHolder.Initialize(_weaponFactory);
-            navMeshClickMover.Initialize(cameraProvider: null, _particleFactory);
+            navMeshTest.Initialize(cameraProvider: null, _particleFactory);
             commandAutoInvoker.Initialize(weaponHolder);
-            humanoidAnimatorController.Initialize(healthController, damageController, weaponHolder, navMeshClickMover);
+            humanoidAnimatorController.Initialize(healthController, damageController, weaponHolder, navMeshTest);
             damageableView.Initialize(_particleFactory, damageController);
         }
 
