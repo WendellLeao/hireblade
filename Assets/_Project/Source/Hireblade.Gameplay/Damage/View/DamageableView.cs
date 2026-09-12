@@ -3,7 +3,7 @@ using Hireblade.Gameplay.Particles;
 
 namespace Hireblade.Gameplay.Damage.View
 {
-    internal sealed class DamageableView : MonoBehaviour, IDamageableView
+    internal sealed class DamageableView : MonoBehaviour
     {
         private IParticleFactory _particleFactory;
         private IDamageable _damageable;
