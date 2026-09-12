@@ -71,7 +71,7 @@ Health is a representative example of the split used throughout: `HealthData` (S
 
 ### Dumb/smart component composition
 
-Entities like `BasicEnemy` and `Character` act as composition roots: they cache sibling components strictly through interfaces (`GetComponent<IDamageable>()`, `IWeaponHolder`, `IMoveableAgent`, `IHumanoidAnimatorController`, ...), wire their `Initialize`/`Shutdown`/`Tick` calls explicitly, and stay agnostic to the concrete implementation behind each interface. Any component can be swapped without touching the entity.
+Entities like `BasicEnemy` and `Character` act as composition roots: they hold sibling components as direct `[SerializeField]` references and wire their `Initialize`/`Shutdown`/`Tick` calls explicitly. Interfaces (`IDamageable`, `IMoveableAgent`, `IWeaponHolder`, ...) are reserved for components that are genuinely consumed or swapped from outside the owning entity; a component only ever driven by its own entity does not get one.
 
 ### Object pooling and factories
 
