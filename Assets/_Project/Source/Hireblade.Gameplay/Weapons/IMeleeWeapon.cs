@@ -2,6 +2,6 @@
 {
     internal interface IMeleeWeapon : IWeapon
     {
-        public void SetColliderEnabled(bool isEnabled);
+        void SetColliderEnabled(bool isEnabled);
     }
 }

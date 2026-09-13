@@ -5,6 +5,6 @@ namespace Hireblade.Gameplay.Spells
 {
     public interface ISpell : IPooledObject
     {
-        public event Action<ISpell> OnHit;
+        event Action<ISpell> OnHit;
     }
 }

@@ -4,6 +4,6 @@ namespace Hireblade.Gameplay.Damage
 {
     internal interface IDamager
     {
-        public bool TryApplyDamage(Collider other);
+        bool TryApplyDamage(Collider other);
     }
 }

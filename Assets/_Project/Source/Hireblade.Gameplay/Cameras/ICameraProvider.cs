@@ -4,7 +4,7 @@ namespace Hireblade.Gameplay.Cameras
 {
     public interface ICameraProvider
     {
-        public Ray ScreenPointToRay(Vector3 pos);
-        public void SetVirtualCameraTarget(Transform targetTransform);
+        Ray ScreenPointToRay(Vector3 pos);
+        void SetVirtualCameraTarget(Transform targetTransform);
     }
 }

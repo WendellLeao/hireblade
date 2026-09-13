@@ -5,8 +5,8 @@ namespace Hireblade.Gameplay.Particles
 {
     public interface IParticleFactory
     {
-        public IParticle EmitParticle(PoolData particlePoolData, Transform parent);
-        public IParticle EmitParticle(PoolData particlePoolData, Vector3 position, Quaternion rotation);
-        public void StopParticle(IParticle particle);
+        IParticle EmitParticle(PoolData particlePoolData, Transform parent);
+        IParticle EmitParticle(PoolData particlePoolData, Vector3 position, Quaternion rotation);
+        void StopParticle(IParticle particle);
     }
 }
