@@ -58,7 +58,7 @@ namespace Hireblade.Gameplay.Damage.View
 
         private void ShutdownCachedParticle()
         {
-            _particleFactory.ShutdownParticle(_cachedParticle);
+            _particleFactory.StopParticle(_cachedParticle);
 
             _cachedParticle = null;
             _isDamagingPerSecond = false;

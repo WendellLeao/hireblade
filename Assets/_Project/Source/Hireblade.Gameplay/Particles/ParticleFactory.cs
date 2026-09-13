@@ -15,6 +15,14 @@ namespace Hireblade.Gameplay.Particles
             _poolingService = poolingService;
         }
 
+        public void Shutdown()
+        {
+            for (int i = _particles.Count - 1; i >= 0; i--)
+            {
+                StopParticle(_particles[i]);
+            }
+        }
+        
         public IParticle EmitParticle(PoolData particlePoolData, Transform parent)
         {
             if (!_poolingService.TryGetObjectFromPool(particlePoolData.Id, parent, out SimpleParticle particle))
@@ -26,7 +34,7 @@ namespace Hireblade.Gameplay.Particles
 
             particle.Initialize();
 
-            particle.OnCompleted += ShutdownParticle;
+            particle.OnCompleted += StopParticle;
 
             return particle;
         }
@@ -40,25 +48,17 @@ namespace Hireblade.Gameplay.Particles
             return particle;
         }
 
-        public void ShutdownParticle(IParticle particle)
+        public void StopParticle(IParticle particle)
         {
             SimpleParticle simpleParticle = (SimpleParticle)particle;
             
             simpleParticle.Shutdown();
             
-            simpleParticle.OnCompleted -= ShutdownParticle;
+            simpleParticle.OnCompleted -= StopParticle;
 
             _particles.Remove(simpleParticle);
 
             _poolingService.ReleaseObjectToPool(particle);
-        }
-
-        public void Shutdown()
-        {
-            for (int i = _particles.Count - 1; i >= 0; i--)
-            {
-                ShutdownParticle(_particles[i]);
-            }
         }
     }
 }
