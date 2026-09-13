@@ -19,17 +19,17 @@ namespace Hireblade.MainMenu.Screens
         {
             base.OnSubscribeEvents();
 
-            playButton.onClick.AddListener(HandlePlayButtonClick);
+            playButton.onClick.AddListener(OnPlayButtonClick);
         }
 
         protected override void OnUnsubscribeEvents()
         {
             base.OnUnsubscribeEvents();
 
-            playButton.onClick.RemoveListener(HandlePlayButtonClick);
+            playButton.onClick.RemoveListener(OnPlayButtonClick);
         }
 
-        private void HandlePlayButtonClick()
+        private void OnPlayButtonClick()
         {
             OnPlayRequested?.Invoke();
         }

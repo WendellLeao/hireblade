@@ -102,24 +102,24 @@ namespace Hireblade.Gameplay.Characters
 
         private void SubscribeEvent()
         {
-            healthController.OnDepleted += HandleHealthDepleted;
+            healthController.OnDepleted += OnDepleted;
 
-            weaponHolder.OnWeaponExecuted += HandleWeaponExecute;
+            weaponHolder.OnWeaponExecuted += OnWeaponExecuted;
         }
 
         private void UnsubscribeEvent()
         {
-            healthController.OnDepleted -= HandleHealthDepleted;
+            healthController.OnDepleted -= OnDepleted;
 
-            weaponHolder.OnWeaponExecuted -= HandleWeaponExecute;
+            weaponHolder.OnWeaponExecuted -= OnWeaponExecuted;
         }
 
-        private void HandleHealthDepleted()
+        private void OnDepleted()
         {
             OnDied?.Invoke(this);
         }
 
-        private void HandleWeaponExecute()
+        private void OnWeaponExecuted()
         {
             navMeshClickMover.ResetPath();
         }

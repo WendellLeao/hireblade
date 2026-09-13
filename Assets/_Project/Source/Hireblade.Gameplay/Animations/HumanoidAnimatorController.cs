@@ -35,7 +35,7 @@ namespace Hireblade.Gameplay.Animations
             _weaponHolder = weaponHolder;
             _moveableAgent = moveableAgent;
 
-            HandleWeaponMovesetType(_weaponHolder.Weapon);
+            OnWeaponChanged(_weaponHolder.Weapon);
 
             SubscribeEvents();
         }
@@ -52,25 +52,25 @@ namespace Hireblade.Gameplay.Animations
 
         private void SubscribeEvents()
         {
-            _health.OnDepleted += HandleHealthDepleted;
+            _health.OnDepleted += OnDepleted;
 
-            _damageable.OnDamageTaken += HandleDamageTaken;
+            _damageable.OnDamageTaken += OnDamageTaken;
 
-            _weaponHolder.OnWeaponChanged += HandleWeaponMovesetType;
-            _weaponHolder.OnWeaponExecuted += HandleWeaponExecute;
+            _weaponHolder.OnWeaponChanged += OnWeaponChanged;
+            _weaponHolder.OnWeaponExecuted += OnWeaponExecuted;
         }
 
         private void UnsubscribeEvents()
         {
-            _health.OnDepleted -= HandleHealthDepleted;
+            _health.OnDepleted -= OnDepleted;
 
-            _damageable.OnDamageTaken -= HandleDamageTaken;
+            _damageable.OnDamageTaken -= OnDamageTaken;
 
-            _weaponHolder.OnWeaponChanged -= HandleWeaponMovesetType;
-            _weaponHolder.OnWeaponExecuted -= HandleWeaponExecute;
+            _weaponHolder.OnWeaponChanged -= OnWeaponChanged;
+            _weaponHolder.OnWeaponExecuted -= OnWeaponExecuted;
         }
 
-        private void HandleHealthDepleted()
+        private void OnDepleted()
         {
             int randomDeathType = Random.Range(0, Enum.GetValues(typeof(DeathType)).Length);
 
@@ -78,19 +78,19 @@ namespace Hireblade.Gameplay.Animations
             animator.SetTrigger(id: Die);
         }
 
-        private void HandleDamageTaken(DamageData damageData)
+        private void OnDamageTaken(DamageData damageData)
         {
             animator.SetTrigger(id: TakeDamage);
         }
 
-        private void HandleWeaponMovesetType(IWeapon weapon)
+        private void OnWeaponChanged(IWeapon weapon)
         {
             WeaponData weaponData = weapon.Data;
 
             animator.SetInteger(id: MovesetType, (int)weaponData.MovesetType);
         }
 
-        private void HandleWeaponExecute()
+        private void OnWeaponExecuted()
         {
             animator.SetTrigger(id: ExecuteWeapon);
         }

@@ -16,12 +16,12 @@ namespace Hireblade.Gameplay.Damage.View
             _particleFactory = particleFactory;
             _damageable = damageable;
 
-            _damageable.OnDamageTaken += HandleDamageTaken;
+            _damageable.OnDamageTaken += OnDamageTaken;
         }
 
         public void Shutdown()
         {
-            _damageable.OnDamageTaken -= HandleDamageTaken;
+            _damageable.OnDamageTaken -= OnDamageTaken;
         }
 
         public void Tick(float deltaTime)
@@ -32,7 +32,7 @@ namespace Hireblade.Gameplay.Damage.View
             }
         }
 
-        private void HandleDamageTaken(DamageData damageData)
+        private void OnDamageTaken(DamageData damageData)
         {
             if (!damageData.HasDamagePerSecond)
             {

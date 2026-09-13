@@ -24,7 +24,7 @@ namespace Hireblade.Gameplay.UI.Health.Manager
             _poolingService = poolingService;
             _eventService = eventService;
 
-            _eventService.AddEventListener<HealthSpawnedEvent>(HandleHealthSpawned);
+            _eventService.AddEventListener<HealthSpawnedEvent>(OnHealthSpawned);
         }
 
         public void Tick(float deltaTime)
@@ -45,7 +45,7 @@ namespace Hireblade.Gameplay.UI.Health.Manager
 
         private void OnDestroy()
         {
-            _eventService.RemoveEventListener<HealthSpawnedEvent>(HandleHealthSpawned);
+            _eventService.RemoveEventListener<HealthSpawnedEvent>(OnHealthSpawned);
 
             for (int i = _healthViews.Count - 1; i >= 0; i--)
             {
@@ -57,14 +57,14 @@ namespace Hireblade.Gameplay.UI.Health.Manager
         {
             healthView.Shutdown();
 
-            healthView.OnHealthDepleted -= HandleHealthDepleted;
+            healthView.OnHealthDepleted -= OnHealthDepleted;
 
             _healthViews.Remove(healthView);
 
             _poolingService.ReleaseObjectToPool(healthView);
         }
 
-        private void HandleHealthSpawned(HealthSpawnedEvent healthSpawnedEvent)
+        private void OnHealthSpawned(HealthSpawnedEvent healthSpawnedEvent)
         {
             IHealth health = healthSpawnedEvent.Health;
 
@@ -80,12 +80,12 @@ namespace Hireblade.Gameplay.UI.Health.Manager
 
             _healthViews.Add(healthView);
 
-            healthView.OnHealthDepleted += HandleHealthDepleted;
+            healthView.OnHealthDepleted += OnHealthDepleted;
 
             healthView.Initialize(_mainCamera, health);
         }
 
-        private void HandleHealthDepleted(HealthView healthView)
+        private void OnHealthDepleted(HealthView healthView)
         {
             ShutdownHealthView(healthView);
         }

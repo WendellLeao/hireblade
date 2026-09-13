@@ -27,7 +27,7 @@ namespace Hireblade.Gameplay.Enemies.Manager
             _particleFactory = particleFactory;
             _weaponFactory = weaponFactory;
 
-            enemySpawner.OnEnemySpawned += HandleEnemySpawned;
+            enemySpawner.OnEnemySpawned += OnEnemySpawned;
 
             enemySpawner.Initialize(_poolingService, _eventService, _particleFactory, _weaponFactory);
         }
@@ -42,7 +42,7 @@ namespace Hireblade.Gameplay.Enemies.Manager
 
         private void OnDestroy()
         {
-            enemySpawner.OnEnemySpawned -= HandleEnemySpawned;
+            enemySpawner.OnEnemySpawned -= OnEnemySpawned;
 
             enemySpawner.Shutdown();
 
@@ -56,19 +56,19 @@ namespace Hireblade.Gameplay.Enemies.Manager
         {
             enemy.Shutdown();
 
-            enemy.OnDied -= HandleEnemyDied;
+            enemy.OnDied -= OnEnemyDied;
 
             _enemies.Remove(enemy);
         }
 
-        private void HandleEnemySpawned(BasicEnemy enemy)
+        private void OnEnemySpawned(BasicEnemy enemy)
         {
             _enemies.Add(enemy);
 
-            enemy.OnDied += HandleEnemyDied;
+            enemy.OnDied += OnEnemyDied;
         }
 
-        private void HandleEnemyDied(BasicEnemy enemy)
+        private void OnEnemyDied(BasicEnemy enemy)
         {
             ShutdownEnemy(enemy);
 
