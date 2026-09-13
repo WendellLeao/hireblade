@@ -4,7 +4,7 @@ using Random = UnityEngine.Random;
 
 namespace Hireblade.Gameplay.Weapons
 {
-    internal sealed class Staff : MonoBehaviour, IWeapon, ISpellCaster
+    internal sealed class Staff : BaseWeapon, ISpellCaster
     {
         [SerializeField]
         private SpellData[] spellData;
@@ -12,23 +12,11 @@ namespace Hireblade.Gameplay.Weapons
         private Transform spawnPoint;
 
         private ISpellFactory _spellFactory;
-        private WeaponData _data;
 
-        public WeaponData Data => _data;
-        public string PoolId { get; set; }
-
-        public void Initialize(WeaponData data)
-        {
-            _data = data;
-        }
-
-        public void Shutdown()
+        public override void Execute()
         { }
 
-        public void Execute()
-        { }
-
-        public void FinishExecution()
+        public override void FinishExecution()
         { }
 
         public void CastSpell()

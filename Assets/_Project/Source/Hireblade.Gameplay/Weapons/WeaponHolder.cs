@@ -15,7 +15,7 @@ namespace Hireblade.Gameplay.Weapons
         private Transform parent;
 
         private IWeaponFactory _weaponFactory;
-        private IWeapon _weapon;
+        private BaseWeapon _weapon;
         private bool _isEnabled;
 
         public IWeapon Weapon => _weapon;
@@ -45,7 +45,7 @@ namespace Hireblade.Gameplay.Weapons
 
             ShutdownWeapon();
 
-            _weapon = _weaponFactory.CreateWeapon(weaponData, parent);
+            _weapon = (BaseWeapon)_weaponFactory.CreateWeapon(weaponData, parent);
 
             OnWeaponChanged?.Invoke(_weapon);
         }

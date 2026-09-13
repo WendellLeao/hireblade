@@ -5,46 +5,43 @@ using Hireblade.Gameplay.Particles;
 
 namespace Hireblade.Gameplay.Weapons
 {
-    internal sealed class Sword : MonoBehaviour, IMeleeWeapon
+    internal sealed class Sword : BaseWeapon, IMeleeWeapon, IParticleEmitter
     {
         [Header("Components")]
         [SerializeField]
         private CapsuleCollider capsuleCollider;
-
+        [SerializeField]
+        private Damager damager;
+        
         [Header("Data")]
         [SerializeField]
         private PoolData bloodParticlesPoolData;
 
         private IParticleFactory _particleFactory;
-        private IDamager _damager;
-        private WeaponData _data;
         private bool _isEnabled;
 
-        public WeaponData Data => _data;
-        public string PoolId { get; set; }
-
-        public void Initialize(WeaponData data)
+        protected override void OnInitialize()
         {
-            _data = data;
-
-            _damager = GetComponent<IDamager>();
-
+            base.OnInitialize();
+            
             SetColliderEnabled(false);
 
             _isEnabled = true;
         }
 
-        public void Shutdown()
+        protected override void OnShutdown()
         {
+            base.OnShutdown();
+            
             _isEnabled = false;
         }
 
-        public void Execute()
+        public override void Execute()
         {
             SetColliderEnabled(false);
         }
 
-        public void FinishExecution()
+        public override void FinishExecution()
         {
             SetColliderEnabled(false);
         }
@@ -56,8 +53,13 @@ namespace Hireblade.Gameplay.Weapons
                 return;
             }
 
-            _damager.TryApplyDamage(other);
+            damager.TryApplyDamage(other);
 
+            EmitParticle();
+        }
+
+        private void EmitParticle()
+        {
             _particleFactory.EmitParticle(bloodParticlesPoolData, transform.position, Quaternion.identity);
         }
 

@@ -1,9 +1,6 @@
-﻿
-using Hireblade.Gameplay.Particles;
-
-namespace Hireblade.Gameplay.Weapons
+﻿namespace Hireblade.Gameplay.Weapons
 {
-    internal interface IMeleeWeapon : IWeapon, IParticleEmitter
+    internal interface IMeleeWeapon : IWeapon
     {
         public void SetColliderEnabled(bool isEnabled);
     }

@@ -6,8 +6,6 @@ namespace Hireblade.Gameplay.Weapons
     {
         public WeaponData Data { get; }
 
-        public void Initialize(WeaponData data);
-        public void Shutdown();
         public void Execute();
         public void FinishExecution();
     }

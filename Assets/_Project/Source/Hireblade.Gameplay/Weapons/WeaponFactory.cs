@@ -23,13 +23,39 @@ namespace Hireblade.Gameplay.Weapons
 
         public IWeapon CreateWeapon(WeaponData data, Transform parent)
         {
-            if (!_poolingService.TryGetObjectFromPool(data.PoolData.Id, parent, out IWeapon weapon))
+            if (!_poolingService.TryGetObjectFromPool(data.PoolData.Id, parent, out BaseWeapon weapon))
             {
                 return null;
             }
 
             _weapons.Add(weapon);
 
+            InitializeWeapon(data, weapon);
+
+            return weapon;
+        }
+
+        public void ShutdownWeapon(IWeapon weapon)
+        {
+            BaseWeapon baseWeapon = (BaseWeapon)weapon;
+            
+            baseWeapon.Shutdown();
+
+            _weapons.Remove(baseWeapon);
+
+            _poolingService.ReleaseObjectToPool(baseWeapon);
+        }
+
+        public void Shutdown()
+        {
+            for (int i = _weapons.Count - 1; i >= 0; i--)
+            {
+                ShutdownWeapon(_weapons[i]);
+            }
+        }
+        
+        private void InitializeWeapon(WeaponData data, BaseWeapon weapon)
+        {
             weapon.Initialize(data);
 
             if (weapon is IParticleEmitter particleEmitter)
@@ -40,25 +66,6 @@ namespace Hireblade.Gameplay.Weapons
             if (weapon is ISpellCaster spellCaster)
             {
                 spellCaster.SetSpellFactory(_spellFactory);
-            }
-
-            return weapon;
-        }
-
-        public void ShutdownWeapon(IWeapon weapon)
-        {
-            weapon.Shutdown();
-
-            _weapons.Remove(weapon);
-
-            _poolingService.ReleaseObjectToPool(weapon);
-        }
-
-        public void Shutdown()
-        {
-            for (int i = _weapons.Count - 1; i >= 0; i--)
-            {
-                ShutdownWeapon(_weapons[i]);
             }
         }
     }

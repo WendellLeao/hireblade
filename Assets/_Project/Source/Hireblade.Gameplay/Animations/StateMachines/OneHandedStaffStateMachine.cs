@@ -1,4 +1,5 @@
 ﻿using System;
+using Hireblade.Gameplay.Spells;
 using NaughtyAttributes;
 using UnityEngine;
 using Hireblade.Gameplay.Weapons;
