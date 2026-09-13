@@ -51,7 +51,11 @@ namespace Hireblade.Gameplay.Spells
 
         private void ShutdownSpell(ISpell spell)
         {
+            BaseSpell baseSpell = (BaseSpell)spell;
+
             spell.OnHit -= OnSpellHit;
+
+            baseSpell.Shutdown();
 
             _spells.Remove(spell);
 

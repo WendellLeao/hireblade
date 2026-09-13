@@ -5,7 +5,7 @@ using WendellLeao.Pooling;
 
 namespace Hireblade.Gameplay.Spells
 {
-    public abstract class BaseSpell : MonoBehaviour, ISpell
+    internal abstract class BaseSpell : MonoBehaviour, ISpell
     {
         public event Action<ISpell> OnHit;
         
@@ -24,7 +24,15 @@ namespace Hireblade.Gameplay.Spells
             OnInitialize();
         }
 
+        public void Shutdown()
+        {
+            OnShutdown();
+        }
+
         protected virtual void OnInitialize()
+        { }
+
+        protected virtual void OnShutdown()
         { }
 
         protected virtual void OnTriggerEnter(Collider other)
