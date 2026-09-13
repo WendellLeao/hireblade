@@ -20,14 +20,14 @@ This is a Unity project with no external build/lint/test CLI scripts and no CI c
 
 Source lives under `Assets/_Project/Source/<Hireblade.ModuleName>/`, one folder per `.asmdef`. The reference graph between these assemblies *is* the layering rule, not just a convention:
 
-- `Hireblade.Core` : shared interfaces only (`IHealth`, `IGameFlowService`, `IInitializableAsync`). No gameplay logic, no MonoBehaviours beyond interfaces.
+- `Hireblade.Core` : shared interfaces only (`IHealth`, `IGameFlowService`). No gameplay logic, no MonoBehaviours beyond interfaces.
 - `Hireblade.Application` : boot + game flow orchestration. References `Hireblade.Gameplay.UI` and `Hireblade.MainMenu`, nothing references it back.
 - `Hireblade.Gameplay` : the core simulation (characters, enemies, weapons, spells, health, damage, navigation, cameras, particles). **Never references `Hireblade.Gameplay.UI`.**
 - `Hireblade.Gameplay.Events` : typed `GameEvent` payloads (e.g. `HealthSpawnedEvent`) that `Hireblade.Gameplay` raises and `Hireblade.Gameplay.UI` subscribes to. This is the only channel between simulation and UI.
 - `Hireblade.Gameplay.UI` : world-space/HUD UI. Only reacts to events; never called into by `Hireblade.Gameplay`.
 - `Hireblade.MainMenu` : title screen flow.
 - `Hireblade.Commands` : `ScriptableObject`-backed command/keybinding data (`CommandCollectionData`, `CommandType`).
-- `Hireblade.Input`, `Hireblade.Utilities` : small, mostly dependency-free helpers.
+- `Hireblade.Input`, `Hireblade.Utilities`, `Hireblade.Cursor` : small, mostly dependency-free helpers.
 - `Hireblade.Debugging` : editor/debug-only initializers, not referenced by runtime modules.
 
 When adding a new script, put it in the assembly matching its concern, and if a new cross-assembly reference is needed, check whether it violates this direction (most commonly: gameplay code should never need to reference `Hireblade.Gameplay.UI`; route through an event in `Hireblade.Gameplay.Events` instead).
@@ -73,7 +73,7 @@ Weapons, spells, particles, and health views are spawned through factories (`Wea
 
 ### Commands are data-driven and shared between player and AI
 
-Actions implement `ICommand` (e.g. `AttackCommand`) and are resolved from `ScriptableObject`-backed `CommandCollectionData` by key. `CommandInputReader` drives commands from player input; `CommandAutoInvoker` drives the same `ICommand` interface for AI-controlled entities, so both paths execute through one shared abstraction (`ICommandInvoker`).
+Actions implement `ICommand` (e.g. `AttackCommand`) and are resolved from `ScriptableObject`-backed `CommandCollectionData` by key. `CommandInputReader` drives commands from player input; `CommandAutoInvoker` drives the same `ICommand` interface for AI-controlled entities. Each is owned concretely by its respective entity (`Character` / `BasicEnemy`) with no shared invoker interface between them, consistent with the composition-root rule above.
 
 ### Tests
 
