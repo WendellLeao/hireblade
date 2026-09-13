@@ -2,7 +2,10 @@ using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
+using WendellLeao.Events;
 using WendellLeao.Pooling;
+using Hireblade.Gameplay.Particles;
+using Hireblade.Gameplay.Weapons;
 
 namespace Hireblade.Gameplay.Shared
 {
@@ -23,9 +26,18 @@ namespace Hireblade.Gameplay.Shared
         private CancellationTokenSource _releaseEntityCts;
         private IPoolingService _poolingService;
 
-        public void Initialize(IPoolingService poolingService)
+        protected IEventService EventService { get; private set; }
+        protected IParticleFactory ParticleFactory { get; private set; }
+        protected IWeaponFactory WeaponFactory { get; private set; }
+
+        public void Initialize(IPoolingService poolingService, IEventService eventService, IParticleFactory particleFactory,
+            IWeaponFactory weaponFactory)
         {
             _poolingService = poolingService;
+            
+            EventService = eventService;
+            ParticleFactory = particleFactory;
+            WeaponFactory = weaponFactory;
 
             SpawnEntity();
         }
@@ -64,8 +76,7 @@ namespace Hireblade.Gameplay.Shared
                 return SpawnEntity();
             }
             catch (OperationCanceledException)
-            {
-            }
+            { }
             catch (Exception e)
             {
                 Debug.LogException(e);
