@@ -30,7 +30,7 @@ namespace Hireblade.Gameplay.Characters.Manager
             _weaponFactory = weaponFactory;
             _cameraProvider = cameraProvider;
 
-            characterSpawner.OnCharacterSpawned += HandleCharacterSpawned;
+            characterSpawner.OnCharacterSpawned += OnCharacterSpawned;
 
             characterSpawner.Initialize(_poolingService, _eventService, _particleFactory, _weaponFactory, _cameraProvider);
         }
@@ -45,7 +45,7 @@ namespace Hireblade.Gameplay.Characters.Manager
 
         private void OnDestroy()
         {
-            characterSpawner.OnCharacterSpawned -= HandleCharacterSpawned;
+            characterSpawner.OnCharacterSpawned -= OnCharacterSpawned;
 
             characterSpawner.Shutdown();
 
@@ -59,19 +59,19 @@ namespace Hireblade.Gameplay.Characters.Manager
         {
             character.Shutdown();
 
-            character.OnDied -= HandleCharacterDied;
+            character.OnDied -= OnCharacterDied;
 
             _characters.Remove(character);
         }
 
-        private void HandleCharacterSpawned(Character character)
+        private void OnCharacterSpawned(Character character)
         {
             _characters.Add(character);
 
-            character.OnDied += HandleCharacterDied;
+            character.OnDied += OnCharacterDied;
         }
 
-        private void HandleCharacterDied(Character character)
+        private void OnCharacterDied(Character character)
         {
             ShutdownCharacter(character);
 

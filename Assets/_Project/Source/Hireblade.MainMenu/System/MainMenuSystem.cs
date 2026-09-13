@@ -12,17 +12,17 @@ namespace Hireblade.MainMenu.System
 
         public void Initialize()
         {
-            titleScreen.OnPlayRequested += HandlePlayRequested;
+            titleScreen.OnPlayRequested += OnPlayRequested;
 
             titleScreen.Open();
         }
 
         private void OnDestroy()
         {
-            titleScreen.OnPlayRequested -= HandlePlayRequested;
+            titleScreen.OnPlayRequested -= OnPlayRequested;
         }
 
-        private void HandlePlayRequested()
+        private void OnPlayRequested()
         {
             IGameFlowService gameFlowService = Locator.Get<IGameFlowService>();
 

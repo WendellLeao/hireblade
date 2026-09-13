@@ -31,7 +31,7 @@ namespace Hireblade.Gameplay.Spells
 
             SetSpellPositionAndRotation(position, direction, spell);
 
-            spell.OnHit += HandleSpellHit;
+            spell.OnHit += OnSpellHit;
 
             return spell;
         }
@@ -44,14 +44,14 @@ namespace Hireblade.Gameplay.Spells
             }
         }
 
-        private void HandleSpellHit(ISpell spell)
+        private void OnSpellHit(ISpell spell)
         {
             ShutdownSpell(spell);
         }
 
         private void ShutdownSpell(ISpell spell)
         {
-            spell.OnHit -= HandleSpellHit;
+            spell.OnHit -= OnSpellHit;
 
             _spells.Remove(spell);
 

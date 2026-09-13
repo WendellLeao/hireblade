@@ -26,15 +26,15 @@ namespace Hireblade.Debugging.Weapons
         
         private void OnEnable()
         {
-            button.onClick.AddListener(HandleButtonClick);
+            button.onClick.AddListener(OnButtonClick);
         }
 
         private void OnDisable()
         {
-            button.onClick.RemoveListener(HandleButtonClick);
+            button.onClick.RemoveListener(OnButtonClick);
         }
 
-        private void HandleButtonClick()
+        private void OnButtonClick()
         {
             _weaponHolder.ChangeWeapon(_weaponData);
         }

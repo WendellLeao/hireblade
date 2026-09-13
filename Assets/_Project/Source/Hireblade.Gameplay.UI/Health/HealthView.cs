@@ -37,7 +37,7 @@ namespace Hireblade.Gameplay.UI.Health
 
             _imageFiller.Initialize(_health.HealthRatio);
 
-            _health.OnHealthChanged += HandleHealthChanged;
+            _health.OnHealthChanged += OnHealthChanged;
             _health.OnDepleted += HandleHealthDepleted;
 
             canvasGroup.alpha = 1f;
@@ -45,7 +45,7 @@ namespace Hireblade.Gameplay.UI.Health
 
         public void Shutdown()
         {
-            _health.OnHealthChanged -= HandleHealthChanged;
+            _health.OnHealthChanged -= OnHealthChanged;
             _health.OnDepleted -= HandleHealthDepleted;
         }
 
@@ -61,7 +61,7 @@ namespace Hireblade.Gameplay.UI.Health
             billboard.LookAt(worldPosition);
         }
 
-        private void HandleHealthChanged(float healthRatio)
+        private void OnHealthChanged(float healthRatio)
         {
             _imageFiller.UpdateFillAmount(healthRatio);
         }
