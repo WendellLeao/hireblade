@@ -59,7 +59,7 @@ namespace Hireblade.Gameplay.Enemies
 
             InitializeComponents();
 
-            healthController.OnDepleted += OnHealthDepleted;
+            SubscribeEvent();
         }
 
         public void Shutdown()
@@ -77,7 +77,7 @@ namespace Hireblade.Gameplay.Enemies
             humanoidAnimatorController.Shutdown();
             damageableView.Shutdown();
 
-            healthController.OnDepleted -= OnHealthDepleted;
+            UnsubscribeEvent();
         }
 
         public void Tick(float deltaTime)
@@ -98,6 +98,16 @@ namespace Hireblade.Gameplay.Enemies
             commandAutoInvoker.Initialize(weaponHolder);
             humanoidAnimatorController.Initialize(healthController, damageController, weaponHolder, navMeshTest);
             damageableView.Initialize(_particleFactory, damageController);
+        }
+
+        private void SubscribeEvent()
+        {
+            healthController.OnDepleted += OnHealthDepleted;
+        }
+
+        private void UnsubscribeEvent()
+        {
+            healthController.OnDepleted -= OnHealthDepleted;
         }
 
         private void OnHealthDepleted()
