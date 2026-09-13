@@ -4,12 +4,12 @@ namespace Hireblade.Core.Health
 {
     public interface IHealth
     {
-        public event Action<float> OnHealthChanged;
-        public event Action OnDepleted;
+        event Action<float> OnHealthChanged;
+        event Action OnDepleted;
 
-        public float HealthRatio { get; }
+        float HealthRatio { get; }
 
-        public void IncrementHealth(float amount);
-        public void DecrementHealth(float amount);
+        void IncrementHealth(float amount);
+        void DecrementHealth(float amount);
     }
 }

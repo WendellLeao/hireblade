@@ -4,9 +4,9 @@ namespace Hireblade.Gameplay.Weapons
 {
     public interface IWeapon : IPooledObject
     {
-        public WeaponData Data { get; }
+        WeaponData Data { get; }
 
-        public void Execute();
-        public void FinishExecution();
+        void Execute();
+        void FinishExecution();
     }
 }

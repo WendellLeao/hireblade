@@ -4,8 +4,8 @@ namespace Hireblade.Input
 {
     public interface IInputService
     {
-        public Vector2 GetPlayerMovement();
-        public Vector2 GetMouseDelta();
-        public bool GetPlayerJumpedThisFrame();
+        Vector2 GetPlayerMovement();
+        Vector2 GetMouseDelta();
+        bool GetPlayerJumpedThisFrame();
     }
 }

@@ -4,8 +4,8 @@ namespace Hireblade.Gameplay.Navigation
 {
     internal interface IMoveableAgent
     {
-        public Vector3 Velocity { get; }
+        Vector3 Velocity { get; }
 
-        public void ResetPath();
+        void ResetPath();
     }
 }
