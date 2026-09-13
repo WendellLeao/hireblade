@@ -20,23 +20,18 @@ namespace Hireblade.Gameplay.Spells
 
         public ISpell CastSpell(SpellData data, Vector3 position, Vector3 direction)
         {
-            if (!_poolingService.TryGetObjectFromPool(data.PoolData.Id, parent: null, out ISpell spell))
+            if (!_poolingService.TryGetObjectFromPool(data.PoolData.Id, parent: null, out BaseSpell spell))
             {
                 return null;
             }
 
             _spells.Add(spell);
 
-            spell.Initialize();
+            spell.Initialize(_particleFactory);
 
             SetSpellPositionAndRotation(position, direction, spell);
 
             spell.OnHit += HandleSpellHit;
-
-            if (spell is IParticleEmitter particleEmitter)
-            {
-                particleEmitter.SetParticleFactory(_particleFactory);
-            }
 
             return spell;
         }

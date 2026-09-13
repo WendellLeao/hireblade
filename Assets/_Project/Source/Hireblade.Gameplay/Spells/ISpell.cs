@@ -6,7 +6,5 @@ namespace Hireblade.Gameplay.Spells
     public interface ISpell : IPooledObject
     {
         public event Action<ISpell> OnHit;
-
-        public void Initialize();
     }
 }

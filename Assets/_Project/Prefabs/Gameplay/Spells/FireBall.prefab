@@ -61,6 +61,8 @@ MeshRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -82,9 +84,11 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &5938726976110329355
 GameObject:
@@ -183,7 +187,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8af1296228a4a6087190683892ec3e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damager: {fileID: 116677593831863408}
   collisionParticlePoolData: {fileID: 11400000, guid: fca4f54bbb03308409f4ae9ba3092a0a, type: 2}
+  applyForwardForce: {fileID: 5797961262117325252}
 --- !u!114 &5797961262117325252
 MonoBehaviour:
   m_ObjectHideFlags: 0
