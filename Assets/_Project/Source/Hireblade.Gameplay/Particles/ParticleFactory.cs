@@ -6,7 +6,7 @@ namespace Hireblade.Gameplay.Particles
 {
     internal sealed class ParticleFactory : IParticleFactory
     {
-        private readonly List<IParticle> _particles = new();
+        private readonly List<SimpleParticle> _particles = new();
 
         private readonly IPoolingService _poolingService;
 
@@ -17,7 +17,7 @@ namespace Hireblade.Gameplay.Particles
 
         public IParticle EmitParticle(PoolData particlePoolData, Transform parent)
         {
-            if (!_poolingService.TryGetObjectFromPool(particlePoolData.Id, parent, out IParticle particle))
+            if (!_poolingService.TryGetObjectFromPool(particlePoolData.Id, parent, out SimpleParticle particle))
             {
                 return null;
             }
@@ -42,11 +42,13 @@ namespace Hireblade.Gameplay.Particles
 
         public void ShutdownParticle(IParticle particle)
         {
-            particle.Shutdown();
+            SimpleParticle simpleParticle = (SimpleParticle)particle;
+            
+            simpleParticle.Shutdown();
+            
+            simpleParticle.OnCompleted -= ShutdownParticle;
 
-            particle.OnCompleted -= ShutdownParticle;
-
-            _particles.Remove(particle);
+            _particles.Remove(simpleParticle);
 
             _poolingService.ReleaseObjectToPool(particle);
         }
