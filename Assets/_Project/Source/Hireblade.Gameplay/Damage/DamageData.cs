@@ -9,16 +9,14 @@ namespace Hireblade.Gameplay.Damage
     public sealed class DamageData : ScriptableObject
     {
         [SerializeField]
-        private string id;
-        [SerializeField]
         private float amount;
         [SerializeField]
         private bool hasDamagePerSecond;
         [ShowIf(condition: "hasDamagePerSecond")]
         [SerializeField]
         private float damagePerSecondDuration;
-        [SerializeField]
         [ShowIf(condition: "hasDamagePerSecond")]
+        [SerializeField]
         private float amountPerSecond;
         [ShowIf(condition: "hasDamagePerSecond")]
         [SerializeField]

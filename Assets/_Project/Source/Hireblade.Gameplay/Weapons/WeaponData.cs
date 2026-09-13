@@ -8,8 +8,6 @@ namespace Hireblade.Gameplay.Weapons
     public sealed class WeaponData : ScriptableObject
     {
         [SerializeField]
-        private string id;
-        [SerializeField]
         private string viewName;
         [SerializeField]
         private float staminaCost;
