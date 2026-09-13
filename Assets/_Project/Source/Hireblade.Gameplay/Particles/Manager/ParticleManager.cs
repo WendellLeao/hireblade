@@ -14,9 +14,14 @@ namespace Hireblade.Gameplay.Particles.Manager
             _particleFactory = new ParticleFactory(poolingService);
         }
 
-        private void OnDestroy()
+        public void Shutdown()
         {
             _particleFactory?.Shutdown();
+        }
+
+        private void OnDestroy()
+        {
+            Shutdown();
         }
     }
 }
