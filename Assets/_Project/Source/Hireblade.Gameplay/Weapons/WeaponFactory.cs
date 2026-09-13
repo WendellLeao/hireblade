@@ -56,12 +56,7 @@ namespace Hireblade.Gameplay.Weapons
         
         private void InitializeWeapon(WeaponData data, BaseWeapon weapon)
         {
-            weapon.Initialize(data);
-
-            if (weapon is IParticleEmitter particleEmitter)
-            {
-                particleEmitter.SetParticleFactory(_particleFactory);
-            }
+            weapon.Initialize(data, _particleFactory);
 
             if (weapon is ISpellCaster spellCaster)
             {

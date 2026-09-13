@@ -1,23 +1,21 @@
 using UnityEngine;
 using WendellLeao.Pooling;
 using Hireblade.Gameplay.Damage;
-using Hireblade.Gameplay.Particles;
 
 namespace Hireblade.Gameplay.Weapons
 {
-    internal sealed class Sword : BaseWeapon, IMeleeWeapon, IParticleEmitter
+    internal sealed class Sword : BaseWeapon, IMeleeWeapon
     {
         [Header("Components")]
         [SerializeField]
         private CapsuleCollider capsuleCollider;
         [SerializeField]
         private Damager damager;
-        
+
         [Header("Data")]
         [SerializeField]
         private PoolData bloodParticlesPoolData;
 
-        private IParticleFactory _particleFactory;
         private bool _isEnabled;
 
         protected override void OnInitialize()
@@ -60,17 +58,12 @@ namespace Hireblade.Gameplay.Weapons
 
         private void EmitParticle()
         {
-            _particleFactory.EmitParticle(bloodParticlesPoolData, transform.position, Quaternion.identity);
+            ParticleFactory.EmitParticle(bloodParticlesPoolData, transform.position, Quaternion.identity);
         }
 
         public void SetColliderEnabled(bool isEnabled)
         {
             capsuleCollider.enabled = isEnabled;
-        }
-
-        public void SetParticleFactory(IParticleFactory particleFactory)
-        {
-            _particleFactory = particleFactory;
         }
     }
 }
