@@ -59,7 +59,7 @@ namespace Hireblade.Gameplay.Enemies
 
             InitializeComponents();
 
-            healthController.OnDepleted += OnDepleted;
+            healthController.OnDepleted += OnHealthDepleted;
         }
 
         public void Shutdown()
@@ -77,7 +77,7 @@ namespace Hireblade.Gameplay.Enemies
             humanoidAnimatorController.Shutdown();
             damageableView.Shutdown();
 
-            healthController.OnDepleted -= OnDepleted;
+            healthController.OnDepleted -= OnHealthDepleted;
         }
 
         public void Tick(float deltaTime)
@@ -100,7 +100,7 @@ namespace Hireblade.Gameplay.Enemies
             damageableView.Initialize(_particleFactory, damageController);
         }
 
-        private void OnDepleted()
+        private void OnHealthDepleted()
         {
             GameObject smokeParticleObject = smokeParticlePoolData.Prefab;
 

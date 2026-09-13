@@ -52,7 +52,7 @@ namespace Hireblade.Gameplay.Animations
 
         private void SubscribeEvents()
         {
-            _health.OnDepleted += OnDepleted;
+            _health.OnDepleted += OnHealthDepleted;
 
             _damageable.OnDamageTaken += OnDamageTaken;
 
@@ -62,7 +62,7 @@ namespace Hireblade.Gameplay.Animations
 
         private void UnsubscribeEvents()
         {
-            _health.OnDepleted -= OnDepleted;
+            _health.OnDepleted -= OnHealthDepleted;
 
             _damageable.OnDamageTaken -= OnDamageTaken;
 
@@ -70,7 +70,7 @@ namespace Hireblade.Gameplay.Animations
             _weaponHolder.OnWeaponExecuted -= OnWeaponExecuted;
         }
 
-        private void OnDepleted()
+        private void OnHealthDepleted()
         {
             int randomDeathType = Random.Range(0, Enum.GetValues(typeof(DeathType)).Length);
 
