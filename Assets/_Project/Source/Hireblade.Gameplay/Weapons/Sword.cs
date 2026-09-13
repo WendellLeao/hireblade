@@ -18,22 +18,6 @@ namespace Hireblade.Gameplay.Weapons
 
         private bool _isEnabled;
 
-        protected override void OnInitialize()
-        {
-            base.OnInitialize();
-            
-            SetColliderEnabled(false);
-
-            _isEnabled = true;
-        }
-
-        protected override void OnShutdown()
-        {
-            base.OnShutdown();
-            
-            _isEnabled = false;
-        }
-
         public override void Execute()
         {
             SetColliderEnabled(false);
@@ -42,6 +26,22 @@ namespace Hireblade.Gameplay.Weapons
         public override void FinishExecution()
         {
             SetColliderEnabled(false);
+        }
+
+        protected override void OnInitialize()
+        {
+            base.OnInitialize();
+
+            SetColliderEnabled(false);
+
+            _isEnabled = true;
+        }
+
+        protected override void OnShutdown()
+        {
+            base.OnShutdown();
+
+            _isEnabled = false;
         }
 
         private void OnTriggerEnter(Collider other)
