@@ -15,6 +15,8 @@ namespace Hireblade.Gameplay.UI.Health
         private Billboard billboard;
         [SerializeField]
         private CanvasGroup canvasGroup;
+        [SerializeField]
+        private ImageFiller imageFiller;
 
         [Header("Canvas Group Fade Settings")]
         [SerializeField]
@@ -24,7 +26,6 @@ namespace Hireblade.Gameplay.UI.Health
 
         private Camera _mainCamera;
         private IHealth _health;
-        private ImageFiller _imageFiller;
 
         public string PoolId { get; set; }
 
@@ -33,9 +34,7 @@ namespace Hireblade.Gameplay.UI.Health
             _mainCamera = mainCamera;
             _health = health;
 
-            _imageFiller = GetComponent<ImageFiller>();
-
-            _imageFiller.Initialize(_health.HealthRatio);
+            imageFiller.Initialize(_health.HealthRatio);
 
             _health.OnHealthChanged += OnHealthChanged;
             _health.OnDepleted += HandleHealthDepleted;
@@ -51,7 +50,7 @@ namespace Hireblade.Gameplay.UI.Health
 
         public void Tick(float deltaTime)
         {
-            _imageFiller.Tick(deltaTime);
+            imageFiller.Tick(deltaTime);
         }
 
         public void LateTick(float deltaTime)
@@ -63,7 +62,7 @@ namespace Hireblade.Gameplay.UI.Health
 
         private void OnHealthChanged(float healthRatio)
         {
-            _imageFiller.UpdateFillAmount(healthRatio);
+            imageFiller.UpdateFillAmount(healthRatio);
         }
 
         private void HandleHealthDepleted()
