@@ -24,15 +24,15 @@ namespace Hireblade.Gameplay.Spells
             OnInitialize();
         }
 
-        protected virtual void OnInitialize()
-        { }
-
         protected virtual void OnTriggerEnter(Collider other)
         {
             EmitParticle();
 
             OnHit?.Invoke(this);
         }
+
+        protected virtual void OnInitialize()
+        { }
 
         private void EmitParticle()
         {

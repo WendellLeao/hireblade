@@ -11,18 +11,18 @@ namespace Hireblade.Gameplay.Spells
         [SerializeField]
         private Damager damager;
 
-        protected override void OnInitialize()
-        {
-            base.OnInitialize();
-            
-            applyForwardForce.Initialize();
-        }
-
         protected override void OnTriggerEnter(Collider other)
         {
             damager.TryApplyDamage(other);
-            
+
             base.OnTriggerEnter(other);
+        }
+
+        protected override void OnInitialize()
+        {
+            base.OnInitialize();
+
+            applyForwardForce.Initialize();
         }
     }
 }

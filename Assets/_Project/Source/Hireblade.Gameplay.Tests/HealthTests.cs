@@ -53,11 +53,6 @@ namespace Hireblade.Gameplay.Tests
             Assert.That(_sut.HealthRatio, expression: Is.EqualTo(expected: 0.7f).Within(0.0001f));
         }
         
-        private HealthData GetMockHealthData()
-        {
-            return ScriptableObject.CreateInstance<HealthData>();
-        }
-
         private HumbleEntity CreateHumbleEntity()
         {
             GameObject humbleEntityObject = new GameObject(name: $"Humble {nameof(HumbleEntity)}", components: new[]
@@ -69,7 +64,12 @@ namespace Hireblade.Gameplay.Tests
 
             return humbleEntityObject.GetComponent<HumbleEntity>();
         }
-        
+
+        private HealthData GetMockHealthData()
+        {
+            return ScriptableObject.CreateInstance<HealthData>();
+        }
+
         private DamageData GetMockDamageData()
         {
             return ScriptableObject.CreateInstance<DamageData>();

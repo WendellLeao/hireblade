@@ -63,16 +63,6 @@ namespace Hireblade.Application
             }
         }
 
-        private IGameFlowStateManager GetStateManager(GameFlowState state)
-        {
-            return state switch
-            {
-                GameFlowState.MainMenu => _mainMenuFlowManager,
-                GameFlowState.Gameplay => _gameplayFlowManager,
-                _ => throw new ArgumentOutOfRangeException(nameof(state), state, message: null)
-            };
-        }
-
         private async UniTask<Scene> LoadSceneAsync(string scenePath)
         {
 #if UNITY_EDITOR
@@ -86,6 +76,16 @@ namespace Hireblade.Application
             }
 
             return SceneManager.GetSceneByPath(scenePath);
+        }
+
+        private IGameFlowStateManager GetStateManager(GameFlowState state)
+        {
+            return state switch
+            {
+                GameFlowState.MainMenu => _mainMenuFlowManager,
+                GameFlowState.Gameplay => _gameplayFlowManager,
+                _ => throw new ArgumentOutOfRangeException(nameof(state), state, message: null)
+            };
         }
     }
 }

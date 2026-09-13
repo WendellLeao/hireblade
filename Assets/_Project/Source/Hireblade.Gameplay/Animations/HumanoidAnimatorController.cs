@@ -10,17 +10,17 @@ namespace Hireblade.Gameplay.Animations
 {
     internal sealed class HumanoidAnimatorController : MonoBehaviour
     {
+        [SerializeField]
+        private Animator animator;
+        [SerializeField]
+        private float velocityDampTime = 0.08f;
+
         private static readonly int Velocity = Animator.StringToHash("Velocity");
         private static readonly int MovesetType = Animator.StringToHash("MovesetType");
         private static readonly int ExecuteWeapon = Animator.StringToHash("ExecuteWeapon");
         private static readonly int TakeDamage = Animator.StringToHash("TakeDamage");
         private static readonly int DeathType = Animator.StringToHash("DeathType");
         private static readonly int Die = Animator.StringToHash("Die");
-
-        [SerializeField]
-        private Animator animator;
-        [SerializeField]
-        private float velocityDampTime = 0.08f;
 
         private IHealth _health;
         private IDamageable _damageable;
